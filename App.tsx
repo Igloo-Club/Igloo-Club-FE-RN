@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Router} from './common/routing/Router';
+import {Router} from './src/common/routing/Router';
 
 function App(): React.JSX.Element {
   return <Router />;
