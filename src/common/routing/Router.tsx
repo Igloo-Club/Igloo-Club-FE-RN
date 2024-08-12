@@ -1,16 +1,29 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
-import {Details} from '../Details';
+import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
 
 const Stack = createNativeStackNavigator();
 
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
+  },
+};
+
 export const Router = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="DetailProfile"
+          component={DetailProfile}
+          options={{title: '상세 프로필 등록'}}
+        />
         <Stack.Screen
           name="Regitser"
           component={Register}
@@ -19,11 +32,6 @@ export const Router = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{title: 'Overview'}}
-        />
-        <Stack.Screen
-          name="Details"
-          component={Details}
           options={{title: 'Overview'}}
         />
       </Stack.Navigator>
