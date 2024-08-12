@@ -7,6 +7,7 @@ import {
   HOBBY,
 } from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import FooterBtn from '../components/DetailProfileFooter';
+import {globalStyles} from '../../common/styles/globalStyles';
 
 const 취미 = ({navigation}: any) => {
   const [step, setStep] = useState(0);
@@ -23,11 +24,11 @@ const 취미 = ({navigation}: any) => {
   const selectHobby = (hobbyValue: string) => {
     if (selectedHobbies.includes(hobbyValue)) {
       setSelectedHobbies(selectedHobbies.filter(item => item !== hobbyValue));
-      setActiveHobby(null); // 하위 카테고리 초기화
+      setActiveHobby(null);
     } else if (selectedHobbies.length < 5) {
       setSelectedHobbies([...selectedHobbies, hobbyValue]);
 
-      // 하위 카테고리가 있는 항목을 선택하면 활성화
+      // PET 제외 항목 선택 시 활성화
       const hobby = HOBBY.find(item => item.value === hobbyValue);
       if (hobby?.subCategories.length) {
         setActiveHobby(hobbyValue);
@@ -46,8 +47,8 @@ const 취미 = ({navigation}: any) => {
   };
 
   return (
-    <Container>
-      <DetailProfileHeader percent={8} navigation={navigation} />
+    <View style={globalStyles.container}>
+      <DetailProfileHeader percent={80} navigation={navigation} />
       <Title>{DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}</Title>
       <SubTitle>최대 5개까지 선택 가능해요.</SubTitle>
       <CheckWrapper>
@@ -60,8 +61,8 @@ const 취미 = ({navigation}: any) => {
                 <HobbyLabel>{item.label}</HobbyLabel>
               </HobbyItem>
 
-              {/* 하위 카테고리 렌더링 */}
-              {activeHobby === item.value && item?.subCategories.length > 0 && (
+              {/* 세부 카테고리 렌더링 */}
+              {activeHobby === item.value && item.subCategories.length > 0 && (
                 <SubCategoryList>
                   {item.subCategories.map(subItem => (
                     <SubCategoryItem
@@ -82,17 +83,11 @@ const 취미 = ({navigation}: any) => {
         isDisabled={!selectedHobbies.length}
         label="다음으로"
       />
-    </Container>
+    </View>
   );
 };
 
 export default 취미;
-
-const Container = styled(View)`
-  flex: 1;
-  padding: 16px;
-  background-color: #ffffff;
-`;
 
 const Title = styled.Text`
   font-size: 24px;

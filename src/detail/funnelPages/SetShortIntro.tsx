@@ -4,6 +4,7 @@ import {View, TextInput} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import FooterBtn from '../components/DetailProfileFooter';
+import {globalStyles} from '../../common/styles/globalStyles';
 
 const 한줄소개 = ({navigation}: any) => {
   const [step, setStep] = useState(0);
@@ -14,8 +15,8 @@ const 한줄소개 = ({navigation}: any) => {
   };
 
   return (
-    <Container>
-      <DetailProfileHeader percent={89} navigation={navigation} />
+    <View style={globalStyles.container}>
+      <DetailProfileHeader percent={88} navigation={navigation} />
       <Title>{DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}</Title>
       <SubTitle>상대방에게 보여지는 첫인상이에요.</SubTitle>
       <InputBox>
@@ -42,17 +43,11 @@ const 한줄소개 = ({navigation}: any) => {
         isDisabled={!shortIntro}
         label="다음으로"
       />
-    </Container>
+    </View>
   );
 };
 
 export default 한줄소개;
-
-const Container = styled(View)`
-  flex: 1;
-  padding: 16px;
-  background-color: #ffffff;
-`;
 
 const Title = styled.Text`
   font-size: 24px;
