@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import styled from '@emotion/native';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
+import {globalStyles} from '../../common/styles/globalStyles';
 
 const 회사규모 = ({navigation}: any) => {
   const [step, setStep] = useState(0);
@@ -15,9 +15,11 @@ const 회사규모 = ({navigation}: any) => {
   };
 
   return (
-    <Container>
+    <View style={globalStyles.container}>
       <DetailProfileHeader percent={72} navigation={navigation} />
-      <Title>{DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}</Title>
+      <Text style={globalStyles.title}>
+        {DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}
+      </Text>
       <SelectBox
         options={['대기업', '중견기업']}
         selectedOption={selectedOption}
@@ -33,21 +35,8 @@ const 회사규모 = ({navigation}: any) => {
         isDisabled={!selectedOption}
         label="다음으로"
       />
-    </Container>
+    </View>
   );
 };
 
 export default 회사규모;
-
-const Container = styled(View)`
-  flex: 1;
-  padding: 16px;
-  background-color: #ffffff;
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0px 0px 30px 5px;
-  line-height: 35px;
-`;
