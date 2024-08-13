@@ -1,5 +1,5 @@
 import React from 'react';
-import useFunnel from '../detail/hooks/useFunnel';
+import useFunnel from '../common/hooks/useFunnel';
 import EmailFunnel from './funnelPages/EmailFunnel';
 const stepType = ['이메일입력'] as const;
 
