@@ -5,30 +5,44 @@ import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CO
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
+import {NavTypesProps} from '../types/navTypes';
 
-const 근무형태 = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
+const 근무형태 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep(prevStep => prevStep + 1);
+    onNext();
   };
 
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={64} navigation={navigation} />
       <Text style={globalStyles.title}>
-        {DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
       </Text>
       <SelectBox
         options={['순환근무', '교대근무']}
-        selectedOption={selectedOption}
+        selectedOption={selectedOption ? [selectedOption] : []}
         onSelect={setSelectedOption}
+        mode="single"
       />
       <SelectBox
         options={['해당 사항 없어요']}
-        selectedOption={selectedOption}
+        selectedOption={selectedOption ? [selectedOption] : []}
         onSelect={setSelectedOption}
+        mode="single"
       />
       <FooterBtn
         onPress={handleNextStep}

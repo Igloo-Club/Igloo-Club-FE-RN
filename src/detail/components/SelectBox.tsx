@@ -1,26 +1,42 @@
-// components/SelectBox.tsx
 import React from 'react';
 import styled from '@emotion/native';
 import {View, TouchableOpacity, Text} from 'react-native';
 
 interface SelectBoxProps {
   options: string[];
-  selectedOption: string | null;
+  selectedOption: string[];
   onSelect: (option: string) => void;
+  mode: 'single' | 'multiple';
 }
 
 const SelectBox: React.FC<SelectBoxProps> = ({
   options,
-  selectedOption,
+  selectedOption = [],
   onSelect,
+  mode,
 }) => {
+  const handleSelect = (option: string) => {
+    if (mode === 'multiple') {
+      // 다중 선택 모드 -> MBTI 페이지
+      if (selectedOption.includes(option)) {
+        onSelect(option);
+      } else {
+        onSelect(option);
+      }
+    } else {
+      if (selectedOption.length === 0 || !selectedOption.includes(option)) {
+        onSelect(option);
+      }
+    }
+  };
+
   return (
     <SelectWrapper>
       {options.map((option, index) => (
         <SelectBtn
           key={index}
-          onPress={() => onSelect(option)}
-          isSelected={selectedOption === option}>
+          onPress={() => handleSelect(option)}
+          isSelected={selectedOption.includes(option)}>
           <SelectText>{option}</SelectText>
         </SelectBtn>
       ))}

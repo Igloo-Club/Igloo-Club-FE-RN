@@ -8,9 +8,17 @@ import {
 } from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
+import {NavTypesProps} from '../types/navTypes';
 
-const 취미 = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
+const 취미 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     [],
@@ -18,7 +26,8 @@ const 취미 = ({navigation}: any) => {
   const [activeHobby, setActiveHobby] = useState<string | null>(null);
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep(prevStep => prevStep + 1);
+    onNext();
   };
 
   const selectHobby = (hobbyValue: string) => {
@@ -49,7 +58,12 @@ const 취미 = ({navigation}: any) => {
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={80} navigation={navigation} />
-      <Title>{DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}</Title>
+      <Title>
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
+      </Title>
       <SubTitle>최대 5개까지 선택 가능해요.</SubTitle>
       <CheckWrapper>
         <HobbyList>
@@ -58,7 +72,9 @@ const 취미 = ({navigation}: any) => {
               <HobbyItem
                 selected={selectedHobbies.includes(item.value)}
                 onPress={() => selectHobby(item.value)}>
-                <HobbyLabel>{item.label}</HobbyLabel>
+                <HobbyLabel selected={selectedHobbies.includes(item.value)}>
+                  {item.label}
+                </HobbyLabel>
               </HobbyItem>
 
               {/* 세부 카테고리 렌더링 */}
@@ -69,7 +85,12 @@ const 취미 = ({navigation}: any) => {
                       key={subItem.value}
                       selected={selectedSubCategories.includes(subItem.value)}
                       onPress={() => selectSubCategory(subItem.value)}>
-                      <SubCategoryLabel>{subItem.label}</SubCategoryLabel>
+                      <SubCategoryLabel
+                        selected={selectedSubCategories.includes(
+                          subItem.value,
+                        )}>
+                        {subItem.label}
+                      </SubCategoryLabel>
                     </SubCategoryItem>
                   ))}
                 </SubCategoryList>
@@ -115,7 +136,7 @@ const HobbyList = styled(View)`
 const HobbyItem = styled(TouchableOpacity)<{selected: boolean}>`
   border: ${({selected}) =>
     selected ? '1.5px solid #FA7268' : '1px solid #E5E8ED'};
-  background-color: #ffffff;
+  background-color: ${({selected}) => (selected ? '#FA7268' : 'white')};
   border-radius: 20px;
   padding: 10px 15px;
   margin: 6px 5px;
@@ -123,21 +144,20 @@ const HobbyItem = styled(TouchableOpacity)<{selected: boolean}>`
   justify-content: center;
 `;
 
-const HobbyLabel = styled.Text`
+const HobbyLabel = styled.Text<{selected: boolean}>`
   font-size: 15px;
-  font-weight: 400;
-  color: #000;
+  font-weight: ${({selected}) => (selected ? '600' : '400')};
+  color: ${({selected}) => (selected ? 'white' : '#000')};
 `;
 
 const SubCategoryList = styled(View)`
-  margin-top: 10px;
-  padding-left: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const SubCategoryItem = styled(TouchableOpacity)<{selected: boolean}>`
-  border: ${({selected}) =>
-    selected ? '1.5px solid #FA7268' : '1px solid #E5E8ED'};
-  background-color: #f7f7f7;
+  background-color: ${({selected}) =>
+    selected ? 'rgba(250, 114, 104, 0.20)' : '#FAFAFB'};
   border-radius: 20px;
   padding: 8px 12px;
   margin: 4px;
@@ -145,7 +165,8 @@ const SubCategoryItem = styled(TouchableOpacity)<{selected: boolean}>`
   justify-content: center;
 `;
 
-const SubCategoryLabel = styled.Text`
+const SubCategoryLabel = styled.Text<{selected: boolean}>`
   font-size: 13px;
-  color: #000;
+  font-weight: ${({selected}) => (selected ? '600' : '500')};
+  color: ${({selected}) => (selected ? '#FA7268' : '#9FA4B0')};
 `;

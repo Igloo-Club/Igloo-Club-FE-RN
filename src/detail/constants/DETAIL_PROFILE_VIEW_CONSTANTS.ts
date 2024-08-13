@@ -1,44 +1,30 @@
-interface DetailProfileViewConstant {
+export interface DetailProfileViewConstant {
+  step: string;
   mainTitle: string;
 }
 
 export const DETAIL_PROFILE_VIEW_CONSTATNS: DetailProfileViewConstant[] = [
+  {step: '키입력', mainTitle: '상세 프로필을 완성해봐요!\n키가 어떻게 되세요?'},
+  {step: '종교여부', mainTitle: '종교가 있으신가요?'},
+  {step: '문신여부', mainTitle: '문신이 있으신가요?'},
+  {step: '흡연여부', mainTitle: '흡연을 하고 계신가요?'},
   {
-    mainTitle: '상세 프로필을 완성해봐요!\n키가 어떻게 되세요?',
-  },
-  {
-    mainTitle: '종교가 있으신가요?',
-  },
-  {
-    mainTitle: '문신이 있으신가요?',
-  },
-  {
-    mainTitle: '흡연을 하고 계신가요?',
-  },
-  {
+    step: '결혼예정여부',
     mainTitle: '결혼 생각이 있으신가요?\n있다면, 언제 하고 싶으신가요?',
   },
+  {step: '엠비티아이', mainTitle: '회원님의 MBTI가 궁금해요.'},
   {
-    mainTitle: '회원님의 MBTI가 궁금해요.',
-  },
-  {
+    step: '세전연봉',
     mainTitle: '조심스러운 질문이지만..\n세전 연봉이 어떻게 되시나요?',
   },
+  {step: '근무형태', mainTitle: '근무 형태가 어떻게 되세요?'},
+  {step: '회사규모', mainTitle: '재직 중이신 회사의 규모가\n어느정도 되나요?'},
+  {step: '취미', mainTitle: '회원님이 평소 즐겨하시는\n취미를 골라주세요.'},
   {
-    mainTitle: '근무 형태가 어떻게 되세요?',
-  },
-  {
-    mainTitle: '재직 중이신 회사의 규모가\n어느정도 되나요?',
-  },
-  {
-    mainTitle: '회원님이 평소 즐겨하시는\n취미를 골라주세요.',
-  },
-  {
+    step: '한줄소개',
     mainTitle: '거의 다 완성했어요!\n짧은 한줄 소개를 적어주세요.',
   },
-  {
-    mainTitle: '마지막이에요!\n자세한 자기소개를 적어주세요.',
-  },
+  {step: '자기소개', mainTitle: '마지막이에요!\n자세한 자기소개를 적어주세요.'},
 ];
 
 export const HOBBY = [
