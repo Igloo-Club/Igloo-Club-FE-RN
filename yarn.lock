@@ -32,7 +32,11 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.21.3, @babel/core@npm:^7.23.9":
+=======
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9":
+>>>>>>> feat
   version: 7.25.2
   resolution: "@babel/core@npm:7.25.2"
   dependencies:
@@ -1635,7 +1639,11 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.21.3, @babel/types@npm:^7.24.7, @babel/types@npm:^7.24.8, @babel/types@npm:^7.25.0, @babel/types@npm:^7.25.2, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
+=======
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.24.8, @babel/types@npm:^7.25.0, @babel/types@npm:^7.25.2, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
+>>>>>>> feat
   version: 7.25.2
   resolution: "@babel/types@npm:7.25.2"
   dependencies:
@@ -3072,20 +3080,36 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
+<<<<<<< HEAD
   version: 22.2.0
   resolution: "@types/node@npm:22.2.0"
   dependencies:
     undici-types: ~6.13.0
   checksum: 63724799337bfb57719a1992690e738341d824e1744a2ac52c5278a008fbfadf99765519c19858feb80418cc7da0d5c8bdf7ea4d82973869b3882bd602c48ade
+=======
+  version: 22.1.0
+  resolution: "@types/node@npm:22.1.0"
+  dependencies:
+    undici-types: ~6.13.0
+  checksum: 3544c35da06009790a2e07742a7dfa0ac0f0d64ec47d9e6d3edf0ff6dcfc1a7cc2efdc5e524e80f8ed80aa37154513b2c1c724f95146ff89fc5aefb8e33575f2
+>>>>>>> feat
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.0.0":
+<<<<<<< HEAD
   version: 18.19.44
   resolution: "@types/node@npm:18.19.44"
   dependencies:
     undici-types: ~5.26.4
   checksum: 008f89b04afc9fdb4cd5ea71072ca64a08ef0453cbfc012863991959aa3ce2cf99c1e73cbcb5e0e67b37a81f88673e97ac180f56eec396ce1b68d5881aac2ce4
+=======
+  version: 18.19.43
+  resolution: "@types/node@npm:18.19.43"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 5eb9045aae6da86e8ad297381f93d29d2e7fcd4ed0c53670d9dff1e7b714920f8bbe5ee456289c19fc69c510ac197bdbacc7a785eaeba0afb9cb5d634a64bcd3
+>>>>>>> feat
   languageName: node
   linkType: hard
 
@@ -4420,6 +4444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "css-tree@npm:^2.3.1":
   version: 2.3.1
   resolution: "css-tree@npm:2.3.1"
@@ -4440,6 +4465,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> feat
 "css-what@npm:^6.1.0":
   version: 6.1.0
   resolution: "css-what@npm:6.1.0"
@@ -4447,6 +4474,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "csso@npm:^5.0.5":
   version: 5.0.5
   resolution: "csso@npm:5.0.5"
@@ -4456,6 +4484,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> feat
 "csstype@npm:^3.0.2":
   version: 3.1.3
   resolution: "csstype@npm:3.1.3"
@@ -4695,6 +4725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "dot-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "dot-case@npm:3.0.4"
@@ -4705,6 +4736,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> feat
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -4720,9 +4753,15 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
+<<<<<<< HEAD
   version: 1.5.6
   resolution: "electron-to-chromium@npm:1.5.6"
   checksum: 09ca45c781e3e3ef87de87fb74019228f41e1a4abd2e703319aa7d942866815f3df89cc4bf61af81a4cac81271992d4f59a5eca7a093c07322ae0608bf98a427
+=======
+  version: 1.5.5
+  resolution: "electron-to-chromium@npm:1.5.5"
+  checksum: fcdd2797ece1ece6764b88b5fc36cfc6a571e08b832c6777d8bbefa19cae22a36614411aacc5687d9fea7e1db86469f53c3952ca2579c5fe705dea7ed270d8cc
+>>>>>>> feat
   languageName: node
   linkType: hard
 
@@ -4763,7 +4802,11 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "entities@npm:^4.2.0, entities@npm:^4.4.0":
+=======
+"entities@npm:^4.2.0":
+>>>>>>> feat
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 853f8ebd5b425d350bffa97dd6958143179a5938352ccae092c62d1267c4e392a039be1bae7d51b6e4ffad25f51f9617531fedf5237f15df302ccfb452cbf2d7
@@ -7363,6 +7406,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "mdn-data@npm:2.0.28":
   version: 2.0.28
   resolution: "mdn-data@npm:2.0.28"
@@ -7377,6 +7421,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> feat
 "memoize-one@npm:^5.0.0":
   version: 5.2.1
   resolution: "memoize-one@npm:5.2.1"
@@ -8030,10 +8076,14 @@ __metadata:
     prettier: 2.8.8
     react: 18.2.0
     react-native: 0.74.3
+    react-native-progress: ^5.0.1
     react-native-safe-area-context: ^4.10.8
     react-native-screens: ^3.32.0
     react-native-svg: ^15.5.0
+<<<<<<< HEAD
     react-native-svg-transformer: ^1.5.0
+=======
+>>>>>>> feat
     react-test-renderer: 18.2.0
     typescript: 5.0.4
   languageName: unknown
@@ -8524,7 +8574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -8631,6 +8681,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-progress@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "react-native-progress@npm:5.0.1"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    react-native-svg: "*"
+  checksum: fc9b68f1ca381b011859f8900c89595d62461cfa5b4faf65527639e8d8247d494cc75d5eb86e6dd393bca8dec18996b451775670d7ef2ae70247fa4079c9a8cf
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:^4.10.8":
   version: 4.10.8
   resolution: "react-native-safe-area-context@npm:4.10.8"
@@ -8654,6 +8715,7 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "react-native-svg-transformer@npm:^1.5.0":
   version: 1.5.0
   resolution: "react-native-svg-transformer@npm:1.5.0"
@@ -8669,6 +8731,8 @@ __metadata:
   languageName: node
   linkType: hard
 
+=======
+>>>>>>> feat
 "react-native-svg@npm:^15.5.0":
   version: 15.5.0
   resolution: "react-native-svg@npm:15.5.0"
@@ -9774,8 +9838,13 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.15.0":
+<<<<<<< HEAD
   version: 5.31.5
   resolution: "terser@npm:5.31.5"
+=======
+  version: 5.31.4
+  resolution: "terser@npm:5.31.4"
+>>>>>>> feat
   dependencies:
     "@jridgewell/source-map": ^0.3.3
     acorn: ^8.8.2
@@ -9783,7 +9852,11 @@ __metadata:
     source-map-support: ~0.5.20
   bin:
     terser: bin/terser
+<<<<<<< HEAD
   checksum: edd2de6569116f637bb2e154c913e6ea434cadd6bcf5df41cf62000e3c69ec41f95be66fe639b57b95564545c9f7c0fcb28ca63351424a08e244a8b49ed12ac3
+=======
+  checksum: c134d2e964af3ff1b7c93d10756ffbc1f754b800ca115fb33cec72db16e5338f74c2fc6f8b5ac7f7770b187f3958e82a3e746110a2d9a8b1d91abaf3c91639a7
+>>>>>>> feat
   languageName: node
   linkType: hard
 
