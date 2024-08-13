@@ -8,20 +8,30 @@ import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {theme} from '../../common/styles/theme';
 
-const 키입력 = ({onNext, navigation}: NavTypesProps) => {
-  const [step, setStep] = useState(0);
+const 키입력 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [height, setHeight] = useState('');
 
   const handleNextStep = () => {
+    setStep(prevStep => prevStep + 1);
     onNext();
-    setStep(step + 1);
   };
 
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={8} navigation={navigation} />
       <Text style={globalStyles.title}>
-        {DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
       </Text>
       <InputBox>
         <Input

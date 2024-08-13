@@ -6,48 +6,72 @@ import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CO
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
+import {NavTypesProps} from '../types/navTypes';
 
-const 엠비티아이 = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+const 엠비티아이 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+  const handleSelect = (option: string) => {
+    setSelectedOptions(prevOptions =>
+      prevOptions.includes(option)
+        ? prevOptions.filter(item => item !== option)
+        : [...prevOptions, option],
+    );
+  };
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep(prevStep => prevStep + 1);
+    onNext();
   };
 
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={48} navigation={navigation} />
       <Text style={globalStyles.title}>
-        {DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
       </Text>
       <SelectTitle>외향형/내향형</SelectTitle>
       <SelectBox
         options={['E', 'I']}
-        selectedOption={selectedOption}
-        onSelect={setSelectedOption}
+        selectedOption={selectedOptions}
+        onSelect={handleSelect}
+        mode="multiple"
       />
       <SelectTitle>감각형/직관형</SelectTitle>
       <SelectBox
         options={['S', 'N']}
-        selectedOption={selectedOption}
-        onSelect={setSelectedOption}
+        selectedOption={selectedOptions}
+        onSelect={handleSelect}
+        mode="multiple"
       />
       <SelectTitle>사고형/감정형</SelectTitle>
       <SelectBox
         options={['T', 'F']}
-        selectedOption={selectedOption}
-        onSelect={setSelectedOption}
+        selectedOption={selectedOptions}
+        onSelect={handleSelect}
+        mode="multiple"
       />
       <SelectTitle>판단형/인식형</SelectTitle>
       <SelectBox
         options={['J', 'P']}
-        selectedOption={selectedOption}
-        onSelect={setSelectedOption}
+        selectedOption={selectedOptions}
+        onSelect={handleSelect}
+        mode="multiple"
       />
       <FooterBtn
         onPress={handleNextStep}
-        isDisabled={!selectedOption}
+        isDisabled={!selectedOptions}
         label="다음으로"
       />
     </View>
