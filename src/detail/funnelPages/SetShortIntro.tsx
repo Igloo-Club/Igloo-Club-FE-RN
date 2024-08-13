@@ -5,19 +5,33 @@ import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
+import {NavTypesProps} from '../types/navTypes';
 
-const 한줄소개 = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
+const 한줄소개 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [shortIntro, setShortIntro] = useState('');
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep(prevStep => prevStep + 1);
+    onNext();
   };
 
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={88} navigation={navigation} />
-      <Title>{DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}</Title>
+      <Title>
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
+      </Title>
       <SubTitle>상대방에게 보여지는 첫인상이에요.</SubTitle>
       <InputBox>
         <Input

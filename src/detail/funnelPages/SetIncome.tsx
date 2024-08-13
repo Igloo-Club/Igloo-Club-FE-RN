@@ -5,35 +5,50 @@ import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CO
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
+import {NavTypesProps} from '../types/navTypes';
 
-const 세전연봉 = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
+const 세전연봉 = ({
+  onNext,
+  step,
+  setStep,
+  navigation,
+}: NavTypesProps & {
+  step: string;
+  setStep: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleNextStep = () => {
-    setStep(step + 1);
+    setStep(prevStep => prevStep + 1);
+    onNext();
   };
 
   return (
     <View style={globalStyles.container}>
       <DetailProfileHeader percent={56} navigation={navigation} />
       <Text style={globalStyles.title}>
-        {DETAIL_PROFILE_VIEW_CONSTATNS[step].mainTitle}
+        {
+          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
+            ?.mainTitle
+        }{' '}
       </Text>
       <SelectBox
         options={['4000만원 이하', '4-5000만원']}
-        selectedOption={selectedOption}
+        selectedOption={selectedOption ? [selectedOption] : []}
         onSelect={setSelectedOption}
+        mode="single"
       />
       <SelectBox
         options={['5-6000만원', '6-8000만원']}
-        selectedOption={selectedOption}
+        selectedOption={selectedOption ? [selectedOption] : []}
         onSelect={setSelectedOption}
+        mode="single"
       />
       <SelectBox
         options={['8000-1억', '1억 이상']}
-        selectedOption={selectedOption}
+        selectedOption={selectedOption ? [selectedOption] : []}
         onSelect={setSelectedOption}
+        mode="single"
       />
       <FooterBtn
         onPress={handleNextStep}
