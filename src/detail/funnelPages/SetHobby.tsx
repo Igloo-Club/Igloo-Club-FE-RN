@@ -31,16 +31,20 @@ const 취미 = ({
   };
 
   const selectHobby = (hobbyValue: string) => {
+    const hobby = HOBBY.find(item => item.value === hobbyValue);
+
     if (selectedHobbies.includes(hobbyValue)) {
-      setSelectedHobbies(selectedHobbies.filter(item => item !== hobbyValue));
-      setActiveHobby(null);
+      // 이미 선택된 취미를 다시 클릭하면 서브 카테고리 창을 열기만 함
+      setActiveHobby(hobbyValue);
     } else if (selectedHobbies.length < 5) {
+      // 새로운 취미 선택
       setSelectedHobbies([...selectedHobbies, hobbyValue]);
 
-      // PET 제외 항목 선택 시 활성화
-      const hobby = HOBBY.find(item => item.value === hobbyValue);
+      // 서브 카테고리가 있는 취미라면 활성화
       if (hobby?.subCategories.length) {
         setActiveHobby(hobbyValue);
+      } else {
+        setActiveHobby(null);
       }
     }
   };
@@ -50,9 +54,22 @@ const 취미 = ({
       setSelectedSubCategories(
         selectedSubCategories.filter(item => item !== subCategoryValue),
       );
-    } else {
+    } else if (selectedSubCategories.length < 5) {
       setSelectedSubCategories([...selectedSubCategories, subCategoryValue]);
     }
+  };
+
+  const isHobbyActive = (hobbyValue: string): boolean => {
+    const hobby = HOBBY.find(item => item.value === hobbyValue);
+    // 서브 카테고리 중 하나라도 선택된 경우 배경색을 변경
+    return (
+      (selectedHobbies.includes(hobbyValue) &&
+        (hobby?.subCategories.length === 0 ||
+          hobby?.subCategories.some(subCategory =>
+            selectedSubCategories.includes(subCategory.value),
+          ))) ||
+      false
+    );
   };
 
   return (
@@ -70,9 +87,9 @@ const 취미 = ({
           {HOBBY.map(item => (
             <View key={item.value}>
               <HobbyItem
-                selected={selectedHobbies.includes(item.value)}
+                selected={isHobbyActive(item.value)}
                 onPress={() => selectHobby(item.value)}>
-                <HobbyLabel selected={selectedHobbies.includes(item.value)}>
+                <HobbyLabel selected={isHobbyActive(item.value)}>
                   {item.label}
                 </HobbyLabel>
               </HobbyItem>
@@ -84,7 +101,12 @@ const 취미 = ({
                     <SubCategoryItem
                       key={subItem.value}
                       selected={selectedSubCategories.includes(subItem.value)}
-                      onPress={() => selectSubCategory(subItem.value)}>
+                      onPress={() => selectSubCategory(subItem.value)}
+                      disabled={
+                        selectedSubCategories.length >= 5 &&
+                        !selectedSubCategories.includes(subItem.value)
+                      } // 최대 5개 선택 제한
+                    >
                       <SubCategoryLabel
                         selected={selectedSubCategories.includes(
                           subItem.value,
@@ -101,7 +123,7 @@ const 취미 = ({
       </CheckWrapper>
       <FooterBtn
         onPress={handleNextStep}
-        isDisabled={!selectedHobbies.length}
+        isDisabled={selectedSubCategories.length === 0}
         label="다음으로"
       />
     </View>
