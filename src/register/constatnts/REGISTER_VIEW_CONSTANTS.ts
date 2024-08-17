@@ -18,7 +18,7 @@ const RAGISTER_VIEW_CONSTATNS: RegisterViewConstant[] = [
   },
   {
     step: RegisterstepType[1],
-    mainTitle: '기본적인 정보를 알고 싶어요.\n회원님의 성별은 무엇인가요?.',
+    mainTitle: '기본적인 정보를 알고 싶어요.\n회원님의 성별은 무엇인가요?',
     subTitle: '제 성별은..',
     buttonContent: '다음으로',
   },
@@ -34,6 +34,12 @@ const RAGISTER_VIEW_CONSTATNS: RegisterViewConstant[] = [
     mainTitle: '닉네임을 만들어볼까요?',
     subTitle: '프로필에 표시되는 이름으로, 언제든지 수정 가능해요.',
     buttonContent: '프로필 등록 완료하기',
+  },
+  {
+    step: RegisterstepType[4],
+    mainTitle: '회원님이 재직 중이신\n직장의 소재지를 선택해주세요',
+    subTitle: '',
+    buttonContent: '다음으로',
   },
 ];
 

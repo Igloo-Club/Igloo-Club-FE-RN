@@ -3,6 +3,7 @@ export const RegisterstepType = [
   '성별',
   '생년월일',
   '닉네임입력',
+  '지역선택',
 ] as const;
 
 export interface IregisterFunnulProps {
