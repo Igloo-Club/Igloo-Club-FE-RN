@@ -10,6 +10,7 @@ import styled from '@emotion/native';
 import deleteBtnIMG from '../assets/deleteBtnIMG.png';
 
 interface CustomTextInputProps {
+  label: string;
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
@@ -18,6 +19,7 @@ interface CustomTextInputProps {
 }
 
 const CoustomTextInput = ({
+  label,
   placeholder,
   value,
   onChangeText,
@@ -27,7 +29,7 @@ const CoustomTextInput = ({
 
   return (
     <InputContainer isFocused={isFocused}>
-      <InputLabel>회사 이메일 주소</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Input
         placeholder={placeholder}
         value={value}

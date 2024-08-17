@@ -12,9 +12,10 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       step={step}
       onBackPress={onPrev}
       onButtonPress={onNext}
-      isBtnActive={Boolean(email)}>
+      isBtnActive={email.length > 0}>
       <CoustomTextInput
-        placeholder=""
+        label="회사 이메일 주소"
+        placeholder="이메일 주소 입력"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
