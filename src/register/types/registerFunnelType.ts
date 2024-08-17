@@ -8,4 +8,5 @@ export const RegisterstepType = [
 export interface IregisterFunnulProps {
   step: (typeof RegisterstepType)[number];
   onNext: () => void;
+  onPrev: () => void;
 }

@@ -10,6 +10,7 @@ interface RegisterStepLayoutProps {
   children: ReactNode;
   onBackPress: () => void;
   onButtonPress: () => void;
+  isBtnActive: boolean;
 }
 
 const RegisterLayout = ({
@@ -17,6 +18,7 @@ const RegisterLayout = ({
   children,
   onBackPress,
   onButtonPress,
+  isBtnActive,
 }: RegisterStepLayoutProps) => {
   const currentStep = findByStepRegister(step);
 
@@ -32,8 +34,10 @@ const RegisterLayout = ({
       <Content>{children}</Content>
       <Footer>
         <Notice>{currentStep?.notice}</Notice>
-        <Button onPress={onButtonPress}>
-          <ButtonText>{currentStep?.buttonContent}</ButtonText>
+        <Button onPress={onButtonPress} disabled={!isBtnActive}>
+          <ButtonText disabled={!isBtnActive}>
+            {currentStep?.buttonContent}
+          </ButtonText>
         </Button>
       </Footer>
     </Container>
@@ -71,13 +75,15 @@ const Footer = styled.View`
   align-items: center;
 `;
 
-const Button = styled(TouchableOpacity)`
+const Button = styled(TouchableOpacity)<{disabled: boolean}>`
   width: 100%;
   height: 54px;
-  background-color: #e4e8ec;
   padding: 17px;
   border-radius: 7px;
   align-items: center;
+
+  background-color: ${({disabled, theme}) =>
+    disabled ? '#e4e8ec' : theme.colors.pressed_primary};
 `;
 
 const Notice = styled.Text`
@@ -87,8 +93,7 @@ const Notice = styled.Text`
   ${({theme}) => theme.fonts.body3}
 `;
 
-const ButtonText = styled.Text`
-  color: #bbc0ca;
+const ButtonText = styled.Text<{disabled: boolean}>`
   text-align: center;
   font-family: Pretendard;
   font-size: 17px;
@@ -96,6 +101,7 @@ const ButtonText = styled.Text`
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.3px;
+  color: ${({disabled, theme}) => (disabled ? '#bbc0ca' : theme.colors.white)};
 `;
 
 const SubTitle = styled.Text`

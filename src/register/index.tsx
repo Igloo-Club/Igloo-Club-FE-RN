@@ -15,24 +15,28 @@ const Register = () => {
         <EmailFunnel
           step={RegisterstepType[0]}
           onNext={() => setStep(RegisterstepType[1])}
+          onPrev={() => setStep(RegisterstepType[0])}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[1]}>
         <GenderFunnel
           step={RegisterstepType[1]}
           onNext={() => setStep(RegisterstepType[2])}
+          onPrev={() => setStep(RegisterstepType[0])}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[2]}>
         <BirthFunnel
           step={RegisterstepType[2]}
           onNext={() => setStep(RegisterstepType[3])}
+          onPrev={() => setStep(RegisterstepType[0])}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[3]}>
         <NinknameFunnel
           step={RegisterstepType[3]}
           onNext={() => setStep(RegisterstepType[0])}
+          onPrev={() => setStep(RegisterstepType[0])}
         />
       </Funnel.Step>
     </Funnel>
