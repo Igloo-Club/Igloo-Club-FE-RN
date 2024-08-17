@@ -82,8 +82,7 @@ const Button = styled(TouchableOpacity)<{disabled: boolean}>`
   border-radius: 7px;
   align-items: center;
 
-  background-color: ${({disabled, theme}) =>
-    disabled ? '#e4e8ec' : theme.colors.pressed_primary};
+  background-color: ${({disabled}) => (disabled ? '#e4e8ec' : '#FA7268')};
 `;
 
 const Notice = styled.Text`
