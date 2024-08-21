@@ -129,6 +129,8 @@ const DetailProfile = ({navigation}: any) => {
       <Funnel.Step name="자기소개">
         <자기소개
           onNext={() => navigation.navigate('/main-page')}
+          step="자기소개"
+          setStep={setStep}
           navigation={navigation}
         />
       </Funnel.Step>
