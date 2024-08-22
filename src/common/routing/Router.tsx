@@ -20,11 +20,11 @@ export const Router = () => {
   return (
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="DetailProfile"
           component={DetailProfile}
           options={{title: '상세 프로필 등록'}}
-        /> */}
+        />
         <Stack.Screen
           name="Regitser"
           component={Register}
