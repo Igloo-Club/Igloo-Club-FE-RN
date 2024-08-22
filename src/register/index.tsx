@@ -1,84 +1,54 @@
-import React, {useState} from 'react';
-import {Text, TextInput, TouchableOpacity} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import styled from '@emotion/native';
-import {RAGISTER_VIEW_CONSTATNS} from './constatnts/REGISTER_VIEW_CONSTANTS';
+import React from 'react';
+import useFunnel from '../common/hooks/useFunnel';
+import EmailFunnel from './funnelPages/EmailFunnel';
+import {RegisterstepType} from './types/registerFunnelType';
+import GenderFunnel from './funnelPages/GenderFunnel';
+import BirthFunnel from './funnelPages/BirthFunnel';
+import NinknameFunnel from './funnelPages/NinknameFunnel';
+import SelectAreaFunnel from './funnelPages/SelectAreaFunnel';
 
-const Register = ({navigation}: any) => {
-  const [step, setStep] = useState(0);
-  const [email, setEmail] = useState('');
+const Register = () => {
+  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
 
   return (
-    <Container>
-      <BackButton onPress={() => navigation.goBack()}>
-        <Text>&lt;</Text>
-      </BackButton>
-      <Title>{RAGISTER_VIEW_CONSTATNS[step].mainTitle}</Title>
-      <SubTitle>{RAGISTER_VIEW_CONSTATNS[step].subTitle}</SubTitle>
-      <InputLabel>회사 이메일 주소</InputLabel>
-      <Input
-        placeholder="이메일 주소 입력"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <Button onPress={() => setStep(step + 1)}>
-        <ButtonText>인증 요청하기</ButtonText>
-      </Button>
-      <Text>
-        직접 입력 회사 확인하는 절차이며, 다른 용도로 사용되지 않아요.
-      </Text>
-    </Container>
+    <Funnel>
+      <Funnel.Step name={RegisterstepType[0]}>
+        <EmailFunnel
+          step={RegisterstepType[0]}
+          onNext={() => setStep(RegisterstepType[1])}
+          onPrev={() => setStep(RegisterstepType[0])}
+        />
+      </Funnel.Step>
+      <Funnel.Step name={RegisterstepType[1]}>
+        <GenderFunnel
+          step={RegisterstepType[1]}
+          onNext={() => setStep(RegisterstepType[2])}
+          onPrev={() => setStep(RegisterstepType[0])}
+        />
+      </Funnel.Step>
+      <Funnel.Step name={RegisterstepType[2]}>
+        <BirthFunnel
+          step={RegisterstepType[2]}
+          onNext={() => setStep(RegisterstepType[3])}
+          onPrev={() => setStep(RegisterstepType[1])}
+        />
+      </Funnel.Step>
+      <Funnel.Step name={RegisterstepType[3]}>
+        <NinknameFunnel
+          step={RegisterstepType[3]}
+          onNext={() => setStep(RegisterstepType[4])}
+          onPrev={() => setStep(RegisterstepType[2])}
+        />
+      </Funnel.Step>
+      <Funnel.Step name={RegisterstepType[4]}>
+        <SelectAreaFunnel
+          step={RegisterstepType[4]}
+          onNext={() => setStep(RegisterstepType[0])}
+          onPrev={() => setStep(RegisterstepType[3])}
+        />
+      </Funnel.Step>
+    </Funnel>
   );
 };
 
 export default Register;
-
-const Container = styled(SafeAreaView)`
-  flex: 1;
-  padding: 16px;
-  background-color: #ffffff;
-`;
-
-const BackButton = styled(TouchableOpacity)`
-  margin-bottom: 16px;
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 8px;
-`;
-
-const SubTitle = styled.Text`
-  font-size: 16px;
-  color: #555555;
-  margin-bottom: 24px;
-`;
-
-const InputLabel = styled.Text`
-  font-size: 14px;
-  margin-bottom: 4px;
-`;
-
-const Input = styled(TextInput)`
-  height: 40px;
-  border-width: 1px;
-  border-color: #cccccc;
-  border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 16px;
-`;
-
-const Button = styled(TouchableOpacity)`
-  background-color: #cccccc;
-  padding: 12px;
-  border-radius: 8px;
-  align-items: center;
-`;
-
-const ButtonText = styled.Text`
-  color: #ffffff;
-  font-size: 16px;
-`;
