@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "env.d.ts", "env.d.ts"],
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {"typeRoots": ["src/types"]}
 }

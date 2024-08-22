@@ -2,10 +2,15 @@ import React from 'react';
 import styled from '@emotion/native';
 import {View, TouchableOpacity, Text} from 'react-native';
 
+interface Option {
+  label: string;
+  value: string | number;
+}
+
 interface SelectBoxProps {
-  options: string[];
-  selectedOption: string[];
-  onSelect: (option: string) => void;
+  options: Option[];
+  selectedOption: (string | number)[];
+  onSelect: (option: string | number) => void;
   mode: 'single' | 'multiple';
 }
 
@@ -15,7 +20,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   onSelect,
   mode,
 }) => {
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: string | number) => {
     if (mode === 'multiple') {
       // 다중 선택 모드 -> MBTI 페이지
       if (selectedOption.includes(option)) {
@@ -35,9 +40,9 @@ const SelectBox: React.FC<SelectBoxProps> = ({
       {options.map((option, index) => (
         <SelectBtn
           key={index}
-          onPress={() => handleSelect(option)}
-          isSelected={selectedOption.includes(option)}>
-          <SelectText>{option}</SelectText>
+          onPress={() => handleSelect(option.value)}
+          isSelected={selectedOption.includes(option.value)}>
+          <SelectText>{option.label}</SelectText>
         </SelectBtn>
       ))}
     </SelectWrapper>
@@ -48,6 +53,7 @@ export default SelectBox;
 
 const SelectWrapper = styled(View)`
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
 `;
 

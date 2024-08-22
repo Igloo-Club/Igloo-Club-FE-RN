@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
 import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
+import QnA from '../../qna/pages/addQustion';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,11 @@ export const Router = () => {
           name="Home"
           component={Home}
           options={{title: 'Overview'}}
+        />
+        <Stack.Screen
+          name="QnA"
+          component={QnA}
+          options={{title: '추가 답변 등록'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

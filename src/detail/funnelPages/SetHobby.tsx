@@ -11,13 +11,14 @@ import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 취미 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
+  handleDetailProfileValue,
+  detailProfileValues,
   navigation,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
@@ -26,8 +27,31 @@ const 취미 = ({
   const [activeHobby, setActiveHobby] = useState<string | null>(null);
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const hobbyList = getHobbyList();
+      handleDetailProfileValue({...detailProfileValues, hobbyList: hobbyList});
+    }
     onNext();
+  };
+
+  const getHobbyList = () => {
+    const hobbyList: {category: string; name: string}[] = [];
+
+    selectedHobbies.forEach(hobbyValue => {
+      const hobby = HOBBY.find(item => item.value === hobbyValue);
+      if (hobby) {
+        hobbyList.push({category: hobby.label, name: ''});
+        if (hobby.subCategories.length > 0) {
+          hobby.subCategories.forEach(subCategory => {
+            if (selectedSubCategories.includes(subCategory.value)) {
+              hobbyList.push({category: hobby.label, name: subCategory.label});
+            }
+          });
+        }
+      }
+    });
+
+    return hobbyList;
   };
 
   const selectHobby = (hobbyValue: string) => {
@@ -37,10 +61,9 @@ const 취미 = ({
       // 이미 선택된 취미를 다시 클릭하면 서브 카테고리 창을 열기만 함
       setActiveHobby(hobbyValue);
     } else if (selectedHobbies.length < 5) {
-      // 새로운 취미 선택
       setSelectedHobbies([...selectedHobbies, hobbyValue]);
 
-      // 서브 카테고리가 있는 취미라면 활성화
+      // 서브 카테고리가 있는 취미일 시 활성화
       if (hobby?.subCategories.length) {
         setActiveHobby(hobbyValue);
       } else {
@@ -74,7 +97,7 @@ const 취미 = ({
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={80} navigation={navigation} />
+      <DetailProfileHeader percent={80} onPrev={onPrev} />
       <Title>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
