@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Home';
 import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
+import IdealType from '../../idealType';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +25,7 @@ export const Router = () => {
           component={DetailProfile}
           options={{title: '상세 프로필 등록'}}
         /> */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Regitser"
           component={Register}
           options={{title: '필수 프로필 등록'}}
@@ -33,6 +34,11 @@ export const Router = () => {
           name="Home"
           component={Home}
           options={{title: 'Overview'}}
+        /> */}
+        <Stack.Screen
+          name="IdealType"
+          component={IdealType}
+          options={{title: '이상형 등록'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
