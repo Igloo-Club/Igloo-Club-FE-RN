@@ -1,30 +1,20 @@
 module.exports = {
-  // api.cache(true);
-  // return {
-  // presets: ['module:@react-native/babel-preset'],
   presets: ['module:metro-react-native-babel-preset'],
-  overrides: [
-    {
-      plugins: [
-        [
-          '@babel/plugin-transform-private-methods',
-          {
-            loose: true,
-          },
-        ],
-      ],
-    },
-  ],
   plugins: [
+    // react-native-dotenv
     [
       'module:react-native-dotenv',
       {
+        envName: 'APP_ENV',
         moduleName: '@env',
         path: '.env',
+        blocklist: null,
+        allowlist: null,
         blacklist: null,
         whitelist: null,
         safe: false,
         allowUndefined: true,
+        verbose: false,
       },
     ],
   ],
