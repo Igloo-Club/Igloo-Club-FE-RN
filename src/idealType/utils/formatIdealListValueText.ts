@@ -12,7 +12,7 @@ export const formatIdealListValueText = (
     case '성격 유형':
       return data.mbtiList.join(', ');
     case '흡연 여부':
-      return data.smoke ? '흡연' : '비흡연';
+      return data.smoke;
     case '종교':
       return data.religion === 'BUDDHISM'
         ? '불교'
@@ -22,11 +22,7 @@ export const formatIdealListValueText = (
         ? '기독교'
         : '기타';
     case '결혼 계획':
-      return data.marriagePlan === 1
-        ? '있음'
-        : data.marriagePlan === 0
-        ? '없음'
-        : '미정';
+      return data.marriagePlan;
     default:
       return '';
   }

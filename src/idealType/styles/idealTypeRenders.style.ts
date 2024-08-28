@@ -9,5 +9,11 @@ export const IdealRenderStyles = {
     font-weight: 500;
     line-height: normal;
     letter-spacing: -0.3px;
+    padding: 14px 0 20px;
+  `,
+  Content: styled.View`
+    flex: 1;
+    height: 100%;
+    position: relative;
   `,
 };

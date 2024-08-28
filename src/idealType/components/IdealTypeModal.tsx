@@ -2,7 +2,14 @@ import React from 'react';
 import BottomModal from '../../common/components/BottomModal';
 import {MOCK_IDEAL} from '../constants/MOCK_IDEALTYPE';
 import {IDEAL_KEY} from '../constants/IDEAL_LIST';
-import {MbtiList, PreferredAge} from './IdealTypeModalRenders';
+import {
+  선호나이,
+  선호키,
+  선호성격유형,
+  선호흡연여부,
+  선호종교,
+  선호결혼계획,
+} from './IdealTypeModalRenders';
 import styled from '@emotion/native';
 
 interface IdealTypeModalProps {
@@ -49,8 +56,17 @@ const IdealTypeModal = ({
     switch (modalKey) {
       case IDEAL_KEY.preferredAge:
         return (
-          <PreferredAge
+          <선호나이
             value={[data.preferredAgeStart, data.preferredAgeEnd]}
+            handleData={changedValue => {
+              handleChangeData(changedValue, modalKey);
+            }}
+          />
+        );
+      case IDEAL_KEY.preferredHeight:
+        return (
+          <선호키
+            value={[data.preferredHeightStart, data.preferredHeightEnd]}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
@@ -58,8 +74,35 @@ const IdealTypeModal = ({
         );
       case IDEAL_KEY.mbtiList:
         return (
-          <MbtiList
+          <선호성격유형
             value={data.mbtiList}
+            handleData={changedValue => {
+              handleChangeData(changedValue, modalKey);
+            }}
+          />
+        );
+      case IDEAL_KEY.smoke:
+        return (
+          <선호흡연여부
+            value={data.smoke}
+            handleData={changedValue => {
+              handleChangeData(changedValue, modalKey);
+            }}
+          />
+        );
+      case IDEAL_KEY.religion:
+        return (
+          <선호종교
+            value={data.religion}
+            handleData={changedValue => {
+              handleChangeData(changedValue, modalKey);
+            }}
+          />
+        );
+      case IDEAL_KEY.marriagePlan:
+        return (
+          <선호결혼계획
+            value={data.marriagePlan}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
@@ -92,5 +135,5 @@ const StTitle = styled.Text`
 const StModalWrapper = styled.View`
   width: '100%';
   position: 'relative';
-  padding-bottom: 122px;
+  padding: 20px 20px 120px;
 `;

@@ -4,7 +4,7 @@ export const MOCK_IDEAL = {
   preferredHeightStart: 170,
   preferredHeightEnd: 180,
   mbtiList: ['I', 'T'],
-  smoke: true,
+  smoke: '비흡연',
   religion: 'BUDDHISM',
-  marriagePlan: 1,
+  marriagePlan: '3년 이내',
 };
