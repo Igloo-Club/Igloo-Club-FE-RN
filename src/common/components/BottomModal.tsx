@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-interface IBottomModalProps {
+export interface IBottomModalProps {
   isVisible: boolean;
   onClose: () => void;
   children: ReactNode;
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
+    // padding: 20,
     position: 'absolute',
     bottom: 0,
     width: '100%',

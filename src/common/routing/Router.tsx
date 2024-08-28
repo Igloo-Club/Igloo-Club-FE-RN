@@ -7,6 +7,7 @@ import Register from '../../register';
 import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
 import AnswerPage from '../../qna/pages/answerPage';
+import IdealType from '../../idealType';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +38,7 @@ export const Router = () => {
           component={AnswerPage}
           options={{title: '답변 작성'}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Regitser"
           component={Register}
           options={{title: '필수 프로필 등록'}}
@@ -46,6 +47,11 @@ export const Router = () => {
           name="Home"
           component={Home}
           options={{title: 'Overview'}}
+        /> */}
+        <Stack.Screen
+          name="IdealType"
+          component={IdealType}
+          options={{title: '이상형 등록'}}
         />
         <Stack.Screen
           name="QuestionList"
