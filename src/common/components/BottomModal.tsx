@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-interface IBottomModalProps {
+export interface IBottomModalProps {
   isVisible: boolean;
   onClose: () => void;
   children: ReactNode;

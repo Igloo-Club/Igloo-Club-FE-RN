@@ -5,15 +5,13 @@ import {TouchableOpacity} from 'react-native';
 interface IListContainerProps {
   label: string;
   content: string;
-  handleData: (
-    key: string,
-    value: string | number | string[] | boolean,
-  ) => void;
+
+  onModal: () => void;
 }
 
-const ListContainer = ({label, content, handleData}: IListContainerProps) => {
+const ListContainer = ({label, content, onModal}: IListContainerProps) => {
   return (
-    <StContainer>
+    <StContainer onPress={onModal}>
       <StLabelWrapper>
         <StLabel>{label}</StLabel>
         <StValue>{content}</StValue>

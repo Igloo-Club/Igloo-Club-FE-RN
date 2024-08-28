@@ -3,7 +3,7 @@ export const MOCK_IDEAL = {
   preferredAgeEnd: 180,
   preferredHeightStart: 170,
   preferredHeightEnd: 180,
-  mbtiList: ['ISFP', 'ESFP'],
+  mbtiList: ['I', 'T'],
   smoke: true,
   religion: 'BUDDHISM',
   marriagePlan: 1,

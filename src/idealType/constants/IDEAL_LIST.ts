@@ -1,5 +1,10 @@
+interface IIDEAL_LIST {
+  label: string;
+  key: keyof typeof IDEAL_KEY;
+}
+
 //선호 이성 설정 리스트 목록
-export const IDEAL_LIST = [
+export const IDEAL_LIST: IIDEAL_LIST[] = [
   {
     label: '나이 범위',
     key: 'preferredAge',
@@ -25,3 +30,12 @@ export const IDEAL_LIST = [
     key: 'marriagePlan',
   },
 ];
+
+export const IDEAL_KEY = {
+  preferredAge: 'preferredAge',
+  preferredHeight: 'preferredHeight',
+  mbtiList: 'mbtiList',
+  smoke: 'smoke',
+  religion: 'religion',
+  marriagePlan: 'marriagePlan',
+};
