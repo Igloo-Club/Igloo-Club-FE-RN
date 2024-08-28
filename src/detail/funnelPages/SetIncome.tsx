@@ -1,31 +1,49 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {
+  DETAIL_PROFILE_VIEW_CONSTATNS,
+  GROSS_SALARY,
+} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 세전연봉 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const handleSelect = (option: string | number) => {
+    if (typeof option === 'number') {
+      setSelectedOption(option);
+    } else {
+      const matchedOption =
+        GROSS_SALARY.find(o => o.label === option)?.value || null;
+      setSelectedOption(matchedOption);
+    }
+  };
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      handleDetailProfileValue({
+        ...detailProfileValues,
+        grossSalary: selectedOption as number,
+      });
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={56} navigation={navigation} />
+      <DetailProfileHeader percent={56} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -33,21 +51,9 @@ const 세전연봉 = ({
         }{' '}
       </Text>
       <SelectBox
-        options={['4000만원 이하', '4-5000만원']}
+        options={GROSS_SALARY}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['5-6000만원', '6-8000만원']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['8000-1억', '1억 이상']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={handleSelect}
         mode="single"
       />
       <FooterBtn

@@ -6,16 +6,17 @@ import axios, {
 import getRefreshToken from './getRefreshToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Linking} from 'react-native';
+import {VITE_BASE_URL} from '@env';
 
 export const signInInstance = axios.create({
-  baseURL: process.env.VITE_BASE_URL,
+  baseURL: VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const instance = axios.create({
-  baseURL: process.env.VITE_BASE_URL,
+  baseURL: VITE_BASE_URL,
 });
 
 export default instance;

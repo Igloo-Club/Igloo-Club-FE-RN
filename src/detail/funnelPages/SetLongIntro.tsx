@@ -8,13 +8,11 @@ import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 자기소개 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [longIntro, setLongIntro] = useState('');
 
@@ -22,13 +20,12 @@ const 자기소개 = ({
     '저는 여행, 음악, 그리고 맛집 탐방을 사랑하는 26살 여자\n에요. 다양한 취미를 통해 사람들과 소통하는 걸 좋아하고\n새로운 경험을 쌓는 걸 즐겨요. 주말에는 카페에 가거나\n친구들과 맛있는 음식을 찾아다니며 힐링해요. 긍정적인\n에너지를 가진 저와 함께 즐거운 순간들을 나눠보실래요?';
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={96} navigation={navigation} />
+      <DetailProfileHeader percent={96} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)

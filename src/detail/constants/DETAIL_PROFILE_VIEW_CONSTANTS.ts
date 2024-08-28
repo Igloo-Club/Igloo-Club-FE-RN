@@ -27,6 +27,44 @@ export const DETAIL_PROFILE_VIEW_CONSTATNS: DetailProfileViewConstant[] = [
   {step: '자기소개', mainTitle: '마지막이에요!\n자세한 자기소개를 적어주세요.'},
 ];
 
+export const RELIGION = [
+  {value: 'BUDDHISM', label: '불교'},
+  {value: 'CHRISTIANITY', label: '기독교'},
+  {value: 'CATHOLICISM', label: '천주교'},
+  {value: 'ISLAM', label: '이슬람교'},
+  {value: 'OTHER', label: '기타'},
+  {value: 'NONE', label: '무교'},
+];
+
+export const MARRIAGE_PLAN = [
+  {value: 0, label: '미정'},
+  {value: 3, label: '3년 이내'},
+  {value: 5, label: '5년 이내'},
+  {value: 7, label: '7년 이내'},
+];
+
+export const GROSS_SALARY = [
+  {value: 4, label: '4000만 이하'},
+  {value: 5, label: '4~5000만원'},
+  {value: 6, label: '5~6000만원'},
+  {value: 8, label: '6~8000만원'},
+  {value: 10, label: '8000~1억'},
+  {value: 20, label: '1억 이상'},
+];
+
+export const WORK_ARRANGEMENT = [
+  {value: 'ROTATIONAL', label: '순환근무'},
+  {value: 'SHIFT', label: '교대근무'},
+  {value: 'NONE', label: '해당 사항 없어요'},
+];
+
+export const SCALE = [
+  {value: 'LARGE', label: '대기업'},
+  {value: 'MID', label: '중견기업'},
+  {value: 'SMALL', label: '중소기업'},
+  {value: 'STARTUP', label: '스타트업'},
+];
+
 export const HOBBY = [
   {
     value: 'TRIP',

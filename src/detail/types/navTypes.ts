@@ -1,6 +1,8 @@
-import {NavigationProp} from '@react-navigation/native';
+import {DetailProfileTypes} from './detailProfileTypes';
 
 export interface NavTypesProps {
+  onPrev: () => void;
   onNext: () => void;
-  navigation: NavigationProp<any>;
+  handleDetailProfileValue?: (data: DetailProfileTypes) => void;
+  detailProfileValues: DetailProfileTypes;
 }
