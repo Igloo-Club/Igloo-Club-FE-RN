@@ -17,5 +17,11 @@ module.exports = {
         verbose: false,
       },
     ],
+    [
+      '@babel/plugin-transform-private-methods',
+      {
+        loose: true,
+      },
+    ],
   ],
 };
