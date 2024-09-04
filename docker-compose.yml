@@ -1,0 +1,54 @@
+services:
+  database:
+    container_name: nungil-db
+    image: mysql:latest
+    platform: linux/amd64
+    environment:
+      MYSQL_DATABASE: nungilv3
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: nungil1234!
+      TZ: 'Asia/Seoul'
+    ports:
+      - '13306:3306'
+    command:
+      - 'mysqld'
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+    volumes:
+      - db-volume:/var/lib/mysql
+    networks:
+      - nungil-network
+
+  redis:
+    container_name: nungil-redis
+    image: redis:6.2.6-alpine
+    platform: linux/amd64
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass q1w2e3r4! --port 6379
+    networks:
+      - nungil-network
+
+  application:
+    container_name: nungil-app
+    restart: always
+    platform: linux/amd64
+    image: nungil/nungil-be:latest
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://nungil-db:3306/nungilv3
+      SPRING_DATASOURCE_USERNAME: 'root'
+      SPRING_DATASOURCE_PASSWORD: 'nungil1234!'
+    depends_on:
+      - database
+      - redis
+    networks:
+      - nungil-network
+
+networks:
+  nungil-network:
+    driver: bridge
+
+volumes:
+  db-volume:
