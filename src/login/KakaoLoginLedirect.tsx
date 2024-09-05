@@ -1,30 +1,46 @@
+import React from 'react';
 import axios from 'axios';
 import {useEffect} from 'react';
-import {SafeAreaView} from 'react-native';
-import {Text} from 'react-native-svg';
+import {SafeAreaView, Text} from 'react-native';
+import {VITE_BASE_URL} from '@env';
+import styled from '@emotion/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const KakaoLoginRedirect({navigation, route}) {
+const KakaoLoginRedirect = ({navigation, route}) => {
   // params로 인가 코드 넘어옴
-  const code = route.params.token;
+  const _code = route.params.token;
+  console.log(`👀 ${_code}`);
 
   useEffect(() => {
     // 인가 코드가 정상적으로 넘어왔다면 백엔드 서버로 전달
-    if (code) {
-      // CSRF 토큰 가져오기
-      try {
-        axios.post('', {data: code});
-      } catch (err) {
-        console.log(err);
-      }
+    if (_code) {
+      getAccessToken();
     }
-  }, [code]);
+  }, [_code]);
+
+  const getAccessToken = async () => {
+    try {
+      const {data} = await axios.post(`${VITE_BASE_URL}/api/auth/kakao`, {
+        code: _code,
+      });
+
+      console.log(data.accessToken);
+      await AsyncStorage.setItem('accessToken', data.accessToken);
+      navigation.navigate('Register');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <SafeAreaView>
+    <StContainer>
       <Text>Loading...</Text>
-    </SafeAreaView>
+    </StContainer>
   );
-}
+};
 
-export default KakaoLoginRedirect
+export default KakaoLoginRedirect;
 
-//an error in the service settings prevents the service from being used.
+const StContainer = styled(SafeAreaView)`
+  flex: 1;
+`;
