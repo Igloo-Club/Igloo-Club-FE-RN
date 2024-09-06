@@ -6,7 +6,7 @@ import {VITE_BASE_URL} from '@env';
 import styled from '@emotion/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const KakaoLoginRedirect = ({navigation, route}) => {
+const KakaoLoginRedirect = ({navigation, route}: any) => {
   // params로 인가 코드 넘어옴
   const _code = route.params.token;
   console.log(`👀 ${_code}`);
@@ -25,7 +25,7 @@ const KakaoLoginRedirect = ({navigation, route}) => {
       });
 
       console.log(data.accessToken);
-      await AsyncStorage.setItem('accessToken', data.accessToken);
+      await AsyncStorage.setItem('ACCESS_TOKEN', data.accessToken);
       navigation.navigate('Register');
     } catch (err) {
       console.log(err);

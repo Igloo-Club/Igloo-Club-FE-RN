@@ -7,6 +7,11 @@ import getRefreshToken from './getRefreshToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Linking} from 'react-native';
 import {VITE_BASE_URL} from '@env';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from './types';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export const signInInstance = axios.create({
   baseURL: VITE_BASE_URL,
@@ -24,9 +29,11 @@ export default instance;
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
+    const navigation = useNavigation<NavigationProp>();
 
     if (!ACCESS_TOKEN) {
-      Linking.openURL('/추후등록할카카오로그인페이지');
+      navigation.navigate('Login');
+
       return config;
     }
 
