@@ -49,13 +49,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@3.6.4",
-  "babel": {
-    "presets": [
-      "module:metro-react-native-babel-preset"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-private-methods"
-    ]
-  }
+  "packageManager": "yarn@3.6.4"
 }

@@ -26,7 +26,7 @@ const QuestionList = ({navigation}: any) => {
       );
       setQuestions(res.data.content);
     } catch (error) {
-      console.error('Failed to fetch questions:', error);
+      console.error(error);
     }
   };
 
@@ -63,11 +63,17 @@ const QuestionList = ({navigation}: any) => {
             ))}
           </Category>
         </ScrollView>
-        <QuestionsWrapper>
-          {questions.map((question, index) => (
+        {questions.map((question, index) => (
+          <QuestionsWrapper
+            onPress={() =>
+              navigation.navigate('AnswerPage', {
+                question: question.question,
+                questionTitle: question.questionTitle,
+              })
+            }>
             <QuestionTitle key={index}>{question.questionTitle}</QuestionTitle>
-          ))}
-        </QuestionsWrapper>
+          </QuestionsWrapper>
+        ))}
       </Body>
     </View>
   );
@@ -107,6 +113,7 @@ const Body = styled(View)`
 
 const Category = styled(View)`
   flex-direction: row;
+  margin-bottom: 10px;
 `;
 
 const CategoryButton = styled(TouchableOpacity)<{isSelected: boolean}>`
@@ -124,12 +131,15 @@ const CategoryLabel = styled.Text<{isSelected: boolean}>`
   font-weight: 500;
 `;
 
-const QuestionsWrapper = styled(View)`
+const QuestionsWrapper = styled(TouchableOpacity)`
   margin-top: 20px;
+  border-color: #ecebf1;
+  border-bottom-width: 1px;
 `;
 
 const QuestionTitle = styled(Text)`
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #000000;
+  padding-bottom: 20px;
+  color: #303030;
+  font-size: 15px;
+  font-weight: 600;
 `;

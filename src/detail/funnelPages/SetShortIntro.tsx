@@ -25,16 +25,18 @@ const 한줄소개 = ({
       intro: shortIntro,
     };
 
+    console.log(updatedDetailProfileValues);
+
     if (handleDetailProfileValue) {
       handleDetailProfileValue(updatedDetailProfileValues);
     }
 
     try {
-      const response = await instance.post(
+      const res = await instance.post(
         '/api/member/additional',
         updatedDetailProfileValues,
       );
-      if (response.status === 200) {
+      if (res.status === 200) {
         onNext();
       }
     } catch (error) {

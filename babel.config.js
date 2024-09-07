@@ -1,7 +1,6 @@
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
-    // react-native-dotenv
     [
       'module:react-native-dotenv',
       {
@@ -15,6 +14,12 @@ module.exports = {
         safe: false,
         allowUndefined: true,
         verbose: false,
+      },
+    ],
+    [
+      '@babel/plugin-transform-private-methods',
+      {
+        loose: true,
       },
     ],
   ],
