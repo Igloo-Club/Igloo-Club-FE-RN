@@ -26,7 +26,7 @@ const 회사규모 = ({
   const handleNextStep = () => {
     if (handleDetailProfileValue) {
       const valueToSend =
-        SCALE.find(s => s.label === selectedOption)?.value || '';
+        SCALE.find(s => s.value === selectedOption)?.value || '';
       handleDetailProfileValue({
         ...detailProfileValues,
         scale: valueToSend,

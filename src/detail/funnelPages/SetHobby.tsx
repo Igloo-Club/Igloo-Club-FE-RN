@@ -16,7 +16,6 @@ const 취미 = ({
   step,
   handleDetailProfileValue,
   detailProfileValues,
-  navigation,
 }: NavTypesProps & {
   step: string;
 }) => {
@@ -40,8 +39,9 @@ const 취미 = ({
     selectedHobbies.forEach(hobbyValue => {
       const hobby = HOBBY.find(item => item.value === hobbyValue);
       if (hobby) {
-        hobbyList.push({category: hobby.label, name: ''});
-        if (hobby.subCategories.length > 0) {
+        if (hobby.subCategories.length === 0) {
+          hobbyList.push({category: hobby.label, name: hobby.label});
+        } else {
           hobby.subCategories.forEach(subCategory => {
             if (selectedSubCategories.includes(subCategory.value)) {
               hobbyList.push({category: hobby.label, name: subCategory.label});

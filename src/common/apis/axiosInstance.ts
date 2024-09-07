@@ -4,7 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import getRefreshToken from './getRefreshToken';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Linking} from 'react-native';
 import {VITE_BASE_URL} from '@env';
 
@@ -23,8 +23,8 @@ export default instance;
 
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
-
+    const ACCESS_TOKEN =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU0MjYwMzMsImV4cCI6MTcyNTQzMzIzMywic3ViIjoiMSIsImlkIjoxfQ.EncRvcNNXzBul1f38469X94A4rUcv3W9wR7gQlzh11U';
     if (!ACCESS_TOKEN) {
       Linking.openURL('/추후등록할카카오로그인페이지');
       return config;

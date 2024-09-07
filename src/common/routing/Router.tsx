@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {IdProvider} from '../apis/contexts/useIdContext';
 import Home from '../Home';
 import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
@@ -21,24 +22,25 @@ const navTheme = {
 
 export const Router = () => {
   return (
-    <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen
-          name="QnA"
-          component={QnA}
-          options={{title: '추가 답변 등록'}}
-        />
-        <Stack.Screen
-          name="DetailProfile"
-          component={DetailProfile}
-          options={{title: '상세 프로필 등록'}}
-        />
-        <Stack.Screen
-          name="AnswerPage"
-          component={AnswerPage}
-          options={{title: '답변 작성'}}
-        />
-        <Stack.Screen
+    <IdProvider>
+      <NavigationContainer theme={navTheme}>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen
+            name="DetailProfile"
+            component={DetailProfile}
+            options={{title: '상세 프로필 등록'}}
+          />
+          <Stack.Screen
+            name="QnA"
+            component={QnA}
+            options={{title: '추가 답변 등록'}}
+          />
+          <Stack.Screen
+            name="AnswerPage"
+            component={AnswerPage}
+            options={{title: '답변 작성'}}
+          />
+          {/* <Stack.Screen
           name="Regitser"
           component={Register}
           options={{title: '필수 프로필 등록'}}
@@ -47,18 +49,19 @@ export const Router = () => {
           name="Home"
           component={Home}
           options={{title: 'Overview'}}
-        />
-        <Stack.Screen
-          name="IdealType"
-          component={IdealType}
-          options={{title: '이상형 등록'}}
-        />
-        <Stack.Screen
-          name="QuestionList"
-          component={QuestionList}
-          options={{title: '질문 리스트'}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        /> */}
+          <Stack.Screen
+            name="IdealType"
+            component={IdealType}
+            options={{title: '이상형 등록'}}
+          />
+          <Stack.Screen
+            name="QuestionList"
+            component={QuestionList}
+            options={{title: '질문 리스트'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </IdProvider>
   );
 };
