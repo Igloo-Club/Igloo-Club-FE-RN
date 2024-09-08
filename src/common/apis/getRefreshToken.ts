@@ -1,8 +1,11 @@
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {signInInstance} from './axiosInstance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Linking} from 'react-native';
+import {RootStackParamList} from './types';
 
-const getRefreshToken = async () => {
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+
+const getRefreshToken = async (navigation: NavigationProp) => {
   try {
     const {data} = await signInInstance.post('api/auth/refresh');
     console.log('💖', data);
@@ -14,8 +17,7 @@ const getRefreshToken = async () => {
     return true;
   } catch {
     await AsyncStorage.clear();
-
-    Linking.openURL('Login');
+    navigation.navigate('Login');
 
     return false;
   }
