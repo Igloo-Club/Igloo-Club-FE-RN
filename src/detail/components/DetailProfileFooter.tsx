@@ -11,7 +11,7 @@ interface FooterBtnProps {
 const FooterBtn: React.FC<FooterBtnProps> = ({onPress, isDisabled, label}) => {
   return (
     <Footer>
-      <Button onPress={onPress} isDisabled={isDisabled}>
+      <Button onPress={onPress} isDisabled={isDisabled} disabled={isDisabled}>
         <ButtonText>{label}</ButtonText>
       </Button>
     </Footer>

@@ -4,7 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import getRefreshToken from './getRefreshToken';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Linking} from 'react-native';
 import {VITE_BASE_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';

@@ -1,30 +1,87 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import styled from '@emotion/native';
+import instance from '../../common/apis/axiosInstance';
 import {globalStyles} from '../../common/styles/globalStyles';
-import {X} from '../assets/images/x.png';
+import {X} from '../assets/images/index';
 import CountInput from '../components/CountInput';
 import FooterBtn from '../../detail/components/DetailProfileFooter';
+import {useIdContext} from '../../common/apis/contexts/useIdContext';
+import {QuestionTypes} from '../types/QuestionType';
 
-const AnswerPage = ({navigation}: any) => {
+const AnswerPage = ({route, navigation}: any) => {
+  const {question, questionTitle} = route.params;
+  const {exposureNumber, qaId} = useIdContext();
+
   const [answerText, setAnswerText] = useState('');
+  const [answer, setAnswer] = useState<QuestionTypes | null>(null);
+  const [answered, setAnswered] = useState<boolean>();
 
-  const handleSave = async () => {};
+  const handleAnswer = async () => {
+    try {
+      await instance.post('api/questions', {
+        question: question,
+        answer: answerText,
+        exposureOrder: exposureNumber,
+      });
+      navigation.navigate('QnA');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAnswered = async () => {
+    try {
+      const res = await instance.get(`api/questions/${qaId}`);
+      if (question === res.data.question) {
+        setAnswered(true);
+        setAnswer(res.data);
+        setAnswerText(res.data.answer);
+      }
+    } catch (error) {
+      console.log('단일 응답 조회 실패', error);
+    }
+  };
+
+  const handleEdit = async () => {
+    try {
+      await instance.patch(`api/questions/${qaId}`, {
+        answer: answerText,
+        exposureOrder: exposureNumber,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setAnswer(null);
+    setAnswerText('');
+    handleAnswered();
+  }, [qaId]);
+
+  const handleFooterBtn = () => {
+    if (answered) {
+      handleEdit();
+    } else {
+      handleAnswer();
+    }
+  };
 
   return (
     <View style={globalStyles.container}>
       <Header>
-        <BackButton onPress={() => navigation.navigate('QnA')}>
+        <HeaderText>답변 작성</HeaderText>
+        <BackButton onPress={() => navigation.navigate('QuestionList')}>
           <XImg source={X} />
         </BackButton>
-        <HeaderText>답변 작성</HeaderText>
       </Header>
       <Body>
         <Question>
           <Q>Q.</Q>
-          <QMent>{}</QMent>
+          <QMent>{questionTitle}</QMent>
         </Question>
-        <Answer
+        <InputAnswer
           value={answerText}
           onChangeText={setAnswerText}
           placeholder="여기에 답변을 적어보세요"
@@ -34,9 +91,9 @@ const AnswerPage = ({navigation}: any) => {
       <Footer>
         <CountInput text={answerText} />
         <FooterBtn
-          onPress={handleSave}
+          onPress={handleFooterBtn}
           isDisabled={answerText === ''}
-          label="다음으로"
+          label="저장하기"
         />
       </Footer>
     </View>
@@ -77,12 +134,13 @@ const Body = styled(View)`
 
 const Question = styled(View)`
   flex-direction: row;
+  align-items: center;
   gap: 5px;
 `;
 
 const Q = styled.Text`
   color: #d0d6de;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
 `;
 
@@ -90,9 +148,16 @@ const QMent = styled.Text`
   color: ${({theme}) => theme.colors.gray9};
   font-size: 22px;
   font-weight: 700;
+  margin-right: 30px;
 `;
 
-const Answer = styled.TextInput`
+const Answer = styled.Text`
+  color: #303030;
+  font-size: 15px;
+  font-weight: 500;
+`;
+
+const InputAnswer = styled.TextInput`
   padding: 5px;
   color: #303030;
   font-size: 15px;

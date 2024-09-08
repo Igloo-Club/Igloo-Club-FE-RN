@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {
@@ -21,21 +21,27 @@ const 근무형태 = ({
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
+  useEffect(() => {
+    console.log(selectedOptions);
+  }, [selectedOptions]);
+
   const handleNextStep = () => {
     if (handleDetailProfileValue) {
       const valueToSend = WORK_ARRANGEMENT.filter(w =>
-        selectedOptions.includes(w.label),
+        selectedOptions.includes(w.value),
       ).map(w => w.value);
       handleDetailProfileValue({
         ...detailProfileValues,
         workArrangementList: valueToSend,
       });
+      console.log(valueToSend);
     }
     onNext();
   };
 
   const handleSelectOption = (option: string | number) => {
     const optionAsString = option.toString();
+
     if (selectedOptions.includes(optionAsString)) {
       setSelectedOptions(
         selectedOptions.filter(item => item !== optionAsString),

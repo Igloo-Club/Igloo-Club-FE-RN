@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {NavTypesProps} from '../types/navTypes';
 import DetailProfileHeader from '../components/DetailProfileHeader';
@@ -23,10 +23,14 @@ const 종교여부 = ({
     null,
   );
 
+  useEffect(() => {
+    console.log(selectedOption);
+  }, [selectedOption]);
+
   const handleNextStep = () => {
     if (handleDetailProfileValue) {
       const valueToSend =
-        RELIGION.find(r => r.label === selectedOption)?.value || '';
+        RELIGION.find(r => r.value === selectedOption)?.value || '';
       handleDetailProfileValue({
         ...detailProfileValues,
         religion: valueToSend,
