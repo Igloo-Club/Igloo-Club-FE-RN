@@ -56,6 +56,7 @@ instance.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
     };
+    const navigation = useNavigation<NavigationProp>();
 
     if (
       error.response &&
@@ -63,7 +64,7 @@ instance.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const isRefreshSuccessful = await getRefreshToken();
+      const isRefreshSuccessful = await getRefreshToken(navigation);
 
       if (isRefreshSuccessful) {
         return instance(originalRequest);
