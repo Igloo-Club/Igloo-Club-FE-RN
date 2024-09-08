@@ -9,6 +9,7 @@ const Landing = ({navigation}: any) => {
 
   const getAccessToken = async () => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
+
     if (ACCESS_TOKEN) {
       navigation.navigate('Register');
     }

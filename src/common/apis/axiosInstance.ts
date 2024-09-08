@@ -4,8 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import getRefreshToken from './getRefreshToken';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Linking} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {VITE_BASE_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -37,8 +36,9 @@ instance.interceptors.request.use(
       return config;
     }
 
-    if (config.headers) {
-      config.headers.Authorization = `Bearer ${ACCESS_TOKEN}`;
+    if (config.headers && ACCESS_TOKEN !== null) {
+      const token = JSON.parse(ACCESS_TOKEN);
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;

@@ -4,9 +4,10 @@ import {Linking} from 'react-native';
 
 const getRefreshToken = async () => {
   try {
-    const res = await signInInstance.post('api/auth/refresh');
+    const {data} = await signInInstance.post('api/auth/refresh');
+    console.log('💖', data);
 
-    const {accessToken} = res.data;
+    const {accessToken} = data;
 
     await AsyncStorage.setItem('ACCESS_TOKEN', accessToken);
 
@@ -14,7 +15,7 @@ const getRefreshToken = async () => {
   } catch {
     await AsyncStorage.clear();
 
-    Linking.openURL('/추후생성될카카오로그인페이지');
+    Linking.openURL('Login');
 
     return false;
   }
