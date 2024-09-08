@@ -1,77 +1,82 @@
 import React, {useState} from 'react';
-import styled from '@emotion/native';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
-import SelectBox from '../components/SelectBox';
+import SelectGroup from '../components/SelectGroup';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
+type MBTIGroup = 'ei' | 'sn' | 'tf' | 'jp';
+
+const GROUP_OPTIONS: Record<
+  MBTIGroup,
+  {label: string; value: string | number}[]
+> = {
+  ei: ['E', 'I'].map(value => ({label: value, value})),
+  sn: ['S', 'N'].map(value => ({label: value, value})),
+  tf: ['T', 'F'].map(value => ({label: value, value})),
+  jp: ['J', 'P'].map(value => ({label: value, value})),
+};
+
+const GROUP_LABELS: Record<MBTIGroup, string> = {
+  ei: '외향형/내향형',
+  sn: '감각형/직관형',
+  tf: '사고형/감정형',
+  jp: '판단형/인식형',
+};
+
 const 엠비티아이 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
-}: NavTypesProps & {
-  step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
-}) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  handleDetailProfileValue,
+  detailProfileValues,
+}: NavTypesProps & {step: string}) => {
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<MBTIGroup, string | null>
+  >({
+    ei: null,
+    sn: null,
+    tf: null,
+    jp: null,
+  });
 
-  const handleSelect = (option: string) => {
-    setSelectedOptions(prevOptions =>
-      prevOptions.includes(option)
-        ? prevOptions.filter(item => item !== option)
-        : [...prevOptions, option],
-    );
+  const handleSelect = (group: MBTIGroup, option: string | number) => {
+    setSelectedOptions(prevOptions => ({...prevOptions, [group]: option}));
   };
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const mbtiValue = ['ei', 'sn', 'tf', 'jp']
+        .map(group => selectedOptions[group as MBTIGroup] || 'X')
+        .join('');
+      handleDetailProfileValue({...detailProfileValues, mbti: mbtiValue});
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={48} navigation={navigation} />
+      <DetailProfileHeader percent={48} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
             ?.mainTitle
-        }{' '}
+        }
       </Text>
-      <SelectTitle>외향형/내향형</SelectTitle>
-      <SelectBox
-        options={['E', 'I']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectTitle>감각형/직관형</SelectTitle>
-      <SelectBox
-        options={['S', 'N']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectTitle>사고형/감정형</SelectTitle>
-      <SelectBox
-        options={['T', 'F']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectTitle>판단형/인식형</SelectTitle>
-      <SelectBox
-        options={['J', 'P']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
+      {Object.keys(GROUP_OPTIONS).map(group => (
+        <SelectGroup
+          key={group}
+          label={GROUP_LABELS[group as MBTIGroup]}
+          options={GROUP_OPTIONS[group as MBTIGroup]}
+          selectedOption={selectedOptions[group as MBTIGroup]}
+          onSelect={option => handleSelect(group as MBTIGroup, option)}
+        />
+      ))}
       <FooterBtn
         onPress={handleNextStep}
-        isDisabled={!selectedOptions}
+        isDisabled={Object.values(selectedOptions).includes(null)}
         label="다음으로"
       />
     </View>
@@ -79,10 +84,3 @@ const 엠비티아이 = ({
 };
 
 export default 엠비티아이;
-
-const SelectTitle = styled.Text`
-  margin: 0px 0px 5px 10px;
-  color: #646d7a;
-  font-size: 14px;
-  font-weight: 500;
-`;

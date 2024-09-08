@@ -3,22 +3,21 @@ import {TouchableOpacity, View, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Progress from 'react-native-progress';
 import styled from '@emotion/native';
-import {NavigationProp} from '@react-navigation/native';
 
 interface DetailProfileHeaderProps {
   percent: number;
-  navigation: NavigationProp<any>;
+  onPrev?: () => void;
 }
 
 const DetailProfileHeader: React.FC<DetailProfileHeaderProps> = ({
   percent,
-  navigation,
+  onPrev,
 }) => {
   const ArrowLeft = require('../assets/images/ArrowLeft.png');
   return (
     <Container>
       <NavStyles>
-        <BackButton onPress={() => navigation.goBack()}>
+        <BackButton onPress={onPrev}>
           <Arrow source={ArrowLeft} />
         </BackButton>
       </NavStyles>

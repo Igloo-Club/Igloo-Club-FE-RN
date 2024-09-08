@@ -1,31 +1,43 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {
+  DETAIL_PROFILE_VIEW_CONSTATNS,
+  SCALE,
+} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 회사규모 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const valueToSend =
+        SCALE.find(s => s.value === selectedOption)?.value || '';
+      handleDetailProfileValue({
+        ...detailProfileValues,
+        scale: valueToSend,
+      });
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={72} navigation={navigation} />
+      <DetailProfileHeader percent={72} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -33,15 +45,12 @@ const 회사규모 = ({
         }{' '}
       </Text>
       <SelectBox
-        options={['대기업', '중견기업']}
+        options={SCALE.map(scale => ({
+          label: scale.label,
+          value: scale.value,
+        }))}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['중소기업', '스타트업']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={option => setSelectedOption(option)}
         mode="single"
       />
       <FooterBtn

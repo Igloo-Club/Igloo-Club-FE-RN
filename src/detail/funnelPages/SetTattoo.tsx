@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
@@ -8,26 +8,32 @@ import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 문신여부 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  useEffect(() => {}, [step]);
+  const options = [
+    {value: 'true', label: '있다'},
+    {value: 'false', label: '없다'},
+  ];
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const tattooValue = selectedOption === '있다';
+      handleDetailProfileValue({...detailProfileValues, tattoo: tattooValue});
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={24} navigation={navigation} />
+      <DetailProfileHeader percent={24} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -35,9 +41,9 @@ const 문신여부 = ({
         }{' '}
       </Text>
       <SelectBox
-        options={['있다', '없다']}
+        options={options}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={option => setSelectedOption(option as string)}
         mode="single"
       />
       <FooterBtn

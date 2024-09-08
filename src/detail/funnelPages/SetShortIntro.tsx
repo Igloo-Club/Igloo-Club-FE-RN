@@ -6,26 +6,47 @@ import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CO
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
+import instance from '../../common/apis/axiosInstance';
 
 const 한줄소개 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [shortIntro, setShortIntro] = useState('');
 
-  const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
-    onNext();
+  const handleNextStep = async () => {
+    const updatedDetailProfileValues = {
+      ...detailProfileValues,
+      intro: shortIntro,
+    };
+
+    console.log(updatedDetailProfileValues);
+
+    if (handleDetailProfileValue) {
+      handleDetailProfileValue(updatedDetailProfileValues);
+    }
+
+    try {
+      const res = await instance.post(
+        '/api/member/additional',
+        updatedDetailProfileValues,
+      );
+      if (res.status === 200) {
+        onNext();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={88} navigation={navigation} />
+      <DetailProfileHeader percent={88} onPrev={onPrev} />
       <Title>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -55,7 +76,7 @@ const 한줄소개 = ({
       <FooterBtn
         onPress={handleNextStep}
         isDisabled={!shortIntro}
-        label="다음으로"
+        label="프로필 등록 완료하기"
       />
     </View>
   );

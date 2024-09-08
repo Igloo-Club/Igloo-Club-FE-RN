@@ -9,24 +9,26 @@ import {globalStyles} from '../../common/styles/globalStyles';
 import {theme} from '../../common/styles/theme';
 
 const 키입력 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [height, setHeight] = useState('');
+  const [height, setHeight] = useState(0);
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      handleDetailProfileValue({...detailProfileValues, height: height});
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={8} navigation={navigation} />
+      <DetailProfileHeader percent={8} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -36,8 +38,8 @@ const 키입력 = ({
       <InputBox>
         <Input
           placeholder="숫자 입력"
-          value={height}
-          onChangeText={setHeight}
+          value={height.toString()}
+          onChangeText={text => setHeight(Number(text))}
           keyboardType="phone-pad"
         />
         <HeightUnit>cm</HeightUnit>

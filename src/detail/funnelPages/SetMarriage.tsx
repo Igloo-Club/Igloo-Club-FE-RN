@@ -1,31 +1,46 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {
+  DETAIL_PROFILE_VIEW_CONSTATNS,
+  MARRIAGE_PLAN,
+} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {NavTypesProps} from '../types/navTypes';
 
 const 결혼예정여부 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const valueToSend =
+        typeof selectedOption === 'number'
+          ? selectedOption
+          : MARRIAGE_PLAN.find(plan => plan.label === selectedOption)?.value ||
+            0;
+      handleDetailProfileValue({
+        ...detailProfileValues,
+        marriagePlan: valueToSend,
+      });
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={40} navigation={navigation} />
+      <DetailProfileHeader percent={40} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -33,20 +48,14 @@ const 결혼예정여부 = ({
         }{' '}
       </Text>
       <SelectBox
-        options={['미정', '3년 이내']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['5년 이내', '7년 이내']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        options={MARRIAGE_PLAN}
+        selectedOption={selectedOption !== null ? [selectedOption] : []}
+        onSelect={option => setSelectedOption(option)}
         mode="single"
       />
       <FooterBtn
         onPress={handleNextStep}
-        isDisabled={!selectedOption}
+        isDisabled={selectedOption === null}
         label="다음으로"
       />
     </View>

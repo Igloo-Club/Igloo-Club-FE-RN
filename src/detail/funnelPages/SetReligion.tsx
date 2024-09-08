@@ -2,32 +2,46 @@ import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {NavTypesProps} from '../types/navTypes';
 import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {
+  DETAIL_PROFILE_VIEW_CONSTATNS,
+  RELIGION,
+} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
 import FooterBtn from '../components/DetailProfileFooter';
 import {globalStyles} from '../../common/styles/globalStyles';
 
 const 종교여부 = ({
+  onPrev,
   onNext,
   step,
-  setStep,
-  navigation,
+  handleDetailProfileValue,
+  detailProfileValues,
 }: NavTypesProps & {
   step: string;
-  setStep: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
-  useEffect(() => {}, [step]);
+  useEffect(() => {
+    console.log(selectedOption);
+  }, [selectedOption]);
 
   const handleNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (handleDetailProfileValue) {
+      const valueToSend =
+        RELIGION.find(r => r.value === selectedOption)?.value || '';
+      handleDetailProfileValue({
+        ...detailProfileValues,
+        religion: valueToSend,
+      });
+    }
     onNext();
   };
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={16} navigation={navigation} />
+      <DetailProfileHeader percent={16} onPrev={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
@@ -35,21 +49,12 @@ const 종교여부 = ({
         }{' '}
       </Text>
       <SelectBox
-        options={['불교', '기독교']}
+        options={RELIGION.map(religion => ({
+          label: religion.label,
+          value: religion.value,
+        }))}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['천주교', '이슬람']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['기타', '무교']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={option => setSelectedOption(option)}
         mode="single"
       />
       <FooterBtn
