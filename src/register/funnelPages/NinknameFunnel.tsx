@@ -11,7 +11,7 @@ const NinknameFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       step={step}
       onBackPress={onPrev}
       onButtonPress={onNext}
-      isBtnActive={true}>
+      isBtnActive={nickname.length > 0}>
       <View>
         <CoustomTextInput
           label="닉네임"
