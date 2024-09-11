@@ -25,7 +25,7 @@ const navTheme = {
 export const Router = () => {
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
         <Stack.Screen
           name="landing"
           component={Landing}

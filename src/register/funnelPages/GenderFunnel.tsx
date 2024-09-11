@@ -4,7 +4,12 @@ import {IregisterFunnulProps} from '../types/registerFunnelType';
 import SelectBox from '../../detail/components/SelectBox';
 import {GENDER} from '../constatnts/REGISTER_SELECTS';
 
-const GenderFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
+const GenderFunnel = ({
+  step,
+  onNext,
+  onPrev,
+  handleChange,
+}: IregisterFunnulProps) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
     null,
   );
@@ -13,7 +18,12 @@ const GenderFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
     <RegisterLayout
       step={step}
       onBackPress={onPrev}
-      onButtonPress={onNext}
+      onButtonPress={async () => {
+        if (typeof selectedOption === 'string') {
+          await handleChange?.('sex', selectedOption);
+        }
+        onNext();
+      }}
       isBtnActive={typeof selectedOption !== null}>
       <SelectBox
         options={GENDER}

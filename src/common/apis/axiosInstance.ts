@@ -6,7 +6,6 @@ import axios, {
 import getRefreshToken from './getRefreshToken';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {VITE_BASE_URL} from '@env';
-import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 
@@ -28,13 +27,12 @@ export default instance;
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
-    const navigation = useNavigation<NavigationProp>();
 
-    if (!ACCESS_TOKEN) {
-      navigation.navigate('Login');
+    // if (!ACCESS_TOKEN) {
+    //   navigation.navigate('Login');
 
-      return config;
-    }
+    //   return config;
+    // }
 
     if (config.headers && ACCESS_TOKEN !== null) {
       const token = JSON.parse(ACCESS_TOKEN);
@@ -48,29 +46,28 @@ instance.interceptors.request.use(
   },
 );
 
-instance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    return response;
-  },
-  async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-    };
-    const navigation = useNavigation<NavigationProp>();
+// Response 인터셉터 설정
+export const setAxiosInterceptors = (navigation: NavigationProp) => {
+  instance.interceptors.response.use(
+    (response: AxiosResponse) => {
+      return response;
+    },
+    async (error: AxiosError) => {
+      const originalRequest = error.config as InternalAxiosRequestConfig & {
+        _retry?: boolean;
+      };
 
-    if (
-      error.response &&
-      error.response.status === 401 &&
-      !originalRequest._retry
-    ) {
-      originalRequest._retry = true;
-      const isRefreshSuccessful = await getRefreshToken(navigation);
+      // 401 에러 처리
+      if (error.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        const isRefreshSuccessful = await getRefreshToken(navigation);
 
-      if (isRefreshSuccessful) {
-        return instance(originalRequest);
+        if (isRefreshSuccessful) {
+          return instance(originalRequest);
+        }
       }
-    }
 
-    return Promise.reject(error);
-  },
-);
+      return Promise.reject(error);
+    },
+  );
+};
