@@ -34,7 +34,6 @@ const 근무형태 = ({
         ...detailProfileValues,
         workArrangementList: valueToSend,
       });
-      console.log(valueToSend);
     }
     onNext();
   };

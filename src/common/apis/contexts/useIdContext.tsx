@@ -17,7 +17,7 @@ export const IdProvider = ({children}: any) => {
 export const useIdContext = () => {
   const context = useContext(IdContext);
   if (context === undefined) {
-    throw new Error('useExposure 에러');
+    throw new Error('useIdContext 에러');
   }
   return context;
 };
