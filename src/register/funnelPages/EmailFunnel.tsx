@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import RegisterLayout from '../components/RegisterLayout';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
@@ -14,6 +14,8 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
   const [email, setEmail] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authNum, setAuthNum] = useState('');
+
+  useEffect(() => {}, []);
 
   return (
     <>

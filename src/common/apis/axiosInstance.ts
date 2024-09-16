@@ -1,11 +1,11 @@
+// axiosInstance.ts
 import axios, {
   AxiosResponse,
   AxiosError,
   InternalAxiosRequestConfig,
 } from 'axios';
 import getRefreshToken from './getRefreshToken';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Linking} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {VITE_BASE_URL} from '@env';
 
 export const signInInstance = axios.create({
@@ -21,48 +21,51 @@ const instance = axios.create({
 
 export default instance;
 
-instance.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
-    const ACCESS_TOKEN =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU0MjYwMzMsImV4cCI6MTcyNTQzMzIzMywic3ViIjoiMSIsImlkIjoxfQ.EncRvcNNXzBul1f38469X94A4rUcv3W9wR7gQlzh11U';
-    if (!ACCESS_TOKEN) {
-      Linking.openURL('/추후등록할카카오로그인페이지');
-      return config;
-    }
+export const setupInterceptors = (navigation: any) => {
+  instance.interceptors.request.use(
+    async (config: InternalAxiosRequestConfig) => {
+      const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
 
-    if (config.headers) {
-      config.headers.Authorization = `Bearer ${ACCESS_TOKEN}`;
-    }
-
-    return config;
-  },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  },
-);
-
-instance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    return response;
-  },
-  async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-    };
-
-    if (
-      error.response &&
-      error.response.status === 401 &&
-      !originalRequest._retry
-    ) {
-      originalRequest._retry = true;
-      const isRefreshSuccessful = await getRefreshToken();
-
-      if (isRefreshSuccessful) {
-        return instance(originalRequest);
+      if (!ACCESS_TOKEN) {
+        navigation.navigate('Login');
+        return config;
       }
-    }
 
-    return Promise.reject(error);
-  },
-);
+      if (config.headers && ACCESS_TOKEN !== null) {
+        const token = JSON.parse(ACCESS_TOKEN);
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      return config;
+    },
+    (error: AxiosError) => {
+      return Promise.reject(error);
+    },
+  );
+
+  instance.interceptors.response.use(
+    (response: AxiosResponse) => {
+      return response;
+    },
+    async (error: AxiosError) => {
+      const originalRequest = error.config as InternalAxiosRequestConfig & {
+        _retry?: boolean;
+      };
+
+      if (
+        error.response &&
+        error.response.status === 401 &&
+        !originalRequest._retry
+      ) {
+        originalRequest._retry = true;
+        const isRefreshSuccessful = await getRefreshToken(navigation);
+
+        if (isRefreshSuccessful) {
+          return instance(originalRequest);
+        }
+      }
+
+      return Promise.reject(error);
+    },
+  );
+};
