@@ -8,6 +8,7 @@ import ListContainer from './components/ListContainer';
 import {formatIdealListValueText} from './utils/formatIdealListValueText';
 import {MOCK_IDEAL} from './constants/MOCK_IDEALTYPE';
 import IdealTypeModal from './components/IdealTypeModal';
+// import instance from '../common/apis/axiosInstance';
 
 const IdealType = () => {
   const [data, setData] = useState(MOCK_IDEAL);
@@ -23,6 +24,12 @@ const IdealType = () => {
       ...prevData,
       [key]: value,
     }));
+  };
+
+  const submitData = () => {
+    try {
+      // instance.post('api/member/ideal', data);
+    } catch {}
   };
   return (
     <>
@@ -50,7 +57,7 @@ const IdealType = () => {
           );
         })}
         <FooterBtn
-          onPress={() => {}}
+          onPress={submitData}
           isDisabled={data === MOCK_IDEAL}
           label="적용하기"
         />
