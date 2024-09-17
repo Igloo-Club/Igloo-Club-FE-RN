@@ -41,12 +41,27 @@ const 근무형태 = ({
   const handleSelectOption = (option: string | number) => {
     const optionAsString = option.toString();
 
-    if (selectedOptions.includes(optionAsString)) {
-      setSelectedOptions(
-        selectedOptions.filter(item => item !== optionAsString),
-      );
-    } else {
-      setSelectedOptions([...selectedOptions, optionAsString]);
+    if (optionAsString === 'NONE') {
+      // 해당 사항 없어요는 언제나 추가 가능
+      if (selectedOptions.includes('NONE')) {
+        setSelectedOptions(selectedOptions.filter(item => item !== 'NONE'));
+      } else {
+        setSelectedOptions([...selectedOptions, 'NONE']);
+      }
+    } else if (optionAsString === 'ROTATIONAL' || optionAsString === 'SHIFT') {
+      // 순환근무와 교대근무는 중복 선택이 불가능
+      if (selectedOptions.includes(optionAsString)) {
+        // 이미 선택한 항목이면 선택 해제
+        setSelectedOptions(
+          selectedOptions.filter(item => item !== optionAsString),
+        );
+      } else {
+        // 순환근무와 교대근무중 하나만 선택 가능
+        setSelectedOptions([
+          optionAsString,
+          ...selectedOptions.filter(item => item === 'NONE'),
+        ]);
+      }
     }
   };
 

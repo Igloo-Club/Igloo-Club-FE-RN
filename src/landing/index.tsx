@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, TouchableHighlight, View} from 'react-native';
+import {Button, Text, TouchableHighlight, View, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../common/apis/axiosInstance';
-import messaging, {
-  FirebaseMessagingTypes,
-} from '@react-native-firebase/messaging';
-import notifee from '@notifee/react-native';
+
+// ios 푸시 빌드 문제 -> 일단 android에서만 import 하도록
+let messaging;
+let notifee;
+if (Platform.OS === 'android') {
+  messaging = require('@react-native-firebase/messaging').default;
+  notifee = require('@notifee/react-native').default;
+}
 
 const Landing = ({navigation}: any) => {
   const [fcmToken, setFcmToken] = useState('');
@@ -16,7 +20,6 @@ const Landing = ({navigation}: any) => {
 
   const getAccessToken = async () => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
-
     if (ACCESS_TOKEN) {
       navigation.navigate('Register');
     }
@@ -24,85 +27,71 @@ const Landing = ({navigation}: any) => {
 
   // 푸시 알림 테스트 코드 ---
 
-  // FCM 토큰 받기
+  // 안드로이드에서만 푸시 알림 코드 실행
+  useEffect(() => {
+    if (Platform.OS === 'android' && messaging) {
+      getFcmToken();
+      console.log('[+] FCM 메시지 리스너가 등록되었습니다!');
+      const unsubscribe = messaging().onMessage(
+        async remoteMessage => await onMessageReceived(remoteMessage),
+      );
+
+      return () => {
+        console.log('[-] FCM 메시지 리스너가 사라졌습니다!');
+        unsubscribe();
+      };
+    }
+  }, []);
+
+  // FCM 토큰 받기 (안드로이드만)
   const getFcmToken = async () => {
-    const fcmTokenInfo = await messaging().getToken();
-    setFcmToken(fcmTokenInfo);
-    console.log('FCM 토큰 :', fcmToken);
+    if (Platform.OS === 'android' && messaging) {
+      const fcmTokenInfo = await messaging.getToken();
+      setFcmToken(fcmTokenInfo);
+      console.log('FCM 토큰 :', fcmTokenInfo);
+    }
   };
 
-  useEffect(() => {
-    const requestPermission = async () => {
-      const authStatus = await messaging().requestPermission();
-      const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  // FCM 메시지 수신 리스너 등록 (안드로이드만)
+  const onMessageReceived = async (message: any) => {
+    if (Platform.OS === 'android' && notifee) {
+      console.log('title :: ', message.notification!.title);
+      console.log('body :: ', message.notification!.body);
 
-      if (enabled) {
-        console.log('Authorization status:', authStatus);
-      } else {
-        console.log('Notification permission not granted');
-      }
-    };
+      const channelId = await notifee.createChannel({
+        id: 'default',
+        name: 'Default Channel',
+      });
 
-    requestPermission();
-  }, []);
-
-  useEffect(() => {
-    getFcmToken();
-    console.log('[+] FCM 메시지 리스너가 등록되었습니다!');
-    const unsubscribe = messaging().onMessage(
-      async remoteMessage => await onMessageReceived(remoteMessage),
-    ); // 활성 상태 및 포그라운드 상태일때 FCM 메시지 수신
-
-    return () => {
-      console.log('[-] FCM 메시지 리스너가 사라졌습니다!');
-      unsubscribe();
-    };
-  }, []);
-
-  // FCM 메시지 수신 리스너 등록
-  const onMessageReceived = async (
-    message: FirebaseMessagingTypes.RemoteMessage,
-  ) => {
-    console.log('title :: ', message.notification!.title);
-    console.log('body :: ', message.notification!.body);
-
-    // 알림 채널 생성
-    const channelId = await notifee.createChannel({
-      id: 'default',
-      name: 'Default Channel',
-    });
-
-    console.log(channelId);
-    console.log('알림 표시 시작');
-    // 디바이스에 알림 표시
-    await notifee.displayNotification({
-      title: message.notification!.title,
-      body: message.notification!.body,
-      android: {
-        channelId: channelId,
-        smallIcon: 'ic_launcher',
-      },
-    });
+      await notifee.displayNotification({
+        title: message.notification!.title,
+        body: message.notification!.body,
+        android: {
+          channelId: channelId,
+          smallIcon: 'ic_launcher',
+        },
+      });
+    }
   };
 
-  // 푸시 메시지 전송
+  // 푸시 메시지 전송 (안드로이드만)
   const sendPushMessage = async () => {
-    console.log('현재 FCM 토큰: ', fcmToken);
+    if (Platform.OS === 'android') {
+      console.log('현재 FCM 토큰: ', fcmToken);
 
-    const sendInfo = {
-      token: fcmToken,
-      title: '테스트 전송합니다.',
-      body: '테스트로 전송하는 내용입니다.',
-    };
+      const sendInfo = {
+        token: fcmToken,
+        title: '테스트 전송합니다.',
+        body: '테스트로 전송하는 내용입니다.',
+      };
 
-    try {
-      const res = await instance.post('/api/send', sendInfo);
-      const {result, resultCode} = res.data;
-      console.log(result, resultCode);
-    } catch (error) {
-      console.log(`에러가 발생하였습니다: ${error}`);
+      try {
+        const res = await instance.post('/api/send', sendInfo);
+        const {result, resultCode} = res.data;
+        console.log(result, resultCode);
+      } catch (error) {
+        console.log(`에러가 발생하였습니다: ${error}`);
+      }
     }
   };
 
@@ -115,9 +104,11 @@ const Landing = ({navigation}: any) => {
         }}
       />
       <View>
-        <TouchableHighlight onPress={sendPushMessage}>
-          <Text>알람 전송</Text>
-        </TouchableHighlight>
+        {Platform.OS === 'android' && (
+          <TouchableHighlight onPress={sendPushMessage}>
+            <Text>알람 전송</Text>
+          </TouchableHighlight>
+        )}
       </View>
     </>
   );
