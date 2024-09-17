@@ -2,19 +2,32 @@ import React, {useState} from 'react';
 import RegisterLayout from '../components/RegisterLayout';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
 import SelectBox from '../../detail/components/SelectBox';
+import {GENDER} from '../constatnts/REGISTER_SELECTS';
 
-const GenderFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+const GenderFunnel = ({
+  step,
+  onNext,
+  onPrev,
+  handleChange,
+}: IregisterFunnulProps) => {
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
   return (
     <RegisterLayout
       step={step}
       onBackPress={onPrev}
-      onButtonPress={onNext}
-      isBtnActive={typeof selectedOption === 'string'}>
+      onButtonPress={async () => {
+        if (typeof selectedOption === 'string') {
+          await handleChange?.('sex', selectedOption);
+        }
+        onNext();
+      }}
+      isBtnActive={typeof selectedOption !== null}>
       <SelectBox
-        options={['여성', '남성']}
-        selectedOption={selectedOption ? [selectedOption] : []}
+        options={GENDER}
+        selectedOption={selectedOption !== null ? [selectedOption] : []}
         onSelect={setSelectedOption}
         mode="single"
       />

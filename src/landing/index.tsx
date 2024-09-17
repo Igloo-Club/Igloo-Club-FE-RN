@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Landing = ({navigation}: any) => {
   useEffect(() => {
@@ -16,12 +17,14 @@ const Landing = ({navigation}: any) => {
   };
 
   return (
-    <Button
-      title="카카오로그인"
-      onPress={() => {
-        navigation.navigate('Login');
-      }}
-    />
+    <SafeAreaView>
+      <Button
+        title="카카오로그인"
+        onPress={() => {
+          navigation.navigate('Login');
+        }}
+      />
+    </SafeAreaView>
   );
 };
 
