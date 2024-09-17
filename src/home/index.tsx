@@ -12,9 +12,15 @@ const Home = ({navigation}: any) => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
 
     if (!ACCESS_TOKEN) {
-      navigation.navigate('Login');
+      navigation.navigate('Landing');
     }
   };
+
+  const logout = async () => {
+    await AsyncStorage.removeItem('ACCESS_TOKEN');
+    navigation.navigate('Landing');
+  };
+
   return (
     <SafeAreaView>
       <Button
@@ -38,6 +44,7 @@ const Home = ({navigation}: any) => {
         title="추가 답변 등록"
         onPress={() => navigation.navigate('QnA')}
       />
+      <Button title="카카오 로그아웃" onPress={logout} />
     </SafeAreaView>
   );
 };

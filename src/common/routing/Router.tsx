@@ -27,7 +27,7 @@ export const Router = () => {
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
         <Stack.Screen
-          name="landing"
+          name="Landing"
           component={Landing}
           options={{title: 'landing'}}
         />
