@@ -29,6 +29,10 @@ const Home = ({navigation}: any) => {
       />
       <Text>페이지 이동</Text>
       <Button
+        title="로그인 하러 가기"
+        onPress={() => navigation.navigate('Landing')}
+      />
+      <Button
         title="상세 프로필 등록"
         onPress={() => navigation.navigate('DetailProfile')}
       />
