@@ -1,10 +1,17 @@
 import React, {createContext, useContext, useState} from 'react';
 
-const IdContext = createContext<any>(null);
+interface IdContextType {
+  exposureNumber: number;
+  setExposureNumber: (exposureNumber: number) => void;
+  qaId: number;
+  setQaId: (qaId: number) => void;
+}
 
-export const IdProvider = ({children}: any) => {
-  const [exposureNumber, setExposureNumber] = useState<number | null>(null);
-  const [qaId, setQaId] = useState<number | null>(null);
+const IdContext = createContext<IdContextType | null>(null);
+
+export const IdProvider: React.FC = ({children}: any) => {
+  const [exposureNumber, setExposureNumber] = useState(0);
+  const [qaId, setQaId] = useState(0);
 
   return (
     <IdContext.Provider
