@@ -27,9 +27,9 @@ export const Router = () => {
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen
-          name="DetailProfile"
-          component={DetailProfile}
-          options={{title: '상세 프로필 등록'}}
+          name="QnA"
+          component={QnA}
+          options={{title: '추가 답변 등록'}}
         />
         <Stack.Screen
           name="landing"
@@ -45,11 +45,7 @@ export const Router = () => {
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
         />
-        <Stack.Screen
-          name="QnA"
-          component={QnA}
-          options={{title: '추가 답변 등록'}}
-        />
+
         <Stack.Screen
           name="AnswerPage"
           component={AnswerPage}
@@ -59,6 +55,11 @@ export const Router = () => {
           name="Register"
           component={Register}
           options={{title: '필수 프로필 등록'}}
+        />
+        <Stack.Screen
+          name="DetailProfile"
+          component={DetailProfile}
+          options={{title: '상세 프로필 등록'}}
         />
         <Stack.Screen
           name="Home"
