@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "920518159657",
+    "project_id": "fcmfornungil",
+    "storage_bucket": "fcmfornungil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920518159657:android:0cd3191af9bc6daed89b38",
+        "android_client_info": {
+          "package_name": "com.nungil_rn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHXJdp5gss9Zx3z8si074teFPO8KgDE88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

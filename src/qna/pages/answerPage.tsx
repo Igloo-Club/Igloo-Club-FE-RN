@@ -14,7 +14,7 @@ const AnswerPage = ({route, navigation}: any) => {
   const {exposureNumber, qaId} = useIdContext();
 
   const [answerText, setAnswerText] = useState('');
-  const [answer, setAnswer] = useState<QuestionTypes | null>(null);
+  const [, setAnswer] = useState<QuestionTypes | null>(null);
   const [answered, setAnswered] = useState<boolean>();
 
   const handleAnswer = async () => {
