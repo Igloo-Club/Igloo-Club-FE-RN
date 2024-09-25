@@ -5,6 +5,12 @@ import SelectBox from '../../detail/components/SelectBox';
 import useSelectOptions from '../../common/hooks/useSelectOptions';
 import {checkArraysEqual} from '../utils/checkArraysEqual';
 import RangeSlider from '../../common/components/rangeSlider';
+import {
+  IDEAL_MARRY_OPTION,
+  IDEAL_MBTI_OPTION,
+  IDEAL_RELIGION_OPTION,
+  IDEAL_SMOKE_OPTION,
+} from '../constants/IDEAL_OPTIONS';
 
 export const 선호나이 = ({
   value,
@@ -93,25 +99,7 @@ export const 선호성격유형 = ({
         선호하지 않는 요소를 선택해주세요
       </St.IdealRenderStyles.SubTitle>
       <SelectBox
-        options={['E', 'I']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectBox
-        options={['S', 'N']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectBox
-        options={['T', 'F']}
-        selectedOption={selectedOptions}
-        onSelect={handleSelect}
-        mode="multiple"
-      />
-      <SelectBox
-        options={['J', 'P']}
+        options={IDEAL_MBTI_OPTION}
         selectedOption={selectedOptions}
         onSelect={handleSelect}
         mode="multiple"
@@ -131,22 +119,21 @@ export const 선호흡연여부 = ({
   value,
   handleData,
 }: {
-  value: string;
+  value: number;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(value);
+  const [selectedOption, setSelectedOption] = useState<number>(value);
+
+  const handleSelect = (value: any) => {
+    setSelectedOption(value);
+  };
+
   return (
     <>
       <SelectBox
-        options={['흡연', '비흡연']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['상관없어요']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        options={IDEAL_SMOKE_OPTION}
+        selectedOption={selectedOption !== null ? [selectedOption] : []}
+        onSelect={handleSelect}
         mode="single"
       />
       <FooterBtn
@@ -168,30 +155,16 @@ export const 선호종교 = ({
   handleData: (changedValue: typeof value) => void;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(value);
+  const handleSelect = (value: any) => {
+    setSelectedOption(value);
+  };
+
   return (
     <>
       <SelectBox
-        options={['불교', '기독교']}
+        options={IDEAL_RELIGION_OPTION}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['천주교', '이슬람']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['기타', '무교']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['상관없어요']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={handleSelect}
         mode="single"
       />
       <FooterBtn
@@ -209,22 +182,19 @@ export const 선호결혼계획 = ({
   value,
   handleData,
 }: {
-  value: string;
+  value: number;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(value);
+  const [selectedOption, setSelectedOption] = useState<number>(value);
+  const handleSelect = (value: any) => {
+    setSelectedOption(value);
+  };
   return (
     <>
       <SelectBox
-        options={['3년 이내', '5년 이내']}
+        options={IDEAL_MARRY_OPTION}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
-        mode="single"
-      />
-      <SelectBox
-        options={['10년 이내', '없음']}
-        selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={setSelectedOption}
+        onSelect={handleSelect}
         mode="single"
       />
       <FooterBtn

@@ -29,7 +29,7 @@ const RegisterLayout = ({
           <Text>&lt;</Text>
         </BackButton>
         <Title>{currentStep?.mainTitle}</Title>
-        <SubTitle>{currentStep?.subTitle}</SubTitle>
+        {currentStep?.subTitle && <SubTitle>{currentStep?.subTitle}</SubTitle>}
       </Header>
       <Content>{children}</Content>
       <Footer>
@@ -55,7 +55,7 @@ const Container = styled(SafeAreaView)`
 `;
 
 const Header = styled.View`
-  margin-bottom: 29px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -111,6 +111,7 @@ const SubTitle = styled.Text`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.3px;
+  margin-top: 16px;
 `;
 
 const Title = styled.Text`
@@ -121,6 +122,4 @@ const Title = styled.Text`
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.3px;
-
-  margin-bottom: 16px;
 `;

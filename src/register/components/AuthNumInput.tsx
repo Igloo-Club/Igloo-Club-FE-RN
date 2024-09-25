@@ -14,7 +14,7 @@ const AuthNumInput = ({value, onChangeNum}: IAuthNumInputProps) => {
         placeholder="인증번호 6자리 입력"
         value={value}
         onChangeText={onChangeNum}
-        keyboardType="default"
+        keyboardType="number-pad"
         autoCapitalize="none"
       />
       <ReSendBtn onPress={() => {}}>

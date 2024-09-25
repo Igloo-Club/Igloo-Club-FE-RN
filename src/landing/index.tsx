@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../common/apis/axiosInstance';
 
 // ios 푸시 빌드 문제 -> 일단 android에서만 import 하도록
-let messaging;
-let notifee;
+let messaging: any;
+let notifee: any;
 if (Platform.OS === 'android') {
   messaging = require('@react-native-firebase/messaging').default;
   notifee = require('@notifee/react-native').default;
@@ -21,7 +21,7 @@ const Landing = ({navigation}: any) => {
   const getAccessToken = async () => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
     if (ACCESS_TOKEN) {
-      navigation.navigate('Register');
+      navigation.navigate('Home');
     }
   };
 
@@ -33,7 +33,7 @@ const Landing = ({navigation}: any) => {
       getFcmToken();
       console.log('[+] FCM 메시지 리스너가 등록되었습니다!');
       const unsubscribe = messaging().onMessage(
-        async remoteMessage => await onMessageReceived(remoteMessage),
+        async (remoteMessage: any) => await onMessageReceived(remoteMessage),
       );
 
       return () => {
