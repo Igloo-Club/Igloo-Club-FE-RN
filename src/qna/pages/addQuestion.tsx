@@ -20,7 +20,7 @@ const QnA = ({navigation}: any) => {
   const subtitle =
     '내가 어떤 사람인지 더 자세히 어필할 수 있어요.\n최대 3가지 질문을 프로필에 등록해 보세요.';
 
-  const navigateToQList = (number: number, qaId: number | null) => {
+  const navigateToQList = (number: number, qaId: number) => {
     setExposureNumber(number);
     setQaId(qaId);
     navigation.navigate('QuestionList');
@@ -59,7 +59,7 @@ const QnA = ({navigation}: any) => {
         {questions.map((question, index) => (
           <AddButton
             key={index}
-            onPress={() => navigateToQList(index, question?.qaId || null)}
+            onPress={() => navigateToQList(index, question ? question.qaId : 0)}
             question={!!question}>
             {question ? (
               <AnswerBox>

@@ -21,7 +21,7 @@ const Landing = ({navigation}: any) => {
   const getAccessToken = async () => {
     const ACCESS_TOKEN = await AsyncStorage.getItem('ACCESS_TOKEN');
     if (ACCESS_TOKEN) {
-      navigation.navigate('Register');
+      navigation.navigate('Home');
     }
   };
 
@@ -33,7 +33,7 @@ const Landing = ({navigation}: any) => {
       getFcmToken();
       console.log('[+] FCM 메시지 리스너가 등록되었습니다!');
       const unsubscribe = messaging().onMessage(
-        async remoteMessage => await onMessageReceived(remoteMessage),
+        async (remoteMessage: any) => await onMessageReceived(remoteMessage),
       );
 
       return () => {

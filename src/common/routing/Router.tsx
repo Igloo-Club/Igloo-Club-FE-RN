@@ -27,11 +27,6 @@ export const Router = () => {
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen
-          name="QnA"
-          component={QnA}
-          options={{title: '추가 답변 등록'}}
-        />
-        <Stack.Screen
           name="landing"
           component={Landing}
           options={{title: 'landing'}}
@@ -70,6 +65,11 @@ export const Router = () => {
           name="IdealType"
           component={IdealType}
           options={{title: '이상형 등록'}}
+        />
+        <Stack.Screen
+          name="QnA"
+          component={QnA}
+          options={{title: '추가 답변 등록'}}
         />
         <Stack.Screen
           name="QuestionList"

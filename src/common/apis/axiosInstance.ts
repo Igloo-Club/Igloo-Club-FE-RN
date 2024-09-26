@@ -15,6 +15,10 @@ export const signInInstance = axios.create({
   },
 });
 
+export const noAuthInstance = axios.create({
+  baseURL: VITE_BASE_URL,
+});
+
 const instance = axios.create({
   baseURL: VITE_BASE_URL,
 });
