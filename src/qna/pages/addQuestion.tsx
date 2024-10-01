@@ -49,7 +49,7 @@ const QnA = ({navigation}: any) => {
   return (
     <View style={globalStyles.container}>
       <Header>
-        <BackButton onPress={() => navigation.navigate('마이페이지')}>
+        <BackButton onPress={() => navigation.navigate('Home')}>
           <Arrow source={ArrowLeft} />
         </BackButton>
       </Header>

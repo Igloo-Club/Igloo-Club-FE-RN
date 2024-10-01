@@ -1,3 +1,9 @@
+import {
+  IDEAL_MARRY_OPTION,
+  IDEAL_RELIGION_OPTION,
+  IDEAL_SMOKE_OPTION,
+  findLabelByValue,
+} from '../constants/IDEAL_OPTIONS';
 import {MOCK_IDEAL} from '../constants/MOCK_IDEALTYPE';
 
 export const formatIdealListValueText = (
@@ -12,17 +18,11 @@ export const formatIdealListValueText = (
     case '성격 유형':
       return data.mbtiList.join(', ');
     case '흡연 여부':
-      return data.smoke;
+      return findLabelByValue(IDEAL_SMOKE_OPTION, data.smoke);
     case '종교':
-      return data.religion === 'BUDDHISM'
-        ? '불교'
-        : data.religion === 'CATHOLIC'
-        ? '천주교'
-        : data.religion === 'CHRISTIAN'
-        ? '기독교'
-        : '기타';
+      return findLabelByValue(IDEAL_RELIGION_OPTION, data.religion);
     case '결혼 계획':
-      return data.marriagePlan;
+      return findLabelByValue(IDEAL_MARRY_OPTION, data.marriagePlan);
     default:
       return '';
   }

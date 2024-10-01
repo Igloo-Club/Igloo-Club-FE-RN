@@ -11,7 +11,7 @@ import styled from '@emotion/native';
 import {globalStyles} from '../../common/styles/globalStyles';
 import ArrowLeft from '../../detail/assets/images';
 import {CATEGORY} from '../constants/CATEGORY_CONSTANTS';
-import {noAuthInstance} from '../../common/apis/axiosInstance';
+import instance from '../../common/apis/axiosInstance';
 
 const QuestionList = ({navigation}: any) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
@@ -21,7 +21,7 @@ const QuestionList = ({navigation}: any) => {
 
   const handleQuestions = async (questionCategory: string) => {
     try {
-      const res = await noAuthInstance.get(
+      const res = await instance.get(
         `api/questions/category/${questionCategory}?page=0&size=10`,
       );
       setQuestions(res.data.content);

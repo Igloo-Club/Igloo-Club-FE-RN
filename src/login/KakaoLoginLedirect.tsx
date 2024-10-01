@@ -23,13 +23,12 @@ const KakaoLoginRedirect = ({navigation, route}: any) => {
       const {data} = await axios.post(`${VITE_BASE_URL}/api/auth/kakao`, {
         code: _code,
       });
-
       const stringValue = JSON.stringify(data.accessToken);
       console.log(stringValue);
       await AsyncStorage.setItem('ACCESS_TOKEN', stringValue);
       navigation.navigate('Home');
     } catch (err) {
-      console.log(err);
+      console.log('🥲', err);
     }
   };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../Home';
 import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
 import QnA from '../../qna/pages/addQuestion';
@@ -11,6 +10,8 @@ import IdealType from '../../idealType';
 import Login from '../../login';
 import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 import Landing from '../../landing';
+import Home from '../../home';
+import MainPage from '../../main/pages/mainPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,22 +26,32 @@ const navTheme = {
 export const Router = () => {
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
         <Stack.Screen
-          name="landing"
+          name="Landing"
           component={Landing}
           options={{title: 'landing'}}
+        />
+        <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{title: '메인 페이지'}}
         />
         <Stack.Screen
           name="Login"
           component={Login}
           options={{title: '로그인'}}
         />
+        <Stack.Screen name="Home" component={Home} options={{title: 'home'}} />
         <Stack.Screen
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
         />
-
+        <Stack.Screen
+          name="DetailProfile"
+          component={DetailProfile}
+          options={{title: '상세 프로필 등록'}}
+        />
         <Stack.Screen
           name="AnswerPage"
           component={AnswerPage}
@@ -50,16 +61,6 @@ export const Router = () => {
           name="Register"
           component={Register}
           options={{title: '필수 프로필 등록'}}
-        />
-        <Stack.Screen
-          name="DetailProfile"
-          component={DetailProfile}
-          options={{title: '상세 프로필 등록'}}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{title: 'Overview'}}
         />
         <Stack.Screen
           name="IdealType"

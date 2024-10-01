@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../common/apis/axiosInstance';
 
 // ios 푸시 빌드 문제 -> 일단 android에서만 import 하도록
-let messaging;
-let notifee;
+let messaging: any;
+let notifee: any;
 if (Platform.OS === 'android') {
   messaging = require('@react-native-firebase/messaging').default;
   notifee = require('@notifee/react-native').default;
