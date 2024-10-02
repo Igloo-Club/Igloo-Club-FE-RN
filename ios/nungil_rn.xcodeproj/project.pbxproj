@@ -169,8 +169,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				9ED2ECE20F42F2DA28EC3BDC /* [CP] Embed Pods Frameworks */,
-				5C35074B0A9863594912C25E /* [CP] Copy Pods Resources */,
+				5427C99230569CB91D21E31C /* [CP] Copy Pods Resources */,
+				4F5BE2BCDFBD15997E841041 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,9 +191,9 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				378AAB014F54DBF348BB130C /* [CP] Embed Pods Frameworks */,
-				D6B6AA5B572D24D27582C9AA /* [CP] Copy Pods Resources */,
-				D2796FB654B0208C060E8EA5 /* [CP-User] [RNFB] Core Configuration */,
+				547FCD13E57F2747B7AD39E4 /* [CP] Copy Pods Resources */,
+				1F82FB5AB1A37B8AB8F431B1 /* [CP-User] [RNFB] Core Configuration */,
+				2E90EDD487D961BF3B3C95F0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,7 +295,41 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nungil_rn/Pods-nungil_rn-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C35074B0A9863594912C25E /* [CP] Copy Pods Resources */ = {
+		2E90EDD487D961BF3B3C95F0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nungil_rn/Pods-nungil_rn-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nungil_rn/Pods-nungil_rn-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nungil_rn/Pods-nungil_rn-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F5BE2BCDFBD15997E841041 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nungil_rn-nungil_rnTests/Pods-nungil_rn-nungil_rnTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nungil_rn-nungil_rnTests/Pods-nungil_rn-nungil_rnTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nungil_rn-nungil_rnTests/Pods-nungil_rn-nungil_rnTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5427C99230569CB91D21E31C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

@@ -48,6 +48,11 @@ export const Router = () => {
           component={KakaoLoginRedirect}
         />
         <Stack.Screen
+          name="QnA"
+          component={QnA}
+          options={{title: '추가 답변 등록'}}
+        />
+        <Stack.Screen
           name="DetailProfile"
           component={DetailProfile}
           options={{title: '상세 프로필 등록'}}
@@ -66,11 +71,6 @@ export const Router = () => {
           name="IdealType"
           component={IdealType}
           options={{title: '이상형 등록'}}
-        />
-        <Stack.Screen
-          name="QnA"
-          component={QnA}
-          options={{title: '추가 답변 등록'}}
         />
         <Stack.Screen
           name="QuestionList"
