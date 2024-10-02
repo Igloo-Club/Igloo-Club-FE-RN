@@ -11,6 +11,7 @@ import Login from '../../login';
 import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 import Landing from '../../landing';
 import Home from '../../home';
+import MainPage from '../../main/pages/mainPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,11 @@ export const Router = () => {
           name="Landing"
           component={Landing}
           options={{title: 'landing'}}
+        />
+        <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{title: '메인 페이지'}}
         />
         <Stack.Screen
           name="Login"
