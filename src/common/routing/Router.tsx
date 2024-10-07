@@ -12,6 +12,7 @@ import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 import Landing from '../../landing';
 import Home from '../../home';
 import MainPage from '../../main/pages/mainPage';
+import Chat from '../../chat';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +78,7 @@ export const Router = () => {
           component={QuestionList}
           options={{title: '질문 리스트'}}
         />
+        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
