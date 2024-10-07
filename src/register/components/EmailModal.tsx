@@ -38,12 +38,17 @@ const EmailModal = ({
     <BottomModal
       isVisible={isModalOpen}
       onClose={() => {
-        setIsModalOpen(false);
+        setIsModalOpen(true);
       }}>
       <StEmailModal.Container>
         <STFlexRow_sb>
           <StEmailModal.Title>인증번호 입력</StEmailModal.Title>
-          <StXBtn source={closeBtnIMG} />
+          <TouchableOpacity
+            onPress={() => {
+              setIsModalOpen(false);
+            }}>
+            <StXBtn source={closeBtnIMG} />
+          </TouchableOpacity>
         </STFlexRow_sb>
         <STFlexRow_sb>
           <StEmailModal.InfoText>이메일 주소 | {email}</StEmailModal.InfoText>
