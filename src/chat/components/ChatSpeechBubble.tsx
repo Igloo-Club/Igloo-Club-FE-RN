@@ -11,7 +11,7 @@ const ChatSppechBubble = () => {
     <StBubbleContainer isSender={isSender}>
       {isSender && <StTime>{formatAMPM(createdAt)}</StTime>}
       <StBubble isSender={isSender}>
-        <Text>ㅎㅇㅎㅇ</Text>
+        <StBubbleText isSender={isSender}>ㅎㅇㅎㅇ</StBubbleText>
       </StBubble>
       {isSender || <StTime>{formatAMPM(createdAt)}</StTime>}
     </StBubbleContainer>
@@ -39,11 +39,15 @@ const StBubble = styled(View)<{isSender: boolean}>`
   max-width: 250px;
   padding: 12px;
   margin-left: ${({isSender}) => (isSender ? '0' : '7px')};
-  color: ${({theme, isSender}) =>
-    isSender ? theme.colors.white : theme.colors.black};
+
   background-color: ${({theme, isSender}) =>
     isSender ? theme.colors.primary : '#F2F2F2'};
   border-radius: 17px;
 
   ${({theme}) => theme.fonts.body1r};
+`;
+
+const StBubbleText = styled(Text)<{isSender: boolean}>`
+  color: ${({theme, isSender}) =>
+    isSender ? theme.colors.white : theme.colors.black};
 `;
