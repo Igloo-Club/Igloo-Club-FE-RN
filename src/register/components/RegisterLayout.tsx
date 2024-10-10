@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import React, {ReactNode} from 'react';
 import {RegisterstepType} from '../types/registerFunnelType';
 import {findByStepRegister} from '../constatnts/REGISTER_VIEW_CONSTANTS';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface RegisterStepLayoutProps {
@@ -54,7 +54,7 @@ const Container = styled(SafeAreaView)`
   padding: 25px 20px 56px 20px;
 `;
 
-const Header = styled.View`
+const Header = styled(View)`
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ const ButtonText = styled.Text<{disabled: boolean}>`
   font-size: 17px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
   color: ${({disabled, theme}) => (disabled ? '#bbc0ca' : theme.colors.white)};
 `;
@@ -109,7 +109,7 @@ const SubTitle = styled.Text`
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+
   letter-spacing: -0.3px;
   margin-top: 16px;
 `;
@@ -120,6 +120,6 @@ const Title = styled.Text`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
 `;

@@ -73,9 +73,10 @@ const SelectWrapper = styled(View)`
 const SelectBtn = styled(TouchableOpacity)<{isSelected: boolean}>`
   width: 150px;
   margin: 5px 5px;
-  padding: 28px 0;
+  padding: 28px 0px;
   border-radius: 10px;
-  border: ${({isSelected}) => (isSelected ? '1.5px #FF6C62;' : '1px #E5E8ED;')};
+  border: ${({isSelected}) =>
+    isSelected ? '1.5px solid #FF6C62;' : '1px solid #E5E8ED;'};
 `;
 
 const StContainer = styled(View)`

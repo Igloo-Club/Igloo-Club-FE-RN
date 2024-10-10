@@ -7,7 +7,6 @@ export const IdealRenderStyles = {
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;
     letter-spacing: -0.3px;
     padding: 14px 0 20px;
   `,

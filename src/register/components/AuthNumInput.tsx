@@ -47,7 +47,6 @@ const Input = styled(TextInput)`
   font-size: 19px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
   letter-spacing: -0.3px;
 
   & ::placeholder {
@@ -71,6 +70,5 @@ const ReSendBtnText = styled.Text`
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
   letter-spacing: -0.3px;
 `;
