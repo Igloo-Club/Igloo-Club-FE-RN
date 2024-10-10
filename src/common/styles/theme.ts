@@ -28,16 +28,14 @@ type Font = {
   size: number;
   style: string;
   weight: number;
-  lineheight: string;
 };
 
-const FONT = ({family, size, style, weight, lineheight}: Font): string => `
+const FONT = ({family, size, style, weight}: Font): string => `
   font-family: ${family};
   font-size: ${size}px;
   font-style: ${style};
   font-weight: ${weight};
-  line-height: ${lineheight};
-  letter-spacing: -0.03rem;
+  letter-spacing: -0.3px;
 `;
 
 const fonts = {
@@ -46,119 +44,102 @@ const fonts = {
     size: 22,
     style: 'normal',
     weight: 700,
-    lineheight: 'normal',
   }),
   subtitle1: FONT({
     family: 'Pretendard Variable',
     size: 22,
     style: 'normal',
     weight: 500,
-    lineheight: 'normal',
   }),
   subtitle2b: FONT({
     family: 'Pretendard Variable',
     size: 20,
     style: 'normal',
     weight: 700,
-    lineheight: 'normal',
   }),
   subtitle2m: FONT({
     family: 'Pretendard Variable',
     size: 20,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   subtitle3: FONT({
     family: 'Pretendard Variable',
     size: 16,
     style: 'normal',
     weight: 600,
-    lineheight: 'normal',
   }),
   body1: FONT({
     family: 'Pretendard Variable',
     size: 15,
     style: 'normal',
     weight: 700,
-    lineheight: 'normal',
   }),
   body1b: FONT({
     family: 'Pretendard Variable',
     size: 15,
     style: 'normal',
     weight: 600,
-    lineheight: 'normal',
   }),
   body1m: FONT({
     family: 'Pretendard Variable',
     size: 15,
     style: 'normal',
     weight: 500,
-    lineheight: 'normal',
   }),
   body1r: FONT({
     family: 'Pretendard Variable',
     size: 15,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   body2b: FONT({
     family: 'Pretendard Variable',
     size: 14,
     style: 'normal',
     weight: 600,
-    lineheight: 'normal',
   }),
   body2m: FONT({
     family: 'Pretendard Variable',
     size: 14,
     style: 'normal',
     weight: 500,
-    lineheight: 'normal',
   }),
   body2r: FONT({
     family: 'Pretendard Variable',
     size: 14,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   body3m: FONT({
     family: 'Pretendard Variable',
     size: 13,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   body3: FONT({
     family: 'Pretendard Variable',
     size: 12,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   button1b: FONT({
     family: 'Pretendard Variable',
     size: 15,
     style: 'normal',
     weight: 700,
-    lineheight: 'normal',
   }),
   button2m: FONT({
     family: 'Pretendard Variable',
     size: 14,
     style: 'normal',
     weight: 400,
-    lineheight: 'normal',
   }),
   caption: FONT({
     family: 'Pretendard Variable',
     size: 12,
     style: 'normal',
     weight: 300,
-    lineheight: 'normal',
   }),
 };
 

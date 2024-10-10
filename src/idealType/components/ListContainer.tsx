@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 
 interface IListContainerProps {
   label: string;
@@ -29,12 +29,12 @@ const StContainer = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 0;
+  padding: 15px 0px;
   border-bottom-width: 1px;
   border-bottom-color: #ecebf1;
 `;
 
-const StLabelWrapper = styled.View`
+const StLabelWrapper = styled(View)`
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -46,7 +46,6 @@ const StLabel = styled.Text`
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.3px;
 `;
 
@@ -56,7 +55,6 @@ const StValue = styled.Text`
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
   letter-spacing: -0.3px;
 `;
 

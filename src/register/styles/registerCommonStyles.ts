@@ -5,6 +5,6 @@ export const Title = styled.Text`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
 `;

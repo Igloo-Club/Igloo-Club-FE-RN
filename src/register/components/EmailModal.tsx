@@ -69,7 +69,7 @@ const BaseInfoText = styled.Text`
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
+
   letter-spacing: -0.3px;
 `;
 
@@ -89,7 +89,7 @@ const ButtonText = styled.Text<{disabled: boolean}>`
   font-size: 17px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
   color: ${({disabled, theme}) => (disabled ? '#bbc0ca' : theme.colors.white)};
 `;
@@ -110,7 +110,7 @@ const StEmailModal = {
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+
     letter-spacing: -0.3px;
   `,
   InfoText: BaseInfoText,

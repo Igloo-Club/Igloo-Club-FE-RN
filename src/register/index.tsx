@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import useFunnel from '../common/hooks/useFunnel';
 import EmailFunnel from './funnelPages/EmailFunnel';
 import {RegisterstepType} from './types/registerFunnelType';
@@ -14,10 +14,6 @@ type HandleChangeType = (key: keyof essentialType, value: string) => void;
 
 const Register = ({navigation}: any) => {
   const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
-
-  useEffect(() => {
-    console.log(profile);
-  });
 
   const [profile, setProfile] = useState<essentialType>({
     nickname: '',
@@ -39,6 +35,7 @@ const Register = ({navigation}: any) => {
   const submitEssential = async () => {
     try {
       //api
+      console.log(profile);
       setStep(RegisterstepType[5]);
     } catch (err) {
       console.log(err);
