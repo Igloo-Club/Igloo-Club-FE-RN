@@ -22,8 +22,6 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
     }
   };
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <RegisterLayout

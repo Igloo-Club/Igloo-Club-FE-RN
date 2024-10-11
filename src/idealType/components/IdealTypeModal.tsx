@@ -128,7 +128,6 @@ const StTitle = styled.Text`
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
   letter-spacing: -0.3px;
 `;
 
