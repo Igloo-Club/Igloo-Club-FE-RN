@@ -16,6 +16,7 @@ const BirthFunnel = ({
   const minDate = getAdultMinimumDate();
 
   console.log(formatDate(date));
+  console.log(minDate);
   return (
     <RegisterLayout
       step={step}
