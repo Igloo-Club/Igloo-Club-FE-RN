@@ -12,10 +12,9 @@ const BirthFunnel = ({
   onPrev,
   handleChange,
 }: IregisterFunnulProps) => {
-  const [date, setDate] = useState(new Date());
   const minDate = getAdultMinimumDate();
+  const [date, setDate] = useState(new Date(minDate));
 
-  console.log(formatDate(date));
   return (
     <RegisterLayout
       step={step}

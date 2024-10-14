@@ -57,10 +57,13 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
         {response?.assets && response.assets[0].uri ? (
           <StImg source={{uri: response.assets[0].uri}} />
         ) : (
-          <>
+          <StImgContainer>
+            <StMainIMGtag>
+              <StMainTagText>대표</StMainTagText>
+            </StMainIMGtag>
             <Text>+</Text>
             <Text>사진 추가</Text>
-          </>
+          </StImgContainer>
         )}
       </StIMGWrapperMain>
       <StSmallContainer>
@@ -92,6 +95,7 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
 export default ImagePicker;
 
 const StIMGWrapper = styled(TouchableOpacity)`
+  position: relative;
   background-color: #fafafb;
   width: 110px;
   height: 110px;
@@ -125,4 +129,32 @@ const StImg = styled(Image)`
   width: 100%;
   height: 100%;
   border-radius: 10px;
+`;
+
+const StImgContainer = styled(View)`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StMainIMGtag = styled(View)`
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  width: 55px;
+  height: 26px;
+  background-color: ${({theme}) => theme.colors.primary};
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StMainTagText = styled(Text)`
+  color: white;
+  font-size: 13px;
 `;

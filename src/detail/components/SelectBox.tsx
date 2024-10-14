@@ -42,7 +42,9 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           key={index}
           onPress={() => handleSelect(option.value)}
           isSelected={selectedOption.includes(option.value)}>
-          <SelectText>{option.label}</SelectText>
+          <SelectText isSelected={selectedOption.includes(option.value)}>
+            {option.label}
+          </SelectText>
         </SelectBtn>
       ))}
     </SelectWrapper>
@@ -65,9 +67,9 @@ const SelectBtn = styled(TouchableOpacity)<{isSelected: boolean}>`
   border: ${({isSelected}) => (isSelected ? '1.5px #FF6C62;' : '1px #E5E8ED;')};
 `;
 
-const SelectText = styled(Text)`
+const SelectText = styled(Text)<{isSelected: boolean}>`
   text-align: center;
-  color: #9fa4b0;
+  color: ${({isSelected}) => (isSelected ? '#333A44;' : '#9fa4b0;')};
   font-size: 16px;
-  font-weight: 500;
+  font-weight: ${({isSelected}) => (isSelected ? '600' : '#500;')};
 `;
