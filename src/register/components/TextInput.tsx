@@ -51,36 +51,35 @@ const CoustomTextInput = ({
 export default CoustomTextInput;
 
 const InputContainer = styled.View<{isFocused: boolean}>`
+  box-sizing: border-box;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #fafafb;
   border-radius: 18px;
   padding: 14px 17px;
   width: 100%;
   height: 75px;
-  border: 1px solid;
+  border: 1px solid transparent;
   border-color: ${({isFocused, theme}) =>
     isFocused ? theme.colors.pressed_primary : 'transparent'};
 `;
 
 const InputLabel = styled.Text`
-  margin-bottom: 4px;
   font-family: Pretendard;
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.3px;
+  line-height: 14px;
 `;
 
 const Input = styled(TextInput)`
   border-color: transparent;
-  margin-bottom: 16px;
   color: #333a44;
   font-family: Pretendard;
   font-size: 19px;
-  font-style: normal;
+  line-height: 23px;
   font-weight: 400;
-  line-height: normal;
   letter-spacing: -0.3px;
 
   & ::placeholder {
