@@ -24,7 +24,7 @@ const GenderFunnel = ({
         }
         onNext();
       }}
-      isBtnActive={typeof selectedOption !== null}>
+      isBtnActive={selectedOption !== null}>
       <SelectBox
         options={GENDER}
         selectedOption={selectedOption !== null ? [selectedOption] : []}
