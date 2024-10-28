@@ -2,8 +2,9 @@ import styled from '@emotion/native';
 import React, {ReactNode} from 'react';
 import {RegisterstepType} from '../types/registerFunnelType';
 import {findByStepRegister} from '../constatnts/REGISTER_VIEW_CONSTANTS';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {IcBackArrow} from '../../common/assets/0_index';
 
 interface RegisterStepLayoutProps {
   step: (typeof RegisterstepType)[number];
@@ -26,7 +27,7 @@ const RegisterLayout = ({
     <Container>
       <Header>
         <BackButton onPress={onBackPress}>
-          <Text>&lt;</Text>
+          {step !== RegisterstepType[0] ? <IcBackArrow /> : <></>}
         </BackButton>
         <Title>{currentStep?.mainTitle}</Title>
         {currentStep?.subTitle && <SubTitle>{currentStep?.subTitle}</SubTitle>}
@@ -61,6 +62,7 @@ const Header = styled(View)`
 `;
 
 const BackButton = styled(TouchableOpacity)`
+  height: 20px;
   margin-bottom: 34px;
 `;
 
