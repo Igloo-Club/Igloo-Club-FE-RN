@@ -6,7 +6,8 @@ import {useState} from 'react';
 import {STFlexRow_sb} from '../../common/styles/commonStyles';
 import AuthNumInput from './AuthNumInput';
 import {closeBtnIMG} from '../../common/assets/0_index';
-import instance from '../../common/apis/axiosInstance';
+// import instance from '../../common/apis/axiosInstance';
+import Timer from '../../common/components/Timer';
 
 interface IEmailModalProps {
   onNext: () => void;
@@ -52,6 +53,7 @@ const EmailModal = ({
         </STFlexRow_sb>
         <STFlexRow_sb>
           <StEmailModal.InfoText>이메일 주소 | {email}</StEmailModal.InfoText>
+          <Timer minutes={5} seconds={0} />
           <StEmailModal.RedInfoText>시간연장</StEmailModal.RedInfoText>
         </STFlexRow_sb>
         <AuthNumInput value={authNum} onChangeNum={setAuthNum} />
