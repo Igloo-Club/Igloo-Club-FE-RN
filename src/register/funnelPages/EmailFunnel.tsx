@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import RegisterLayout from '../components/RegisterLayout';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
-import CoustomTextInput from '../components/TextInput';
+import CustomTextInput from '../components/TextInput';
 import EmailModal from '../components/EmailModal';
 
 const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
@@ -29,7 +29,7 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
         onBackPress={onPrev}
         onButtonPress={submitEmail}
         isBtnActive={email.length > 0}>
-        <CoustomTextInput
+        <CustomTextInput
           label="회사 이메일 주소"
           placeholder="이메일 주소 입력"
           value={email}

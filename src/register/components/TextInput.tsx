@@ -18,7 +18,7 @@ interface CustomTextInputProps {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 }
 
-const CoustomTextInput = ({
+const CustomTextInput = ({
   label,
   placeholder,
   value,
@@ -48,7 +48,7 @@ const CoustomTextInput = ({
   );
 };
 
-export default CoustomTextInput;
+export default CustomTextInput;
 
 const InputContainer = styled.View<{isFocused: boolean}>`
   box-sizing: border-box;

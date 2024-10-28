@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
 import RegisterLayout from '../components/RegisterLayout';
 import {View} from 'react-native';
-import CoustomTextInput from '../components/TextInput';
+import CustomTextInput from '../components/TextInput';
 
 const NinknameFunnel = ({
   step,
@@ -21,7 +21,7 @@ const NinknameFunnel = ({
       }}
       isBtnActive={nickname.length > 0}>
       <View>
-        <CoustomTextInput
+        <CustomTextInput
           label="닉네임"
           placeholder="닉네임 입력"
           value={nickname}
