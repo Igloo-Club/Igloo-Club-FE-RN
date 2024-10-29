@@ -26,7 +26,7 @@ const CustomTextInput = ({
   value,
   onChangeText,
   keyboardType,
-  validErrContent,
+  validErrContent = '',
 }: CustomTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -103,7 +103,7 @@ const InputRemoveBtn = styled(TouchableOpacity)`
 `;
 
 const ValidErr = styled(Text)`
-  margin-top: 12px;
+  margin: 12px 0;
   color: #f53e50;
   font-size: 12px;
   font-weight: 600;
