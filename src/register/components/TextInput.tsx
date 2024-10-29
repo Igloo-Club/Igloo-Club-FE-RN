@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   Image,
   KeyboardTypeOptions,
+  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
@@ -16,47 +17,55 @@ interface CustomTextInputProps {
   onChangeText: (text: string) => void;
   keyboardType: KeyboardTypeOptions;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  validErrContent?: string | null;
 }
 
-const CoustomTextInput = ({
+const CustomTextInput = ({
   label,
   placeholder,
   value,
   onChangeText,
   keyboardType,
+  validErrContent = '',
 }: CustomTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <InputContainer isFocused={isFocused}>
-      <InputLabel>{label}</InputLabel>
-      <Input
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        keyboardType={keyboardType}
-        autoCapitalize="none"
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-      {value.length > 0 && (
-        <InputRemoveBtn onPress={() => onChangeText('')}>
-          <Image source={deleteBtnIMG} style={{width: 17, height: 17}} />
-        </InputRemoveBtn>
-      )}
-    </InputContainer>
+    <>
+      <InputContainer isFocused={isFocused} isValid={validErrContent}>
+        <InputLabel>{label}</InputLabel>
+        <Input
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          keyboardType={keyboardType}
+          autoCapitalize="none"
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        {value.length > 0 && (
+          <InputRemoveBtn onPress={() => onChangeText('')}>
+            <Image source={deleteBtnIMG} style={{width: 17, height: 17}} />
+          </InputRemoveBtn>
+        )}
+      </InputContainer>
+      <ValidErr>{validErrContent}</ValidErr>
+    </>
   );
 };
 
-export default CoustomTextInput;
+export default CustomTextInput;
 
-const InputContainer = styled.View<{isFocused: boolean}>`
+const InputContainer = styled.View<{
+  isFocused: boolean;
+  isValid: string | undefined | null;
+}>`
   box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #fafafb;
+  background-color: ${({isValid}) => (isValid === '' ? '#fafafb' : '#FFE8EB')};
   border-radius: 18px;
   padding: 14px 17px;
   width: 100%;
@@ -91,4 +100,12 @@ const InputRemoveBtn = styled(TouchableOpacity)`
   position: absolute;
   right: 16px;
   bottom: 19px;
+`;
+
+const ValidErr = styled(Text)`
+  margin: 12px 0;
+  color: #f53e50;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 `;
