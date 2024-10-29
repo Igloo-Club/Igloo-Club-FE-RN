@@ -1,3 +1,4 @@
+import styled from '@emotion/native';
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
@@ -29,7 +30,7 @@ const Timer: React.FC<TimerProps> = ({minutes = 0, seconds = 0}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.timerText}>{formatTime(time)}</Text>
+      <StTimerText>{formatTime(time)}</StTimerText>
     </View>
   );
 };
@@ -42,9 +43,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
   },
-  timerText: {
-    color: '#fa7268',
-    fontSize: 18,
-    fontWeight: '700',
-  },
 });
+
+const StTimerText = styled(Text)`
+  color: #fa7268;
+`;
