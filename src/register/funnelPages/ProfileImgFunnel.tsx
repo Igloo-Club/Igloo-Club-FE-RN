@@ -20,10 +20,12 @@ const ProfileImgFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       }}
       isBtnActive={nickname}>
       <View>
-        <Text>
-          <StColor>왜 최대 3장인가요?🤔</StColor> 유저 분석 결과\n사진이 세 장
-          이상일 때 상대방의 관심도가 높았어요.
-        </Text>
+        <StText>
+          <Text>
+            <StColor>왜 최대 3장인가요?🤔</StColor> 유저 분석 결과
+          </Text>
+          <Text>사진이 세 장 이상일 때 상대방의 관심도가 높았어요.</Text>
+        </StText>
         <ImagePicker isBtnActive={isImg} />
       </View>
     </RegisterLayout>
@@ -34,4 +36,9 @@ export default ProfileImgFunnel;
 
 const StColor = styled(Text)`
   color: #2293f3;
+`;
+
+const StText = styled(View)`
+  display: flex;
+  flex-direction: column;
 `;

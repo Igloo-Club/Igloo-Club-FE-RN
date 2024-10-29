@@ -10,6 +10,7 @@ import {
   launchImageLibrary,
   ImagePickerResponse,
 } from 'react-native-image-picker';
+import {IcStar} from '../assets/0_index';
 
 const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
   // 상태 초기화
@@ -54,13 +55,14 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
   return (
     <StContainer>
       <StIMGWrapperMain onPress={() => onSelectImage(1)}>
+        <StMainIMGtag>
+          <IcStar />
+          <StMainTagText>대표</StMainTagText>
+        </StMainIMGtag>
         {response?.assets && response.assets[0].uri ? (
           <StImg source={{uri: response.assets[0].uri}} />
         ) : (
           <StImgContainer>
-            <StMainIMGtag>
-              <StMainTagText>대표</StMainTagText>
-            </StMainIMGtag>
             <Text>+</Text>
             <Text>사진 추가</Text>
           </StImgContainer>
@@ -150,11 +152,15 @@ const StMainIMGtag = styled(View)`
   background-color: ${({theme}) => theme.colors.primary};
   border-radius: 100px;
   display: flex;
+  flex-direction: row;
+  gap: 5px;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `;
 
 const StMainTagText = styled(Text)`
   color: white;
   font-size: 13px;
+  font-weight: 600;
 `;
