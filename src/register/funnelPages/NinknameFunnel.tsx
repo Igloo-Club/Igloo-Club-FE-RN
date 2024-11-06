@@ -12,17 +12,34 @@ const NinknameFunnel = ({
   onNext,
   onPrev,
   handleChange,
+  value,
 }: IregisterFunnulProps) => {
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(value?.nickname || '');
   const [validContent, setValidContent] = useState('');
 
-  const submit = async () => {
+  const submit = () => {
+    if (handleChange) {
+      handleChange('nickname', nickname);
+    }
     if (nickname.length > 10 || !validateKoreanEnglishNumbers(nickname)) {
       setValidContent('닉네임 규칙을 지켜야 해요.');
       return;
     }
-    await handleChange?.('nickname', nickname);
+    submitEssential();
     onNext();
+  };
+
+  const submitEssential = async () => {
+    const postData = {
+      ...value,
+      nickname: nickname, // Ensure nickname is set correctly
+    };
+    try {
+      //api
+      console.log(postData);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

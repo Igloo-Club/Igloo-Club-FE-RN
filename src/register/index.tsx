@@ -32,16 +32,6 @@ const Register = ({navigation}: any) => {
     }));
   };
 
-  const submitEssential = async () => {
-    try {
-      //api
-      console.log(profile);
-      setStep(RegisterstepType[5]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Funnel>
       <Funnel.Step name={RegisterstepType[0]}>
@@ -57,6 +47,7 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[2])}
           onPrev={() => setStep(RegisterstepType[0])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[2]}>
@@ -65,6 +56,7 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[3])}
           onPrev={() => setStep(RegisterstepType[1])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[3]}>
@@ -73,14 +65,16 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[4])}
           onPrev={() => setStep(RegisterstepType[2])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[4]}>
         <NinknameFunnel
           step={RegisterstepType[4]}
-          onNext={submitEssential}
+          onNext={() => setStep(RegisterstepType[5])}
           onPrev={() => setStep(RegisterstepType[3])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[5]}>

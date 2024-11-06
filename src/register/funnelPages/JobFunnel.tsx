@@ -9,8 +9,9 @@ const JobFunnel = ({
   onNext,
   onPrev,
   handleChange,
+  value,
 }: IregisterFunnulProps) => {
-  const [job, setJob] = useState('');
+  const [job, setJob] = useState(value?.job || '');
   return (
     <RegisterLayout
       step={step}
