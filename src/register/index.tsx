@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import useFunnel from '../common/hooks/useFunnel';
 import EmailFunnel from './funnelPages/EmailFunnel';
 import {RegisterstepType} from './types/registerFunnelType';
 import GenderFunnel from './funnelPages/GenderFunnel';
 import BirthFunnel from './funnelPages/BirthFunnel';
-import NinknameFunnel from './funnelPages/NinknameFunnel';
+import NicknameFunnel from './funnelPages/NicknameFunnel';
 import SelectAreaFunnel from './funnelPages/SelectAreaFunnel';
 import JobFunnel from './funnelPages/JobFunnel';
 import {essentialType} from './types/registerAPITypes';
@@ -13,11 +13,7 @@ import ProfileImgFunnel from './funnelPages/ProfileImgFunnel';
 type HandleChangeType = (key: keyof essentialType, value: string) => void;
 
 const Register = ({navigation}: any) => {
-  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
-
-  useEffect(() => {
-    console.log(profile);
-  });
+  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[6]);
 
   const [profile, setProfile] = useState<essentialType>({
     nickname: '',
@@ -36,15 +32,6 @@ const Register = ({navigation}: any) => {
     }));
   };
 
-  const submitEssential = async () => {
-    try {
-      //api
-      setStep(RegisterstepType[5]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Funnel>
       <Funnel.Step name={RegisterstepType[0]}>
@@ -60,6 +47,7 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[2])}
           onPrev={() => setStep(RegisterstepType[0])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[2]}>
@@ -68,6 +56,7 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[3])}
           onPrev={() => setStep(RegisterstepType[1])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[3]}>
@@ -76,14 +65,16 @@ const Register = ({navigation}: any) => {
           onNext={() => setStep(RegisterstepType[4])}
           onPrev={() => setStep(RegisterstepType[2])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[4]}>
-        <NinknameFunnel
+        <NicknameFunnel
           step={RegisterstepType[4]}
-          onNext={submitEssential}
+          onNext={() => setStep(RegisterstepType[5])}
           onPrev={() => setStep(RegisterstepType[3])}
           handleChange={handleChange}
+          value={profile}
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[5]}>
@@ -96,7 +87,7 @@ const Register = ({navigation}: any) => {
       <Funnel.Step name={RegisterstepType[6]}>
         <ProfileImgFunnel
           step={RegisterstepType[6]}
-          onNext={() => navigation.navigate('IdealType')}
+          onNext={() => navigation.navigate('MainPage')}
           onPrev={() => setStep(RegisterstepType[5])}
         />
       </Funnel.Step>

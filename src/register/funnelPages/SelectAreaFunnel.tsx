@@ -13,9 +13,10 @@ const SelectAreaFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
 
   const submit = async () => {
     try {
-      // await instance.post('/api/member/location', {
-      //   location: selectedOption,
-      // });
+      await instance.post('/api/member/location', {
+        location: selectedOption,
+      });
+      console.log(selectedOption, '저장 성공');
       onNext();
     } catch {}
   };

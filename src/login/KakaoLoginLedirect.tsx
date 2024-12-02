@@ -24,8 +24,9 @@ const KakaoLoginRedirect = ({navigation, route}: any) => {
         code: _code,
       });
       const stringValue = JSON.stringify(data.accessToken);
+      console.log(stringValue);
       await AsyncStorage.setItem('ACCESS_TOKEN', stringValue);
-      navigation.navigate('Register');
+      navigation.navigate('Home');
     } catch (err) {
       console.log('🥲', err);
     }

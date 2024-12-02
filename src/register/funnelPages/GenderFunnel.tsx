@@ -9,9 +9,10 @@ const GenderFunnel = ({
   onNext,
   onPrev,
   handleChange,
+  value,
 }: IregisterFunnulProps) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.sex || null,
   );
 
   return (
@@ -24,7 +25,7 @@ const GenderFunnel = ({
         }
         onNext();
       }}
-      isBtnActive={typeof selectedOption !== null}>
+      isBtnActive={selectedOption !== null}>
       <SelectBox
         options={GENDER}
         selectedOption={selectedOption !== null ? [selectedOption] : []}
