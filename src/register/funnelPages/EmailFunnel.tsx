@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import RegisterLayout from '../components/RegisterLayout';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
 import CustomTextInput from '../components/TextInput';
 import EmailModal from '../components/EmailModal';
 import {isValidEmail} from '../../common/utils/validation';
+import instance from '../../common/apis/axiosInstance';
 
 const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
   const [email, setEmail] = useState('');
   const [validErrContent, setValidErrContent] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {}, []);
 
   const submitEmail = async () => {
     //검증
@@ -23,9 +22,10 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
     }
 
     try {
-      // await instance.post('api/company/email', {
-      //   email: email,
-      // });
+      console.log('시작');
+      await instance.post('api/company/email', {
+        email: email,
+      });
       setIsModalOpen(true);
     } catch (err) {
       console.log(err);

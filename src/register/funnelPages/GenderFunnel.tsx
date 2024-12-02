@@ -9,9 +9,10 @@ const GenderFunnel = ({
   onNext,
   onPrev,
   handleChange,
+  value,
 }: IregisterFunnulProps) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.sex || null,
   );
 
   return (

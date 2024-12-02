@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Image,
   TouchableOpacity,
@@ -12,15 +12,15 @@ import {
 } from 'react-native-image-picker';
 import {IcStar} from '../assets/0_index';
 
-const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
-  // 상태 초기화
-  const [response, setResponse] = useState<ImagePickerResponse | null>(null);
-  const [response2, setResponse2] = useState<ImagePickerResponse | null>(null);
-  const [response3, setResponse3] = useState<ImagePickerResponse | null>(null);
-  // const [imageFile, setImageFile] = useState<string | undefined>(undefined);
-
+const ImagePicker = ({
+  responseList,
+  handleImgList,
+}: {
+  responseList: (ImagePickerResponse | null)[];
+  handleImgList: (responseList: (ImagePickerResponse | null)[]) => void;
+}) => {
   // 이미지 가져오기
-  const onSelectImage = (response: number) => {
+  const onSelectImage = (index: number) => {
     launchImageLibrary(
       {
         mediaType: 'photo',
@@ -36,17 +36,15 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
             console.log('Image Error : ' + res.errorCode);
             return;
           }
-          if (response === 1) {
-            setResponse(res);
-          } else if (response === 2) {
-            setResponse2(res);
-          } else if (response === 3) {
-            setResponse3(res);
-          }
-          // if (res.assets && res.assets[0].base64) {
-          //   setImageFile(res.assets[0].base64);
-          // }
-          isBtnActive();
+
+          // Update the response at the given index
+          const updateList = () => {
+            const newList = [...responseList];
+            newList[index] = res;
+            return newList;
+          };
+          const updatedList = updateList();
+          handleImgList(updatedList);
         } catch {}
       },
     );
@@ -54,13 +52,13 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
 
   return (
     <StContainer>
-      <StIMGWrapperMain onPress={() => onSelectImage(1)}>
+      <StIMGWrapperMain onPress={() => onSelectImage(0)}>
         <StMainIMGtag>
           <IcStar />
           <StMainTagText>대표</StMainTagText>
         </StMainIMGtag>
-        {response?.assets && response.assets[0].uri ? (
-          <StImg source={{uri: response.assets[0].uri}} />
+        {responseList[0]?.assets && responseList[0].assets[0].uri ? (
+          <StImg source={{uri: responseList[0].assets[0].uri}} />
         ) : (
           <StImgContainer>
             <Text>+</Text>
@@ -69,26 +67,18 @@ const ImagePicker = ({isBtnActive}: {isBtnActive: () => void}) => {
         )}
       </StIMGWrapperMain>
       <StSmallContainer>
-        <StIMGWrapper onPress={() => onSelectImage(2)}>
-          {response2?.assets && response2.assets[0].uri ? (
-            <StImg source={{uri: response2.assets[0].uri}} />
-          ) : (
-            <>
-              <Text>+</Text>
-              <Text>사진 추가</Text>
-            </>
-          )}
-        </StIMGWrapper>
-        <StIMGWrapper onPress={() => onSelectImage(3)}>
-          {response3?.assets && response3.assets[0].uri ? (
-            <StImg source={{uri: response3.assets[0].uri}} />
-          ) : (
-            <>
-              <Text>+</Text>
-              <Text>사진 추가</Text>
-            </>
-          )}
-        </StIMGWrapper>
+        {[1, 2].map(index => (
+          <StIMGWrapper key={index} onPress={() => onSelectImage(index)}>
+            {responseList[index]?.assets?.[0]?.uri ? (
+              <StImg source={{uri: responseList[index]?.assets?.[0]?.uri}} />
+            ) : (
+              <>
+                <Text>+</Text>
+                <Text>사진 추가</Text>
+              </>
+            )}
+          </StIMGWrapper>
+        ))}
       </StSmallContainer>
     </StContainer>
   );

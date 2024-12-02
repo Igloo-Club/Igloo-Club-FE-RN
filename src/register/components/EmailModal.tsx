@@ -6,7 +6,7 @@ import {useState} from 'react';
 import {STFlexRow_sb} from '../../common/styles/commonStyles';
 import AuthNumInput from './AuthNumInput';
 import {closeBtnIMG} from '../../common/assets/0_index';
-// import instance from '../../common/apis/axiosInstance';
+import instance from '../../common/apis/axiosInstance';
 import Timer from '../../common/components/Timer';
 
 interface IEmailModalProps {
@@ -26,10 +26,10 @@ const EmailModal = ({
 
   const submitAuthEmail = async () => {
     try {
-      // await instance.post('api/company/verification', {
-      //   code: authNum,
-      //   email: email,
-      // });
+      await instance.post('api/company/verification', {
+        code: authNum,
+        email: email,
+      });
       onNext();
     } catch (err) {
       console.log(err);
