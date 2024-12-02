@@ -4,7 +4,7 @@ import EmailFunnel from './funnelPages/EmailFunnel';
 import {RegisterstepType} from './types/registerFunnelType';
 import GenderFunnel from './funnelPages/GenderFunnel';
 import BirthFunnel from './funnelPages/BirthFunnel';
-import NinknameFunnel from './funnelPages/NinknameFunnel';
+import NicknameFunnel from './funnelPages/NicknameFunnel';
 import SelectAreaFunnel from './funnelPages/SelectAreaFunnel';
 import JobFunnel from './funnelPages/JobFunnel';
 import {essentialType} from './types/registerAPITypes';
@@ -13,7 +13,7 @@ import ProfileImgFunnel from './funnelPages/ProfileImgFunnel';
 type HandleChangeType = (key: keyof essentialType, value: string) => void;
 
 const Register = ({navigation}: any) => {
-  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
+  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[6]);
 
   const [profile, setProfile] = useState<essentialType>({
     nickname: '',
@@ -69,7 +69,7 @@ const Register = ({navigation}: any) => {
         />
       </Funnel.Step>
       <Funnel.Step name={RegisterstepType[4]}>
-        <NinknameFunnel
+        <NicknameFunnel
           step={RegisterstepType[4]}
           onNext={() => setStep(RegisterstepType[5])}
           onPrev={() => setStep(RegisterstepType[3])}

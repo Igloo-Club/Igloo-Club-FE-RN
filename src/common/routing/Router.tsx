@@ -12,6 +12,7 @@ import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 import Landing from '../../landing';
 import Home from '../../home';
 import MainPage from '../../main/pages/mainPage';
+import {navigationRef} from '../hooks/useNavigationRef';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,7 @@ const navTheme = {
 
 export const Router = () => {
   return (
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer theme={navTheme} ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
         <Stack.Screen
           name="Landing"

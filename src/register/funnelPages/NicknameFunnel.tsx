@@ -6,8 +6,9 @@ import CustomTextInput from '../components/TextInput';
 import {IcCheckk} from '../assets/0_index';
 import styled from '@emotion/native';
 import {validateKoreanEnglishNumbers} from '../../common/utils/validation';
+import instance from '../../common/apis/axiosInstance';
 
-const NinknameFunnel = ({
+const NicknameFunnel = ({
   step,
   onNext,
   onPrev,
@@ -17,7 +18,8 @@ const NinknameFunnel = ({
   const [nickname, setNickname] = useState(value?.nickname || '');
   const [validContent, setValidContent] = useState('');
 
-  const submit = () => {
+  const submit = async () => {
+    console.log('클릭');
     if (handleChange) {
       handleChange('nickname', nickname);
     }
@@ -25,7 +27,7 @@ const NinknameFunnel = ({
       setValidContent('닉네임 규칙을 지켜야 해요.');
       return;
     }
-    submitEssential();
+    await submitEssential();
     onNext();
   };
 
@@ -34,9 +36,10 @@ const NinknameFunnel = ({
       ...value,
       nickname: nickname, // Ensure nickname is set correctly
     };
+    console.log(postData);
     try {
-      //api
-      console.log(postData);
+      const response = await instance.post('api/member/essential', postData);
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +73,7 @@ const NinknameFunnel = ({
   );
 };
 
-export default NinknameFunnel;
+export default NicknameFunnel;
 
 const StCondition = styled(View)`
   display: flex;
