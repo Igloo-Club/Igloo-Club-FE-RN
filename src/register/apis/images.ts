@@ -3,6 +3,12 @@ import instance from '../../common/apis/axiosInstance';
 import IMGSTATUS from '../constatnts/IMGSTATUS';
 import axios from 'axios';
 
+const getBlob = async (fileUri: string) => {
+  const resp = await fetch(fileUri);
+  const imageBody = await resp.blob();
+  return imageBody;
+};
+
 export const submitImage = async (
   res: (ImagePickerResponse | null)[],
   url: string[],
@@ -10,38 +16,28 @@ export const submitImage = async (
   if (!res) {
     return;
   }
-
   // 비동기 작업을 처리하기 위해 map 내부에 async 사용
   await Promise.all(
-    url.map(async (item, idx) => {
+    url?.map(async (item, idx) => {
       console.log('presigned uri 주소', item);
       if (!res[idx]) {
         return;
       }
-
       const file = {
         name: res[idx]?.assets?.[0]?.fileName,
         type: res[idx]?.assets?.[0]?.type,
         uri: res[idx]?.assets?.[0]?.uri,
       };
-
-      console.log(file.name);
-
-      const formData = new FormData();
-      formData.append('S3_BUCKET', 'nungil-s3bucket');
-      formData.append('filename', file.name);
+      const blob = await getBlob(file.uri!);
 
       try {
         // 서버로 이미지 업로드
-        const response = await axios.put(item, formData, {
-          headers: {
-            'Content-Type': file.type,
-          },
-        });
+        const response = await axios.put(item, blob);
 
-        console.log('🔥 업로드 응답:', response.data);
+        console.log('🔥 업로드 응답:', response);
+        const fileName = item.match(/\/([^\/?]+)(?=\.png)/);
         // 성공적으로 업로드 후 S3 알림
-        await uploadImageToS3(file.name, IMGSTATUS.success);
+        await uploadImageToS3(fileName?.[1], IMGSTATUS.success);
       } catch (error) {
         console.error('업로드 실패:', error);
         // 실패 시 S3 알림
