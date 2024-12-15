@@ -46,7 +46,7 @@ const ProfileImgFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       submitImage(responseList, presignedUrl);
       // onNext();
     } catch (error) {
-      console.log(error);
+      console.log('api/member/images', error);
     }
   };
 
