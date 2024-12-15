@@ -1,57 +1,41 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectBox from '../components/SelectBox';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import {TATTOO} from '../constants/DETAIL_PROFILE_SELECTS';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 문신여부 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-  const options = [
-    {value: 'true', label: '있다'},
-    {value: 'false', label: '없다'},
-  ];
-
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      const tattooValue = selectedOption === '있다';
-      handleDetailProfileValue({...detailProfileValues, tattoo: tattooValue});
-    }
-    onNext();
-  };
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={24} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Text>
+    <DetailLayout
+      step={step}
+      progress={24}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedOption !== null) {
+          const tattooValue = selectedOption === 'true';
+          await handleDetailProfileValue?.('tattoo', tattooValue);
+          onNext();
+        }
+      }}
+      isBtnActive={selectedOption !== null}>
       <SelectBox
-        options={options}
+        options={TATTOO}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={option => setSelectedOption(option as string)}
+        onSelect={setSelectedOption}
         mode="single"
       />
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!selectedOption}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 

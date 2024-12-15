@@ -3,15 +3,15 @@ import styled from '@emotion/native';
 import {View, TextInput, Text} from 'react-native';
 import DetailProfileHeader from '../components/DetailProfileHeader';
 import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
-import FooterBtn from '../components/DetailProfileFooter';
+import FooterBtn from '../../common/components/FooterBtn';
 import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
 
 const 자기소개 = ({
   onPrev,
   onNext,
   step,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [longIntro, setLongIntro] = useState('');

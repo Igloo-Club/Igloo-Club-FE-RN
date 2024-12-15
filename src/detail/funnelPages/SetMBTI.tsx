@@ -1,38 +1,19 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
 import SelectGroup from '../components/SelectGroup';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
-
-type MBTIGroup = 'ei' | 'sn' | 'tf' | 'jp';
-
-const GROUP_OPTIONS: Record<
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import {
   MBTIGroup,
-  {label: string; value: string | number}[]
-> = {
-  ei: ['E', 'I'].map(value => ({label: value, value})),
-  sn: ['S', 'N'].map(value => ({label: value, value})),
-  tf: ['T', 'F'].map(value => ({label: value, value})),
-  jp: ['J', 'P'].map(value => ({label: value, value})),
-};
-
-const GROUP_LABELS: Record<MBTIGroup, string> = {
-  ei: '외향형/내향형',
-  sn: '감각형/직관형',
-  tf: '사고형/감정형',
-  jp: '판단형/인식형',
-};
+  GROUP_OPTIONS,
+  GROUP_LABELS,
+} from '../constants/DETAIL_PROFILE_SELECTS';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 엠비티아이 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {step: string}) => {
+}: detailProfileFunnelProps & {step: string}) => {
   const [selectedOptions, setSelectedOptions] = useState<
     Record<MBTIGroup, string | null>
   >({
@@ -46,25 +27,21 @@ const 엠비티아이 = ({
     setSelectedOptions(prevOptions => ({...prevOptions, [group]: option}));
   };
 
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      const mbtiValue = ['ei', 'sn', 'tf', 'jp']
-        .map(group => selectedOptions[group as MBTIGroup] || 'X')
-        .join('');
-      handleDetailProfileValue({...detailProfileValues, mbti: mbtiValue});
-    }
-    onNext();
-  };
-
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={48} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
+    <DetailLayout
+      step={step}
+      progress={48}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedOptions === 'string') {
+          const mbtiValue = ['ei', 'sn', 'tf', 'jp']
+            .map(group => selectedOptions[group as MBTIGroup] || 'X')
+            .join('');
+          await handleDetailProfileValue?.('mbti', mbtiValue);
         }
-      </Text>
+        onNext();
+      }}
+      isBtnActive={!Object.values(selectedOptions).includes(null)}>
       {Object.keys(GROUP_OPTIONS).map(group => (
         <SelectGroup
           key={group}
@@ -74,12 +51,7 @@ const 엠비티아이 = ({
           onSelect={option => handleSelect(group as MBTIGroup, option)}
         />
       ))}
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={Object.values(selectedOptions).includes(null)}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 

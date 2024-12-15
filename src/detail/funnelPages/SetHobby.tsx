@@ -1,22 +1,16 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
 import {View, TouchableOpacity} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {
-  DETAIL_PROFILE_VIEW_CONSTATNS,
-  HOBBY,
-} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
+import {HOBBY} from '../constants/DETAIL_PROFILE_SELECTS';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 취미 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
@@ -24,14 +18,6 @@ const 취미 = ({
     [],
   );
   const [activeHobby, setActiveHobby] = useState<string | null>(null);
-
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      const hobbyList = getHobbyList();
-      handleDetailProfileValue({...detailProfileValues, hobbyList: hobbyList});
-    }
-    onNext();
-  };
 
   const getHobbyList = () => {
     const hobbyList: {category: string; name: string}[] = [];
@@ -96,15 +82,18 @@ const 취미 = ({
   };
 
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={80} onPrev={onPrev} />
-      <Title>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Title>
-      <SubTitle>최대 5개까지 선택 가능해요.</SubTitle>
+    <DetailLayout
+      step={step}
+      progress={80}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedSubCategories === 'string') {
+          const hobbyList = getHobbyList();
+          await handleDetailProfileValue?.('hobbyList', hobbyList);
+        }
+        onNext();
+      }}
+      isBtnActive={selectedSubCategories.length !== 0}>
       <CheckWrapper>
         <HobbyList>
           {HOBBY.map(item => (
@@ -144,30 +133,11 @@ const 취미 = ({
           ))}
         </HobbyList>
       </CheckWrapper>
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={selectedSubCategories.length === 0}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 
 export default 취미;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0px 0px 10px 5px;
-  line-height: 35px;
-`;
-
-const SubTitle = styled.Text`
-  color: #646d7a;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0px 0px 10px 5px;
-`;
 
 const CheckWrapper = styled(View)`
   margin-top: 10px;

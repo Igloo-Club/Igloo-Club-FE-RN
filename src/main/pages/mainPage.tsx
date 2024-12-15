@@ -1,20 +1,22 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {SafeAreaView, View, TouchableOpacity} from 'react-native';
 import styled from '@emotion/native';
 import {globalStyles} from '../../common/styles/globalStyles';
 
 const MainPage = ({navigation}: any) => {
   return (
-    <View style={globalStyles.container}>
-      <DetailButton onPress={navigation.navigate('MainPage')}>
-        <BtnMent>상세페이지가기</BtnMent>
-      </DetailButton>
-    </View>
+    <SafeAreaView style={globalStyles.container}>
+      <View>
+        <NavButton onPress={navigation.navigate('Landing')}>
+          <BtnMent>상세페이지가기</BtnMent>
+        </NavButton>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default MainPage;
 
-const DetailButton = styled(TouchableOpacity)``;
+const NavButton = styled(TouchableOpacity)``;
 
 const BtnMent = styled.Text``;

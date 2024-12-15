@@ -1,68 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
-import {NavTypesProps} from '../types/navTypes';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {
-  DETAIL_PROFILE_VIEW_CONSTATNS,
-  RELIGION,
-} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import React, {useState} from 'react';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import {RELIGION} from '../constants/DETAIL_PROFILE_SELECTS';
 import SelectBox from '../components/SelectBox';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 종교여부 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
     null,
   );
 
-  useEffect(() => {
-    console.log(selectedOption);
-  }, [selectedOption]);
-
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      const valueToSend =
-        RELIGION.find(r => r.value === selectedOption)?.value || '';
-      handleDetailProfileValue({
-        ...detailProfileValues,
-        religion: valueToSend,
-      });
-    }
-    onNext();
-  };
-
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={16} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Text>
+    <DetailLayout
+      step={step}
+      progress={16}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedOption === 'string') {
+          await handleDetailProfileValue?.('religion', selectedOption);
+        }
+        onNext();
+      }}
+      isBtnActive={selectedOption !== null}>
       <SelectBox
-        options={RELIGION.map(religion => ({
-          label: religion.label,
-          value: religion.value,
-        }))}
+        options={RELIGION}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={option => setSelectedOption(option)}
+        onSelect={setSelectedOption}
         mode="single"
       />
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!selectedOption}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 

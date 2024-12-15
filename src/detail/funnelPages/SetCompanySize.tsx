@@ -1,49 +1,33 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {
-  DETAIL_PROFILE_VIEW_CONSTATNS,
-  SCALE,
-} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {SCALE} from '../constants/DETAIL_PROFILE_SELECTS';
 import SelectBox from '../components/SelectBox';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 회사규모 = ({
+  step,
   onPrev,
   onNext,
-  step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
     null,
   );
 
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      const valueToSend =
-        SCALE.find(s => s.value === selectedOption)?.value || '';
-      handleDetailProfileValue({
-        ...detailProfileValues,
-        scale: valueToSend,
-      });
-    }
-    onNext();
-  };
-
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={72} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Text>
+    <DetailLayout
+      step={step}
+      progress={72}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedOption === 'string') {
+          await handleDetailProfileValue?.('scale', selectedOption);
+        }
+        onNext();
+      }}
+      isBtnActive={selectedOption !== null}>
       <SelectBox
         options={SCALE.map(scale => ({
           label: scale.label,
@@ -53,12 +37,7 @@ const 회사규모 = ({
         onSelect={option => setSelectedOption(option)}
         mode="single"
       />
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!selectedOption}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 

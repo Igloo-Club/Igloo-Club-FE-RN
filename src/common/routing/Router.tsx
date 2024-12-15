@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import DetailProfile from '../../detail/DetailProfilePage';
+import DetailProfile from '../../detail/DetailProfile';
 import Register from '../../register';
 import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
@@ -28,14 +28,14 @@ export const Router = () => {
     <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
         <Stack.Screen
-          name="Landing"
-          component={Landing}
-          options={{title: 'landing'}}
-        />
-        <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
+        />
+        <Stack.Screen
+          name="Landing"
+          component={Landing}
+          options={{title: 'landing'}}
         />
         <Stack.Screen
           name="Login"
