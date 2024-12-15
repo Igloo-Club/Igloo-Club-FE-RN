@@ -1,3 +1,5 @@
 import IcDelete from './deleteIcon.svg';
+import IcCheckk from './checkIcon.svg';
+import IcStar from './mainImgStarIcon.svg';
 
-export {IcDelete};
+export {IcDelete, IcCheckk, IcStar};

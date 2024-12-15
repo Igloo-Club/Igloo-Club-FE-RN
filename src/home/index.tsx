@@ -2,10 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect} from 'react';
 import {Button, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import instance from '../common/apis/axiosInstance';
 
 const Home = ({navigation}: any) => {
   useEffect(() => {
     getAccessToken();
+    getUser();
   }, []);
 
   const getAccessToken = async () => {
@@ -13,6 +15,14 @@ const Home = ({navigation}: any) => {
 
     if (!ACCESS_TOKEN) {
       navigation.navigate('Landing');
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const {data} = await instance.get('api/member');
+    } catch {
+      console.log('멤버조회 실패');
     }
   };
 

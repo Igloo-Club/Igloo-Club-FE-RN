@@ -15,4 +15,5 @@ export interface IregisterFunnulProps {
   onNext: () => void;
   onPrev: () => void;
   handleChange?: (key: keyof essentialType, value: string) => void;
+  value?: essentialType;
 }

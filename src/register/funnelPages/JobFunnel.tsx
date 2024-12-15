@@ -2,15 +2,16 @@ import React, {useState} from 'react';
 import {IregisterFunnulProps} from '../types/registerFunnelType';
 import RegisterLayout from '../components/RegisterLayout';
 import {View} from 'react-native';
-import CoustomTextInput from '../components/TextInput';
+import CustomTextInput from '../components/TextInput';
 
 const JobFunnel = ({
   step,
   onNext,
   onPrev,
   handleChange,
+  value,
 }: IregisterFunnulProps) => {
-  const [job, setJob] = useState('');
+  const [job, setJob] = useState(value?.job || '');
   return (
     <RegisterLayout
       step={step}
@@ -21,7 +22,7 @@ const JobFunnel = ({
       }}
       isBtnActive={job.length > 0}>
       <View>
-        <CoustomTextInput
+        <CustomTextInput
           label="직무"
           placeholder="직무 입력"
           value={job}
