@@ -104,12 +104,6 @@ const Landing = ({navigation}: any) => {
           navigation.navigate('Login');
         }}
       />
-      <Button
-        title="메인 페이지"
-        onPress={() => {
-          navigation.navigate('MainPage');
-        }}
-      />
       <View>
         {Platform.OS === 'android' && (
           <TouchableHighlight onPress={sendPushMessage}>

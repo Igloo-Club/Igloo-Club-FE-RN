@@ -5,3 +5,5 @@ const detailPage = () => {
     </>
   );
 };
+
+export default detailPage;
