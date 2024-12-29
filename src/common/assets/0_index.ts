@@ -1,3 +1,4 @@
 import closeBtnIMG from './closeBtnIMG.png';
+import IcBackArrow from './iconBackArrow.svg';
 
-export {closeBtnIMG};
+export {closeBtnIMG, IcBackArrow};

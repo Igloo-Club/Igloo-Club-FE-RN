@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
-import React, {useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FooterBtn from '../detail/components/DetailProfileFooter';
 import {IDEAL_KEY, IDEAL_LIST} from './constants/IDEAL_LIST';
@@ -8,13 +8,28 @@ import ListContainer from './components/ListContainer';
 import {formatIdealListValueText} from './utils/formatIdealListValueText';
 import {MOCK_IDEAL} from './constants/MOCK_IDEALTYPE';
 import IdealTypeModal from './components/IdealTypeModal';
+import instance from '../common/apis/axiosInstance';
+import {IidealType} from './types/idealType';
 // import instance from '../common/apis/axiosInstance';
 
-const IdealType = () => {
-  const [data, setData] = useState(MOCK_IDEAL);
+const IdealType = ({navigation}: any) => {
+  const [data, setData] = useState<IidealType | undefined>();
   const [isModalOpen, setIsModalOpen] = useState<
     keyof typeof IDEAL_KEY | null
   >();
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    try {
+      const result = await instance.get('/api/member/ideal');
+      console.log(result.data);
+      setData(result.data);
+    } catch (err) {
+      console.log('getIdeal', err);
+    }
+  };
 
   const handleData = (
     key: string,
@@ -26,16 +41,21 @@ const IdealType = () => {
     }));
   };
 
-  const submitData = () => {
+  const submitData = async () => {
     try {
-      // instance.post('api/member/ideal', data);
+      console.log(data);
+      await instance.post('api/member/ideal', data);
+      console.log('success post ideal');
     } catch {}
   };
   return (
-    <>
+    <View>
       <Container>
         <Header>
-          <BackButton onPress={() => {}}>
+          <BackButton
+            onPress={() => {
+              navigation.goBack();
+            }}>
             <Text>&lt;</Text>
           </BackButton>
           <Title>선호 이성 설정</Title>
@@ -48,6 +68,7 @@ const IdealType = () => {
           const content = formatIdealListValueText(item.label, data);
           return (
             <ListContainer
+              key={item.label}
               label={item.label}
               content={content}
               onModal={() => {
@@ -72,7 +93,7 @@ const IdealType = () => {
           data={data}
         />
       )}
-    </>
+    </View>
   );
 };
 
@@ -86,7 +107,7 @@ const Container = styled(SafeAreaView)`
   padding: 25px 20px 56px 20px;
 `;
 
-const Header = styled.View`
+const Header = styled(View)`
   position: relative;
   width: 100%;
   margin-bottom: 15px;
@@ -107,7 +128,6 @@ const Title = styled.Text`
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.3px;
 `;
 
@@ -120,7 +140,6 @@ const StNotice = styled.Text`
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 110%;
   letter-spacing: -0.3px;
-  margin: 9px 0;
+  margin: 9px 0px;
 `;

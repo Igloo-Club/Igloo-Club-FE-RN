@@ -96,7 +96,7 @@ export const 선호성격유형 = ({
   return (
     <>
       <St.IdealRenderStyles.SubTitle>
-        선호하지 않는 요소를 선택해주세요
+        선호하는 요소를 선택해주세요
       </St.IdealRenderStyles.SubTitle>
       <SelectBox
         options={IDEAL_MBTI_OPTION}

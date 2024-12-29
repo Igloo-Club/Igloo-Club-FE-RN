@@ -1,24 +1,19 @@
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {signInInstance} from './axiosInstance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {RootStackParamList} from './types';
+import instance from './axiosInstance';
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
-
-const getRefreshToken = async (navigation: NavigationProp) => {
+const getRefreshToken = async () => {
+  console.log('리프레쉬 받기');
   try {
-    const {data} = await signInInstance.post('api/auth/refresh');
-    console.log('💖', data);
-
+    const {data} = await instance.post('api/auth/refresh');
+    console.log(data);
     const {accessToken} = data;
 
     await AsyncStorage.setItem('ACCESS_TOKEN', accessToken);
 
     return true;
-  } catch {
+  } catch (err) {
+    console.log('리프레쉬 받기 실패', err);
     await AsyncStorage.clear();
-    navigation.navigate('Login');
-
     return false;
   }
 };

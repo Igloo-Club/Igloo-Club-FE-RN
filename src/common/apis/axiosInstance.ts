@@ -6,11 +6,7 @@ import axios, {
 } from 'axios';
 import getRefreshToken from './getRefreshToken';
 import {VITE_BASE_URL} from '@env';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from './types';
 import getAccessToken from '../utils/getAccessToken';
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export const signInInstance = axios.create({
   baseURL: VITE_BASE_URL,
@@ -21,6 +17,9 @@ export const signInInstance = axios.create({
 
 const instance = axios.create({
   baseURL: VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export default instance;
@@ -32,8 +31,8 @@ instance.interceptors.request.use(
     if (config.headers && ACCESS_TOKEN !== null) {
       const token = JSON.parse(ACCESS_TOKEN);
       config.headers.Authorization = `Bearer ${token}`;
+      console.log(token);
     }
-
     return config;
   },
   (error: AxiosError) => {
@@ -42,19 +41,17 @@ instance.interceptors.request.use(
 );
 
 // Response 인터셉터 설정
-export const setAxiosInterceptors = (navigation: NavigationProp) => {
-  instance.interceptors.response.use(
-    (response: AxiosResponse) => {
-      return response;
-    },
-    async (error: any) => {
-      console.log('@', error);
-      // 401 에러 처리
-      if (error.response?.status === 401) {
-        await getRefreshToken(navigation);
-      }
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  async (error: any) => {
+    // 401 에러 처리
+    if (error.response?.status === 401) {
+      console.log('401 error');
+      await getRefreshToken();
+    }
 
-      return Promise.reject(error);
-    },
-  );
-};
+    return Promise.reject(error);
+  },
+);

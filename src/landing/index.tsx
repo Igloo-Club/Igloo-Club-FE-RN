@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Text, TouchableHighlight, View, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import instance from '../common/apis/axiosInstance';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 // ios 푸시 빌드 문제 -> 일단 android에서만 import 하도록
 let messaging: any;
@@ -96,7 +97,7 @@ const Landing = ({navigation}: any) => {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Button
         title="카카오 로그인"
         onPress={() => {
@@ -110,7 +111,7 @@ const Landing = ({navigation}: any) => {
           </TouchableHighlight>
         )}
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

@@ -2,8 +2,9 @@ import styled from '@emotion/native';
 import React, {ReactNode} from 'react';
 import {RegisterstepType} from '../types/registerFunnelType';
 import {findByStepRegister} from '../constatnts/REGISTER_VIEW_CONSTANTS';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {IcBackArrow} from '../../common/assets/0_index';
 
 interface RegisterStepLayoutProps {
   step: (typeof RegisterstepType)[number];
@@ -26,7 +27,7 @@ const RegisterLayout = ({
     <Container>
       <Header>
         <BackButton onPress={onBackPress}>
-          <Text>&lt;</Text>
+          {step !== RegisterstepType[0] ? <IcBackArrow /> : <></>}
         </BackButton>
         <Title>{currentStep?.mainTitle}</Title>
         {currentStep?.subTitle && <SubTitle>{currentStep?.subTitle}</SubTitle>}
@@ -54,13 +55,14 @@ const Container = styled(SafeAreaView)`
   padding: 25px 20px 56px 20px;
 `;
 
-const Header = styled.View`
+const Header = styled(View)`
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 `;
 
 const BackButton = styled(TouchableOpacity)`
+  height: 20px;
   margin-bottom: 34px;
 `;
 
@@ -98,7 +100,7 @@ const ButtonText = styled.Text<{disabled: boolean}>`
   font-size: 17px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
   color: ${({disabled, theme}) => (disabled ? '#bbc0ca' : theme.colors.white)};
 `;
@@ -109,7 +111,7 @@ const SubTitle = styled.Text`
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+
   letter-spacing: -0.3px;
   margin-top: 16px;
 `;
@@ -120,6 +122,6 @@ const Title = styled.Text`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+
   letter-spacing: -0.3px;
 `;
