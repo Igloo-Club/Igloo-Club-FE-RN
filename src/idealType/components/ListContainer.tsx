@@ -4,7 +4,7 @@ import {TouchableOpacity, View} from 'react-native';
 
 interface IListContainerProps {
   label: string;
-  content: string;
+  content: any;
 
   onModal: () => void;
 }
