@@ -14,8 +14,10 @@ import Home from '../../home';
 import MainPage from '../../main/pages/mainPage';
 import {navigationRef} from '../hooks/useNavigationRef';
 import Chat from '../../chat';
+import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
+import {RootStackParamList} from './routerTypes';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const navTheme = {
   ...DefaultTheme,
@@ -80,6 +82,11 @@ export const Router = () => {
           options={{title: '질문 리스트'}}
         />
         <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
+        <Stack.Screen
+          name="ChatRoom"
+          component={ChatRoom}
+          options={{title: '채팅룸'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

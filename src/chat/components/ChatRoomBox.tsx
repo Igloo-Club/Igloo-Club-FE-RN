@@ -1,11 +1,11 @@
-// import AnimalProfile from '../../common/components/AnimalProfile';
-// import {calculateElapsedTime} from '../../common/utils/calculateElapsedTime';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import styled from '@emotion/native';
 import React from 'react';
 import {formatAMPM} from '../utils/formatAMPM';
 import {Image} from 'react-native-svg';
+import {RootStackParamList} from '../../common/routing/routerTypes';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
 interface ChatRoomProps {
   imageUrl: string;
@@ -16,15 +16,22 @@ interface ChatRoomProps {
   unreadCnt: number;
 }
 
+type ChatRoomNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'ChatRoom'
+>;
+
 const ChatRoomBox = ({
   imageUrl,
   nickname,
   content,
   createdAt,
   unreadCnt,
+  chatRoomId,
 }: ChatRoomProps) => {
+  const navigation = useNavigation<ChatRoomNavigationProp>();
   return (
-    <StContainer>
+    <StContainer onPress={() => navigation.navigate('ChatRoom', {chatRoomId})}>
       <StProfileContainer>
         <StProfile href={imageUrl} />
       </StProfileContainer>
@@ -44,7 +51,7 @@ const ChatRoomBox = ({
 
 export default ChatRoomBox;
 
-const StContainer = styled(SafeAreaView)`
+const StContainer = styled(TouchableOpacity)`
   display: flex;
   flex-direction: row;
   gap: 12px;
