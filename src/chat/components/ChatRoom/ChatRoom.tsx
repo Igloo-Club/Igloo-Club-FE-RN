@@ -6,6 +6,7 @@ import styled from '@emotion/native';
 import ChatRoomHeader from './ChatRoomHeader';
 import {MOCK_CHATROOM, chatRoomType} from '../../constants/MOCK_CHATROOM';
 import ChatRoomFooter from './ChatRoomFooter';
+import ChatRoomMain from './ChatRoomMain';
 
 type ChatRoomScreenRouteProp = RouteProp<RootStackParamList, 'ChatRoom'>;
 
@@ -17,7 +18,7 @@ const ChatRoom = ({route}: {route: ChatRoomScreenRouteProp}) => {
   return (
     <StContainer>
       <ChatRoomHeader nickname={chatRoomData.nickname} />
-      {/* <ChatRoomMain chatData={chatData} css={MainBox} /> */}
+      <ChatRoomMain chatData={chatRoomData.messageSlice.content} />
       <ChatRoomFooter
         chat={chat}
         handleSubmit={() => {}}

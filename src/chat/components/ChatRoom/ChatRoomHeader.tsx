@@ -49,7 +49,7 @@ const StHeaderContainer = styled(View)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 02px;
+  padding: 2px;
   white-space: pre-line;
 `;
 const StHeaderWrapper = styled(View)`
