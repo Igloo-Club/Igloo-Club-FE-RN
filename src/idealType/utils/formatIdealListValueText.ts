@@ -19,7 +19,7 @@ export const formatIdealListValueText = (
     case '선호하는 키':
       return `${data.preferredHeightStart}부터 ${data.preferredHeightEnd}까지`;
     case '성격 유형':
-      return data.mbtiList?.join(', ');
+      return data.mbtiElemList?.join(', ');
     case '흡연 여부':
       return (
         data.smoke !== undefined &&

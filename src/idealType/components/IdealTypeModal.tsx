@@ -25,7 +25,7 @@ interface IdealTypeModalProps {
 const CONSTANT = {
   preferredAge: '선호하는 나이 범위',
   preferredHeight: '선호하는 키 범위',
-  mbtiList: '성격 유형',
+  mbtiElemList: '성격 유형',
   smoke: '흡연 여부',
   religion: '종교',
   marriagePlan: '결혼 계획',
@@ -81,13 +81,10 @@ const IdealTypeModal = ({
             }}
           />
         );
-      case IDEAL_KEY.mbtiList:
-        if (!data.mbtiList) {
-          return;
-        }
+      case IDEAL_KEY.mbtiElemList:
         return (
           <선호성격유형
-            value={data.mbtiList}
+            value={data.mbtiElemList}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
