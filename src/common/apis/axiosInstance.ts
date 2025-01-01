@@ -17,6 +17,9 @@ export const signInInstance = axios.create({
 
 const instance = axios.create({
   baseURL: VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export default instance;

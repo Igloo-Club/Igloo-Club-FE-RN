@@ -88,7 +88,7 @@ export const 선호성격유형 = ({
   value,
   handleData,
 }: {
-  value: string[];
+  value: string[] | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
   const {selectedOptions, handleSelect} = useSelectOptions(value);

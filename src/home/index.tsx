@@ -59,6 +59,7 @@ const Home = ({navigation}: any) => {
         onPress={() => navigation.navigate('QnA')}
       />
       <Button title="카카오 로그아웃" onPress={logout} />
+      <Button title="채팅" onPress={() => navigation.navigate('Chat')} />
     </SafeAreaView>
   );
 };
