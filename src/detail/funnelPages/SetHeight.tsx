@@ -1,40 +1,34 @@
-import React, {useState} from 'react';
-import {TextInput, View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {TextInput, View} from 'react-native';
 import styled from '@emotion/native';
-import {NavTypesProps} from '../types/navTypes';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
 import {theme} from '../../common/styles/theme';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 키입력 = ({
+  step,
   onPrev,
   onNext,
-  step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [height, setHeight] = useState(0);
 
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      handleDetailProfileValue({...detailProfileValues, height: height});
-    }
-    onNext();
-  };
+  useEffect(() => {
+    console.log(height);
+  }, [height]);
 
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={8} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Text>
+    <DetailLayout
+      step={step}
+      progress={8}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        await handleDetailProfileValue?.('height', height);
+        onNext();
+      }}
+      isBtnActive={height > 0}>
       <InputBox>
         <Input
           placeholder="숫자 입력"
@@ -44,12 +38,7 @@ const 키입력 = ({
         />
         <HeightUnit>cm</HeightUnit>
       </InputBox>
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!height}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 

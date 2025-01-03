@@ -1,4 +1,4 @@
-export interface DetailProfileTypes {
+export interface detailProfileTypes {
   height: number;
   religion: string;
   tattoo: boolean;
@@ -6,7 +6,6 @@ export interface DetailProfileTypes {
   marriagePlan: number;
   mbti: string;
   grossSalary: number;
-  job: string;
   workArrangementList: string[];
   scale: string;
   hobbyList: {

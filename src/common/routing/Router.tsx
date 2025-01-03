@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import DetailProfile from '../../detail/DetailProfilePage';
 import Register from '../../register';
+import DetailProfile from '../../detail/DetailProfile';
 import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
 import AnswerPage from '../../qna/pages/answerPage';
@@ -28,26 +28,26 @@ export const Router = () => {
   return (
     <NavigationContainer theme={navTheme} ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Landing"
           component={Landing}
           options={{title: 'landing'}}
-        />
+        /> */}
         <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={Login}
           options={{title: '로그인'}}
-        />
+        /> */}
         <Stack.Screen name="Home" component={Home} options={{title: 'home'}} />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
-        />
+        /> */}
         <Stack.Screen
           name="QnA"
           component={QnA}

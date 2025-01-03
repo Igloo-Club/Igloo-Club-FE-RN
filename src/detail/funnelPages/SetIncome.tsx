@@ -1,67 +1,45 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {
-  DETAIL_PROFILE_VIEW_CONSTATNS,
-  GROSS_SALARY,
-} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
+import {GROSS_SALARY} from '../constants/DETAIL_PROFILE_SELECTS';
 import SelectBox from '../components/SelectBox';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 세전연봉 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-
-  const handleSelect = (option: string | number) => {
-    if (typeof option === 'number') {
-      setSelectedOption(option);
-    } else {
-      const matchedOption =
-        GROSS_SALARY.find(o => o.label === option)?.value || null;
-      setSelectedOption(matchedOption);
-    }
-  };
-
-  const handleNextStep = () => {
-    if (handleDetailProfileValue) {
-      handleDetailProfileValue({
-        ...detailProfileValues,
-        grossSalary: selectedOption as number,
-      });
-    }
-    onNext();
-  };
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null,
+  );
 
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={56} onPrev={onPrev} />
-      <Text style={globalStyles.title}>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Text>
+    <DetailLayout
+      step={step}
+      progress={56}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof selectedOption === 'string') {
+          const valueToSend =
+            typeof selectedOption === 'number'
+              ? selectedOption
+              : GROSS_SALARY.find(income => income.label === selectedOption)
+                  ?.value || 4;
+          await handleDetailProfileValue?.('grossSalary', valueToSend);
+        }
+        onNext();
+      }}
+      isBtnActive={selectedOption !== null}>
       <SelectBox
         options={GROSS_SALARY}
         selectedOption={selectedOption ? [selectedOption] : []}
-        onSelect={handleSelect}
+        onSelect={setSelectedOption}
         mode="single"
       />
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!selectedOption}
-        label="다음으로"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 
