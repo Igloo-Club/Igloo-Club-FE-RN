@@ -1,59 +1,31 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
 import {View, TextInput} from 'react-native';
-import DetailProfileHeader from '../components/DetailProfileHeader';
-import {DETAIL_PROFILE_VIEW_CONSTATNS} from '../constants/DETAIL_PROFILE_VIEW_CONSTANTS';
-import FooterBtn from '../components/DetailProfileFooter';
-import {globalStyles} from '../../common/styles/globalStyles';
-import {NavTypesProps} from '../types/navTypes';
-import instance from '../../common/apis/axiosInstance';
+import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
+import DetailLayout from '../components/DetailProfileLayout';
 
 const 한줄소개 = ({
   onPrev,
   onNext,
   step,
   handleDetailProfileValue,
-  detailProfileValues,
-}: NavTypesProps & {
+}: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [shortIntro, setShortIntro] = useState('');
 
-  const handleNextStep = async () => {
-    const updatedDetailProfileValues = {
-      ...detailProfileValues,
-      intro: shortIntro,
-    };
-
-    console.log(updatedDetailProfileValues);
-
-    if (handleDetailProfileValue) {
-      handleDetailProfileValue(updatedDetailProfileValues);
-    }
-
-    try {
-      const res = await instance.post(
-        '/api/member/additional',
-        updatedDetailProfileValues,
-      );
-      if (res.status === 200) {
-        onNext();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
-    <View style={globalStyles.container}>
-      <DetailProfileHeader percent={88} onPrev={onPrev} />
-      <Title>
-        {
-          DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
-            ?.mainTitle
-        }{' '}
-      </Title>
-      <SubTitle>상대방에게 보여지는 첫인상이에요.</SubTitle>
+    <DetailLayout
+      step={step}
+      progress={88}
+      onBackPress={onPrev}
+      onButtonPress={async () => {
+        if (typeof shortIntro === 'string') {
+          await handleDetailProfileValue?.('intro', shortIntro);
+        }
+        onNext();
+      }}
+      isBtnActive={shortIntro !== null}>
       <InputBox>
         <Input
           placeholder="짧고 임팩트 있는 한 줄 소개를 작성하세요."
@@ -73,30 +45,11 @@ const 한줄소개 = ({
         <ExampleTitle>작성 예시</ExampleTitle>
         <ExampleText>클라이밍을 사랑하는 26살 여자입니다😄</ExampleText>
       </ExampleBox>
-      <FooterBtn
-        onPress={handleNextStep}
-        isDisabled={!shortIntro}
-        label="프로필 등록 완료하기"
-      />
-    </View>
+    </DetailLayout>
   );
 };
 
 export default 한줄소개;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0px 0px 10px 5px;
-  line-height: 35px;
-`;
-
-const SubTitle = styled.Text`
-  color: #646d7a;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0px 0px 10px 5px;
-`;
 
 const InputBox = styled(View)`
   height: 120px;

@@ -5,7 +5,7 @@ import instance from '../../common/apis/axiosInstance';
 import {globalStyles} from '../../common/styles/globalStyles';
 import {X} from '../assets/images/index';
 import CountInput from '../components/CountInput';
-import FooterBtn from '../../detail/components/DetailProfileFooter';
+import FooterBtn from '../../common/components/FooterBtn';
 import {useIdContext} from '../../common/apis/contexts/useIdContext';
 import {QuestionTypes} from '../types/QuestionType';
 

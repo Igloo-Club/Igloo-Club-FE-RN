@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import * as St from '../styles/idealTypeRenders.style';
-import FooterBtn from '../../detail/components/DetailProfileFooter';
+import FooterBtn from '../../common/components/FooterBtn';
 import SelectBox from '../../detail/components/SelectBox';
 import useSelectOptions from '../../common/hooks/useSelectOptions';
 import {checkArraysEqual} from '../utils/checkArraysEqual';

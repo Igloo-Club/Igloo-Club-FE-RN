@@ -6,18 +6,18 @@ import styled from '@emotion/native';
 
 interface DetailProfileHeaderProps {
   percent: number;
-  onPrev?: () => void;
+  onBackPress?: () => void;
 }
 
 const DetailProfileHeader: React.FC<DetailProfileHeaderProps> = ({
   percent,
-  onPrev,
+  onBackPress,
 }) => {
   const ArrowLeft = require('../assets/images/ArrowLeft.png');
   return (
     <Container>
       <NavStyles>
-        <BackButton onPress={onPrev}>
+        <BackButton onPress={onBackPress}>
           <Arrow source={ArrowLeft} />
         </BackButton>
       </NavStyles>

@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import instance from './axiosInstance';
+import {signInInstance} from './axiosInstance';
 
 const getRefreshToken = async () => {
   console.log('리프레쉬 받기');
   try {
-    const {data} = await instance.post('api/auth/refresh');
+    const {data} = await signInInstance.post('api/auth/refresh');
     console.log(data);
     const {accessToken} = data;
 

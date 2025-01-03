@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import FooterBtn from '../detail/components/DetailProfileFooter';
+import FooterBtn from '../common/components/FooterBtn';
 import {IDEAL_KEY, IDEAL_LIST} from './constants/IDEAL_LIST';
 import ListContainer from './components/ListContainer';
 import {formatIdealListValueText} from './utils/formatIdealListValueText';
