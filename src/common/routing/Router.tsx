@@ -7,10 +7,9 @@ import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
 import AnswerPage from '../../qna/pages/answerPage';
 import IdealType from '../../idealType';
-import Login from '../../login';
-import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
-import Landing from '../../landing';
-import Home from '../../home';
+// import Login from '../../login';
+// import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
+// import Landing from '../../landing';
 import MainPage from '../../main/pages/mainPage';
 import {navigationRef} from '../hooks/useNavigationRef';
 import Chat from '../../chat';
@@ -46,7 +45,6 @@ export const Router = () => {
           component={Login}
           options={{title: '로그인'}}
         /> */}
-        <Stack.Screen name="Home" component={Home} options={{title: 'home'}} />
         {/* <Stack.Screen
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
