@@ -1,6 +1,5 @@
 import React from 'react';
 import BottomModal from '../../common/components/BottomModal';
-import {MOCK_IDEAL} from '../constants/MOCK_IDEALTYPE';
 import {IDEAL_KEY} from '../constants/IDEAL_LIST';
 import {
   선호나이,
@@ -11,11 +10,12 @@ import {
   선호결혼계획,
 } from './IdealTypeModalRenders';
 import styled from '@emotion/native';
+import {IidealType} from '../types/idealType';
 
 interface IdealTypeModalProps {
   modalKey: keyof typeof CONSTANT;
   onClose: () => void;
-  data: typeof MOCK_IDEAL;
+  data: IidealType | undefined;
   handleData: (
     key: string,
     value: string | number | string[] | boolean,
@@ -25,7 +25,7 @@ interface IdealTypeModalProps {
 const CONSTANT = {
   preferredAge: '선호하는 나이 범위',
   preferredHeight: '선호하는 키 범위',
-  mbtiList: '성격 유형',
+  mbtiElemList: '성격 유형',
   smoke: '흡연 여부',
   religion: '종교',
   marriagePlan: '결혼 계획',
@@ -37,6 +37,9 @@ const IdealTypeModal = ({
   handleData,
   data,
 }: IdealTypeModalProps) => {
+  if (!data) {
+    return;
+  }
   const modalTitle = CONSTANT[modalKey] || '선택해주세요.';
 
   const handleChangeData = (changedValue: any, modalKey: string) => {
@@ -72,10 +75,10 @@ const IdealTypeModal = ({
             }}
           />
         );
-      case IDEAL_KEY.mbtiList:
+      case IDEAL_KEY.mbtiElemList:
         return (
           <선호성격유형
-            value={data.mbtiList}
+            value={data.mbtiElemList}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
@@ -84,7 +87,7 @@ const IdealTypeModal = ({
       case IDEAL_KEY.smoke:
         return (
           <선호흡연여부
-            value={data.smoke}
+            value={data.smoke ? Number(data.smoke) : null}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
@@ -100,6 +103,9 @@ const IdealTypeModal = ({
           />
         );
       case IDEAL_KEY.marriagePlan:
+        if (typeof data.marriagePlan === 'undefined') {
+          return;
+        }
         return (
           <선호결혼계획
             value={data.marriagePlan}

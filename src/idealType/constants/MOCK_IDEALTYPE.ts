@@ -1,10 +1,12 @@
-export const MOCK_IDEAL = {
-  preferredAgeStart: 20,
-  preferredAgeEnd: 180,
-  preferredHeightStart: 170,
-  preferredHeightEnd: 180,
-  mbtiList: ['I', 'T'],
-  smoke: 0,
-  religion: 'BUDDHISM',
-  marriagePlan: 3,
+import {IidealType} from '../types/idealType';
+
+export const MOCK_IDEAL: IidealType = {
+  preferredAgeStart: null,
+  preferredAgeEnd: null,
+  preferredHeightStart: null,
+  preferredHeightEnd: null,
+  mbtiElemList: [],
+  smoke: null,
+  religion: null,
+  marriagePlan: null,
 };

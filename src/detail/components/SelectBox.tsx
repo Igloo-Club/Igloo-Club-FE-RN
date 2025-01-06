@@ -9,7 +9,7 @@ interface Option {
 
 interface SelectBoxProps {
   options: Option[];
-  selectedOption: (string | number)[];
+  selectedOption: (string | number | null | undefined)[];
   onSelect: (option: string | number) => void;
   mode: 'single' | 'multiple';
 }
