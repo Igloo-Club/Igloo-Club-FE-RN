@@ -56,9 +56,6 @@ const IdealTypeModal = ({
   };
 
   const renderContent = () => {
-    if (!data.preferredAgeEnd || !data.preferredAgeStart) {
-      return;
-    }
     switch (modalKey) {
       case IDEAL_KEY.preferredAge:
         return (
@@ -70,9 +67,6 @@ const IdealTypeModal = ({
           />
         );
       case IDEAL_KEY.preferredHeight:
-        if (!data.preferredHeightEnd || !data.preferredHeightStart) {
-          return;
-        }
         return (
           <선호키
             value={[data.preferredHeightStart, data.preferredHeightEnd]}
@@ -91,21 +85,15 @@ const IdealTypeModal = ({
           />
         );
       case IDEAL_KEY.smoke:
-        if (data.smoke === undefined) {
-          return;
-        }
         return (
           <선호흡연여부
-            value={Number(data.smoke)}
+            value={data.smoke ? Number(data.smoke) : null}
             handleData={changedValue => {
               handleChangeData(changedValue, modalKey);
             }}
           />
         );
       case IDEAL_KEY.religion:
-        if (!data.religion) {
-          return;
-        }
         return (
           <선호종교
             value={data.religion}

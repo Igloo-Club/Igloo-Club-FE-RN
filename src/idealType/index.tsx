@@ -13,23 +13,23 @@ import {IidealType} from './types/idealType';
 // import instance from '../common/apis/axiosInstance';
 
 const IdealType = ({navigation}: any) => {
-  const [data, setData] = useState<IidealType | undefined>();
+  const [data, setData] = useState<IidealType | undefined>(MOCK_IDEAL);
   const [isModalOpen, setIsModalOpen] = useState<
     keyof typeof IDEAL_KEY | null
   >();
 
   useEffect(() => {
-    getData();
+    // getData();
   }, []);
-  const getData = async () => {
-    try {
-      const result = await instance.get('/api/member/ideal');
-      console.log(result.data);
-      setData(result.data);
-    } catch (err) {
-      console.log('getIdeal', err);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const result = await instance.get('/api/member/ideal');
+  //     console.log(result.data);
+  //     setData(result.data);
+  //   } catch (err) {
+  //     console.log('getIdeal', err);
+  //   }
+  // };
 
   const handleData = (
     key: string,
