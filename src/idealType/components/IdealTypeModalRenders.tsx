@@ -16,7 +16,7 @@ export const 선호나이 = ({
   value,
   handleData,
 }: {
-  value: number[];
+  value: (number | null | undefined)[];
   handleData: (changedValue: typeof value) => void;
 }) => {
   const [changedValue, setChangedValue] = useState(value);
@@ -28,13 +28,13 @@ export const 선호나이 = ({
   return (
     <>
       <St.IdealRenderStyles.SubTitle>
-        {changedValue[0]}세 부터 {changedValue[1]}세까지, 추천받고 싶어요
+        {changedValue?.[0]}세 부터 {changedValue?.[1]}세까지, 추천받고 싶어요
       </St.IdealRenderStyles.SubTitle>
       <RangeSlider
         start={20}
         end={60}
-        from={changedValue[0]}
-        to={changedValue[1]}
+        from={changedValue?.[0]}
+        to={changedValue?.[1]}
         onValueChange={onValueChange}
       />
       <FooterBtn
@@ -52,10 +52,11 @@ export const 선호키 = ({
   value,
   handleData,
 }: {
-  value: number[];
+  value: (number | null | undefined)[];
   handleData: (changedValue: typeof value) => void;
 }) => {
   const [changedValue, setChangedValue] = useState(value);
+  console.log(changedValue, value);
 
   const onValueChange = useCallback((newValue: number[]) => {
     setChangedValue(newValue);
@@ -78,7 +79,7 @@ export const 선호키 = ({
           handleData(changedValue);
         }}
         label="확인"
-        isDisabled={checkArraysEqual(value, changedValue)}
+        isDisabled={value === changedValue}
       />
     </>
   );
@@ -119,10 +120,10 @@ export const 선호흡연여부 = ({
   value,
   handleData,
 }: {
-  value: number;
+  value: number | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<number>(value);
+  const [selectedOption, setSelectedOption] = useState(value);
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
@@ -151,10 +152,12 @@ export const 선호종교 = ({
   value,
   handleData,
 }: {
-  value: string;
+  value: string | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(value);
+  const [selectedOption, setSelectedOption] = useState<
+    string | null | undefined
+  >(value);
   const handleSelect = (value: any) => {
     setSelectedOption(value);
   };
@@ -182,10 +185,12 @@ export const 선호결혼계획 = ({
   value,
   handleData,
 }: {
-  value: number;
+  value: number | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<number>(value);
+  const [selectedOption, setSelectedOption] = useState<
+    number | null | undefined
+  >(value);
   const handleSelect = (value: any) => {
     setSelectedOption(value);
   };
