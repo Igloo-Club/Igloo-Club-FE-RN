@@ -94,6 +94,19 @@ export const 선호성격유형 = ({
 }) => {
   const {selectedOptions, handleSelect} = useSelectOptions(value);
 
+  const isValidMBTIList = (mbtiList: string[]): boolean => {
+    // 각 MBTI 그룹 정의
+    const groups = [
+      ['E', 'I'], // E와 I 중 하나
+      ['F', 'T'], // F와 T 중 하나
+      ['N', 'S'], // N과 S 중 하나
+      ['P', 'J'], // P와 J 중 하나
+    ];
+
+    // 각 그룹에 대해 하나 이상의 값이 존재하는지 확인
+    return groups.every(group => group.some(type => mbtiList.includes(type)));
+  };
+
   return (
     <>
       <St.IdealRenderStyles.SubTitle>
@@ -110,7 +123,10 @@ export const 선호성격유형 = ({
           handleData(selectedOptions);
         }}
         label="확인"
-        isDisabled={checkArraysEqual(value, selectedOptions)}
+        isDisabled={
+          !isValidMBTIList(selectedOptions) ||
+          checkArraysEqual(value, selectedOptions)
+        }
       />
     </>
   );
