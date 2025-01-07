@@ -3,15 +3,20 @@ import {SafeAreaView, View, Text} from 'react-native';
 import styled from '@emotion/native';
 import {SelectArrow} from '../assets/0_index';
 import NavBar from '../../common/components/NavBar';
-import Count from '../components/count';
+import PickProfileBtn from '../components/PickProfileBtn';
+import CustomSelect from '../components/CustomSelect';
 
 const MainPage = ({navigation}: any) => {
+  const handleSelectedChange = (newSelected: string) => {
+    // setSelected(newSelected);
+    // handleGetAllProfile();
+  };
+
   return (
     <Container>
       <Header>
         <SelectArea>
-          {/*<CustomSelect onSelectedChange={handleSelectedChange} />*/}
-          <SelectArrow />
+          <CustomSelect onSelectedChange={handleSelectedChange} />
         </SelectArea>
         <MainTitle>
           <Title>마음에 드는 상대와</Title>
@@ -22,7 +27,7 @@ const MainPage = ({navigation}: any) => {
         <Text>이 친구들은 어때요?</Text>
       </Content>
       <Footer>
-        <Count />
+        <PickProfileBtn />
         <NavBar />
       </Footer>
     </Container>
@@ -44,6 +49,9 @@ const Header = styled(View)`
 `;
 
 const SelectArea = styled(View)`
+  width: 100%;
+  display: flex;
+  justify-content: start;
   color: #686f7a;
   font-size: 16px;
   font-weight: 500;
