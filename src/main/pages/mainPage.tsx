@@ -5,7 +5,7 @@ import {SelectArrow} from '../assets/0_index';
 import NavBar from '../../common/components/NavBar';
 import Count from '../components/count';
 
-const MainPage = ({navigation}: any) => {
+const MainPage = () => {
   return (
     <Container>
       <Header>

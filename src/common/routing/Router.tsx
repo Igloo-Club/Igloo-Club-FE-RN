@@ -10,11 +10,11 @@ import IdealType from '../../idealType';
 // import Login from '../../login';
 // import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 // import Landing from '../../landing';
-import MainPage from '../../main/pages/mainPage';
 import {navigationRef} from '../hooks/useNavigationRef';
-import Chat from '../../chat';
+// import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
 import {RootStackParamList} from './routerTypes';
+import NavLayout from '../components/NavLayout';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,16 +30,17 @@ export const Router = () => {
   return (
     <NavigationContainer theme={navTheme} ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
+        <Stack.Screen name="NavLayout" component={NavLayout} />
         {/* <Stack.Screen
           name="Landing"
           component={Landing}
           options={{title: 'landing'}}
         /> */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
-        />
+        /> */}
         {/* <Stack.Screen
           name="Login"
           component={Login}
@@ -79,7 +80,7 @@ export const Router = () => {
           component={QuestionList}
           options={{title: '질문 리스트'}}
         />
-        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
+        {/* <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} /> */}
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoom}
