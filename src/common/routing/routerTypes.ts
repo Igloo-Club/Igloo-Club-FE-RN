@@ -12,5 +12,5 @@ export type RootStackParamList = {
   QuestionList: undefined;
   Chat: undefined;
   ChatRoom: {chatRoomId: number};
-  NavLayout: undefined;
+  BottomNavLayout: undefined;
 };

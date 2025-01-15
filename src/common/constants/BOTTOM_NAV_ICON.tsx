@@ -1,3 +1,5 @@
+import React from 'react';
+import {ReactNode} from 'react';
 import {
   IcChatActive,
   IcChatInActive,
@@ -9,7 +11,7 @@ import {
   IcPeopleInActive,
 } from '../assets/0_index';
 
-type IconType = React.ReactNode;
+type IconType = ReactNode;
 
 // BOTTOM_NAV_ICON 객체 정의
 interface BottomNavIcon {
@@ -23,23 +25,23 @@ interface BottomNavIcon {
 // 객체 정의
 export const BOTTOM_NAV_ICON: BottomNavIcon = {
   MainPage: {
-    activeIcon: IcHomeActive,
-    inActiveIcon: IcHomeInActive,
+    activeIcon: <IcHomeActive />,
+    inActiveIcon: <IcHomeInActive />,
     label: '홈',
   },
   Chat: {
-    activeIcon: IcChatActive,
-    inActiveIcon: IcChatInActive,
+    activeIcon: <IcChatActive />,
+    inActiveIcon: <IcChatInActive />,
     label: '채팅',
   },
-  matching: {
-    activeIcon: IcHeartActive,
-    inActiveIcon: IcHeartInActive,
+  Matching: {
+    activeIcon: <IcHeartActive />,
+    inActiveIcon: <IcHeartInActive />,
     label: '매칭',
   },
-  myPage: {
-    activeIcon: IcPeopleActive,
-    inActiveIcon: IcPeopleInActive,
+  MyPage: {
+    activeIcon: <IcPeopleActive />,
+    inActiveIcon: <IcPeopleInActive />,
     label: '마이',
   },
 };

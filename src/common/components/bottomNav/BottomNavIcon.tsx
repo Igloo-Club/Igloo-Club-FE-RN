@@ -3,18 +3,18 @@ import {Text, View} from 'react-native';
 import styled from '@emotion/native';
 import {BOTTOM_NAV_ICON} from '../../constants/BOTTOM_NAV_ICON';
 
-const HomeIcon = ({name, focused}: {name: string; focused: boolean}) => {
+const BottomNavIcon = ({name, focused}: {name: string; focused: boolean}) => {
   return (
     <NavButton>
       {focused
-        ? BOTTOM_NAV_ICON[name].activeIcon
-        : BOTTOM_NAV_ICON[name].inActiveIcon}
+        ? BOTTOM_NAV_ICON[name]?.activeIcon
+        : BOTTOM_NAV_ICON[name]?.inActiveIcon}
       <BtnText active={focused}>{BOTTOM_NAV_ICON[name].label}</BtnText>
     </NavButton>
   );
 };
 
-export default HomeIcon;
+export default BottomNavIcon;
 
 const NavButton = styled(View)`
   display: flex;

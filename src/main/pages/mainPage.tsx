@@ -2,7 +2,7 @@ import React from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import styled from '@emotion/native';
 import {SelectArrow} from '../assets/0_index';
-import NavBar from '../../common/components/NavBar';
+// import NavBar from '../../common/components/NavBar';
 import Count from '../components/count';
 
 const MainPage = () => {
@@ -23,7 +23,7 @@ const MainPage = () => {
       </Content>
       <Footer>
         <Count />
-        <NavBar />
+        {/* <NavBar /> */}
       </Footer>
     </Container>
   );

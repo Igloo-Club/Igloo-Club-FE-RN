@@ -14,7 +14,7 @@ import {navigationRef} from '../hooks/useNavigationRef';
 // import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
 import {RootStackParamList} from './routerTypes';
-import NavLayout from '../components/NavLayout';
+import BottomNavLayout from '../components/BottomNavLayout';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,7 +30,7 @@ export const Router = () => {
   return (
     <NavigationContainer theme={navTheme} ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
-        <Stack.Screen name="NavLayout" component={NavLayout} />
+        <Stack.Screen name="BottomNavLayout" component={BottomNavLayout} />
         {/* <Stack.Screen
           name="Landing"
           component={Landing}
