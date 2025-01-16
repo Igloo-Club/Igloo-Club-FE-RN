@@ -9039,6 +9039,7 @@ __metadata:
     react-native-screens: ^3.32.0
     react-native-svg: ^15.10.1
     react-native-svg-transformer: ^1.5.0
+    react-native-web-swiper: ^2.2.4
     react-native-webview: ^13.12.2
     react-router-native: ^6.28.1
     react-test-renderer: 18.2.0
@@ -9540,7 +9541,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -9765,6 +9766,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: c210426b424e99730ba35d6bbf18335a99f04f2f234cb5bb578ac685c31cfca5e39d48ebf05f9189edd61c028405f4ff242b5edc98ee3e3f41c8bfa960f5bff4
+  languageName: node
+  linkType: hard
+
+"react-native-web-swiper@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "react-native-web-swiper@npm:2.2.4"
+  dependencies:
+    prop-types: ^15.6.2
+  peerDependencies:
+    react-native: "*"
+  checksum: b097559690357ed7f7f5384888aeb31cb210153265d89d3225c458727628a622b05cdf6f4684781c508b69c21fd0ee1235354ae9b7fefc77c479a2f467cd8657
   languageName: node
   linkType: hard
 

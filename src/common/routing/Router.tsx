@@ -35,14 +35,14 @@ export const Router = () => {
           options={{title: 'landing'}}
         /> */}
         <Stack.Screen
-          name="DainPage"
-          component={DetailPage}
-          options={{title: '상세 페이지'}}
-        />
-        <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
+        />
+        <Stack.Screen
+          name="DainPage"
+          component={DetailPage}
+          options={{title: '상세 페이지'}}
         />
         {/* <Stack.Screen
           name="Login"
