@@ -17,8 +17,8 @@ const RangeSlider = ({
 }: {
   start: number;
   end: number;
-  from: number;
-  to: number;
+  from: number | undefined | null;
+  to: number | undefined | null;
   onValueChange: (newValue: number[]) => void;
 }) => {
   const [low, setLow] = useState(from);
@@ -47,8 +47,8 @@ const RangeSlider = ({
       <RangeSliderRN
         min={start}
         max={end}
-        low={low}
-        high={high}
+        low={low || 0}
+        high={high || 0}
         step={1}
         floatingLabel
         renderThumb={renderThumb}

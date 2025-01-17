@@ -7,16 +7,18 @@ import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
 import AnswerPage from '../../qna/pages/answerPage';
 import IdealType from '../../idealType';
-import Login from '../../login';
-import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
-import Landing from '../../landing';
-import Home from '../../home';
+// import Login from '../../login';
+// import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
+// import Landing from '../../landing';
 import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
 import NungilList from '../../nungilList/nungilList';
 import {navigationRef} from '../hooks/useNavigationRef';
+import Chat from '../../chat';
+import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
+import {RootStackParamList} from './routerTypes';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const navTheme = {
   ...DefaultTheme,
@@ -55,7 +57,6 @@ export const Router = () => {
           component={Login}
           options={{title: '로그인'}}
         /> */}
-        <Stack.Screen name="Home" component={Home} options={{title: 'home'}} />
         {/* <Stack.Screen
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
@@ -89,6 +90,12 @@ export const Router = () => {
           name="QuestionList"
           component={QuestionList}
           options={{title: '질문 리스트'}}
+        />
+        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
+        <Stack.Screen
+          name="ChatRoom"
+          component={ChatRoom}
+          options={{title: '채팅룸'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

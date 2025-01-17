@@ -16,7 +16,7 @@ export const 선호나이 = ({
   value,
   handleData,
 }: {
-  value: number[];
+  value: (number | null | undefined)[];
   handleData: (changedValue: typeof value) => void;
 }) => {
   const [changedValue, setChangedValue] = useState(value);
@@ -28,13 +28,13 @@ export const 선호나이 = ({
   return (
     <>
       <St.IdealRenderStyles.SubTitle>
-        {changedValue[0]}세 부터 {changedValue[1]}세까지, 추천받고 싶어요
+        {changedValue?.[0]}세 부터 {changedValue?.[1]}세까지, 추천받고 싶어요
       </St.IdealRenderStyles.SubTitle>
       <RangeSlider
         start={20}
         end={60}
-        from={changedValue[0]}
-        to={changedValue[1]}
+        from={changedValue?.[0]}
+        to={changedValue?.[1]}
         onValueChange={onValueChange}
       />
       <FooterBtn
@@ -52,10 +52,11 @@ export const 선호키 = ({
   value,
   handleData,
 }: {
-  value: number[];
+  value: (number | null | undefined)[];
   handleData: (changedValue: typeof value) => void;
 }) => {
   const [changedValue, setChangedValue] = useState(value);
+  console.log(changedValue, value);
 
   const onValueChange = useCallback((newValue: number[]) => {
     setChangedValue(newValue);
@@ -78,7 +79,7 @@ export const 선호키 = ({
           handleData(changedValue);
         }}
         label="확인"
-        isDisabled={checkArraysEqual(value, changedValue)}
+        isDisabled={value === changedValue}
       />
     </>
   );
@@ -88,10 +89,23 @@ export const 선호성격유형 = ({
   value,
   handleData,
 }: {
-  value: string[];
+  value: string[] | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
   const {selectedOptions, handleSelect} = useSelectOptions(value);
+
+  const isValidMBTIList = (mbtiList: string[]): boolean => {
+    // 각 MBTI 그룹 정의
+    const groups = [
+      ['E', 'I'], // E와 I 중 하나
+      ['F', 'T'], // F와 T 중 하나
+      ['N', 'S'], // N과 S 중 하나
+      ['P', 'J'], // P와 J 중 하나
+    ];
+
+    // 각 그룹에 대해 하나 이상의 값이 존재하는지 확인
+    return groups.every(group => group.some(type => mbtiList.includes(type)));
+  };
 
   return (
     <>
@@ -109,7 +123,10 @@ export const 선호성격유형 = ({
           handleData(selectedOptions);
         }}
         label="확인"
-        isDisabled={checkArraysEqual(value, selectedOptions)}
+        isDisabled={
+          !isValidMBTIList(selectedOptions) ||
+          checkArraysEqual(value, selectedOptions)
+        }
       />
     </>
   );
@@ -119,10 +136,10 @@ export const 선호흡연여부 = ({
   value,
   handleData,
 }: {
-  value: number;
+  value: number | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<number>(value);
+  const [selectedOption, setSelectedOption] = useState(value);
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
@@ -151,10 +168,12 @@ export const 선호종교 = ({
   value,
   handleData,
 }: {
-  value: string;
+  value: string | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(value);
+  const [selectedOption, setSelectedOption] = useState<
+    string | null | undefined
+  >(value);
   const handleSelect = (value: any) => {
     setSelectedOption(value);
   };
@@ -182,10 +201,12 @@ export const 선호결혼계획 = ({
   value,
   handleData,
 }: {
-  value: number;
+  value: number | null | undefined;
   handleData: (changedValue: typeof value) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<number>(value);
+  const [selectedOption, setSelectedOption] = useState<
+    number | null | undefined
+  >(value);
   const handleSelect = (value: any) => {
     setSelectedOption(value);
   };

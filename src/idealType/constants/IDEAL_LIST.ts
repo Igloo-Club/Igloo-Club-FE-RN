@@ -15,7 +15,7 @@ export const IDEAL_LIST: IIDEAL_LIST[] = [
   },
   {
     label: '성격 유형',
-    key: 'mbtiList',
+    key: 'mbtiElemList',
   },
   {
     label: '흡연 여부',
@@ -34,7 +34,7 @@ export const IDEAL_LIST: IIDEAL_LIST[] = [
 export const IDEAL_KEY = {
   preferredAge: 'preferredAge',
   preferredHeight: 'preferredHeight',
-  mbtiList: 'mbtiList',
+  mbtiElemList: 'mbtiElemList',
   smoke: 'smoke',
   religion: 'religion',
   marriagePlan: 'marriagePlan',
