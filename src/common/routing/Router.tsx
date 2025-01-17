@@ -11,6 +11,7 @@ import IdealType from '../../idealType';
 // import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 // import Landing from '../../landing';
 import MainPage from '../../main/pages/mainPage';
+import DetailPage from '../page/detailPage';
 import {navigationRef} from '../hooks/useNavigationRef';
 import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
@@ -39,6 +40,11 @@ export const Router = () => {
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
+        />
+        <Stack.Screen
+          name="DainPage"
+          component={DetailPage}
+          options={{title: '상세 페이지'}}
         />
         {/* <Stack.Screen
           name="Login"

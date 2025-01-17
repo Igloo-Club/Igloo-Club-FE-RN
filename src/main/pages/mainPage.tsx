@@ -5,6 +5,7 @@ import {SelectArrow} from '../assets/0_index';
 import NavBar from '../../common/components/NavBar';
 import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
+import ImageSlider from '../components/ImageSlider';
 
 const MainPage = ({navigation}: any) => {
   const handleSelectedChange = (newSelected: string) => {
@@ -24,7 +25,8 @@ const MainPage = ({navigation}: any) => {
         </MainTitle>
       </Header>
       <Content>
-        <Text>이 친구들은 어때요?</Text>
+        <Comment>이 친구들은 어때요?</Comment>
+        <ImageSlider />
       </Content>
       <Footer>
         <PickProfileBtn />
@@ -62,7 +64,7 @@ const MainTitle = styled(View)``;
 const Title = styled.Text`
   color: #303030;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const Content = styled(View)`
@@ -70,6 +72,13 @@ const Content = styled(View)`
   padding: 35px 20px 56px 20px;
   border-radius: 40px 40px 0px 0px;
   background-color: #ffffff;
+  gap: 26px;
+`;
+
+const Comment = styled.Text`
+  color: #303030;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const Footer = styled(View)`
