@@ -13,6 +13,7 @@ import Landing from '../../landing';
 import Home from '../../home';
 import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
+import NungilList from '../../nungilList/nungilList';
 import {navigationRef} from '../hooks/useNavigationRef';
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,11 @@ export const Router = () => {
           component={Landing}
           options={{title: 'landing'}}
         /> */}
+        <Stack.Screen
+          name="NungilList"
+          component={NungilList}
+          options={{title: '눈길 리스트'}}
+        />
         <Stack.Screen
           name="MainPage"
           component={MainPage}

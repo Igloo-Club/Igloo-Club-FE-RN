@@ -20,8 +20,8 @@ const MainPage = ({navigation}: any) => {
           <CustomSelect onSelectedChange={handleSelectedChange} />
         </SelectArea>
         <MainTitle>
-          <Title>마음에 드는 상대와</Title>
-          <Title>오늘 커피 한 잔 어떠세요? ☕️</Title>
+          <Title>님과 찰떡인</Title>
+          <Title>오늘의 특별한 인연을 소개할게요</Title>
         </MainTitle>
       </Header>
       <Content>

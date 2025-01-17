@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
-import instance from '../../common/apis/axiosInstanse';
+import instance from '../../common/apis/axiosInstance';
 import {SelectArrow} from '../assets/0_index';
 import {TouchableOpacity, View, Text} from 'react-native';
 
@@ -82,8 +82,9 @@ const Container = styled(View)`
 
 const SelectBox = styled(TouchableOpacity)`
   display: flex;
-  gap: 0.5rem;
-  padding-right: 0.2rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 
   &:hover {
     cursor: pointer;
@@ -91,8 +92,11 @@ const SelectBox = styled(TouchableOpacity)`
 `;
 
 const SelectValue = styled(Text)`
-  color: gray;
-  border-bottom: 2px solid gray;
+  color: #686f7a;
+  font-size: 16px;
+  font-weight: 500;
+
+  text-decoration: underline;
 `;
 
 const OptionBox = styled(View)`
