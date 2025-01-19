@@ -1,23 +1,21 @@
 import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import styled from '@emotion/native';
-import {SelectArrow} from '../assets/0_index';
-import NavBar from '../../common/components/NavBar';
 import PickProfileBtn from '../components/PickProfileBtn';
-import CustomSelect from '../components/CustomSelect';
+// import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
 
-const MainPage = ({navigation}: any) => {
-  const handleSelectedChange = (newSelected: string) => {
-    // setSelected(newSelected);
-    // handleGetAllProfile();
-  };
+const MainPage = () => {
+  // const handleSelectedChange = (newSelected: string) => {
+  //   // setSelected(newSelected);
+  //   // handleGetAllProfile();
+  // };
 
   return (
     <Container>
       <Header>
         <SelectArea>
-          <CustomSelect onSelectedChange={handleSelectedChange} />
+          {/* <CustomSelect onSelectedChange={handleSelectedChange} /> */}
         </SelectArea>
         <MainTitle>
           <Title>님과 찰떡인</Title>
@@ -30,7 +28,6 @@ const MainPage = ({navigation}: any) => {
       </Content>
       <Footer>
         <PickProfileBtn />
-        <NavBar />
       </Footer>
     </Container>
   );

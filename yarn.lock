@@ -3445,7 +3445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^6.1.6":
+"@react-navigation/native@npm:^6.1.18":
   version: 6.1.18
   resolution: "@react-navigation/native@npm:6.1.18"
   dependencies:
@@ -9086,13 +9086,9 @@ __metadata:
     "@react-native/eslint-config": 0.74.85
     "@react-native/metro-config": 0.74.85
     "@react-native/typescript-config": 0.74.85
-<<<<<<< HEAD
-    "@react-navigation/drawer": 6.7.2
-    "@react-navigation/native": ^6.1.6
-=======
     "@react-navigation/bottom-tabs": 6.6.1
+    "@react-navigation/drawer": 6.7.2
     "@react-navigation/native": ^6.1.18
->>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
     "@react-navigation/native-stack": ^6.11.0
     "@types/react": ^18.2.6
     "@types/react-native-dotenv": ^0.2.2
