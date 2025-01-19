@@ -2,7 +2,6 @@ import React from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import styled from '@emotion/native';
 import {SelectArrow} from '../assets/0_index';
-<<<<<<< HEAD
 import NavBar from '../../common/components/NavBar';
 import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
@@ -14,12 +13,6 @@ const MainPage = ({navigation}: any) => {
     // handleGetAllProfile();
   };
 
-=======
-// import NavBar from '../../common/components/NavBar';
-import Count from '../components/count';
-
-const MainPage = () => {
->>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
   return (
     <Container>
       <Header>
@@ -36,13 +29,8 @@ const MainPage = () => {
         <ImageSlider />
       </Content>
       <Footer>
-<<<<<<< HEAD
         <PickProfileBtn />
         <NavBar />
-=======
-        <Count />
-        {/* <NavBar /> */}
->>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
       </Footer>
     </Container>
   );

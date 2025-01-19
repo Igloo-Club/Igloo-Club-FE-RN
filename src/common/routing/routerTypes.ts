@@ -2,6 +2,8 @@ export type RootStackParamList = {
   Home: undefined;
   Landing: undefined;
   MainPage: undefined;
+  DetailPage: undefined;
+  NungilList: undefined;
   Login: undefined;
   KakaoLoginRedirect: undefined;
   QnA: undefined;
