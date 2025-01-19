@@ -17,8 +17,13 @@
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-firebase/app": "^20.4.0",
     "@react-native-firebase/messaging": "^20.4.0",
+<<<<<<< HEAD
     "@react-navigation/drawer": "6.7.2",
     "@react-navigation/native": "^6.1.6",
+=======
+    "@react-navigation/bottom-tabs": "6.6.1",
+    "@react-navigation/native": "^6.1.18",
+>>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
     "@react-navigation/native-stack": "^6.11.0",
     "axios": "^1.7.4",
     "react": "18.2.0",

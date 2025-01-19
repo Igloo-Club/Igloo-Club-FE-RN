@@ -2,20 +2,25 @@ import React from 'react';
 import styled from '@emotion/native';
 // import { theme } from '../styles/theme';
 import {TouchableOpacity, View, Text} from 'react-native';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
-  HomeBtn000,
-  ChatBtn000,
-  HeartBtn000,
-  PeopleBtn000,
-  HomeBtnGRAY,
-  ChatBtnGRAY,
-  HeartBtnGRAY,
-  PeopleBtnGRAY,
+  IcHomeInActive,
+  IcChatInActive,
+  IcHeartInActive,
+  IcPeopleInActive,
+  IcHomeActive,
+  IcChatActive,
+  IcHeartActive,
+  IcPeopleActive,
 } from '../assets/0_index';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../routing/routerTypes';
 
-const NavBar = ({navigation}: any) => {
+const NavBar = () => {
   const route = useRoute();
+  console.log(route);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleActiveBtn = (path: string) => {
     if (route.name === path) {
@@ -27,29 +32,33 @@ const NavBar = ({navigation}: any) => {
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigation.navigate('mainPage')}>
+      <TouchableOpacity onPress={() => navigation.navigate('MainPage')}>
         {handleActiveBtn('mainPage') === 'active' ? (
           <NavButton>
-            <HomeBtn000 />
-            <BtnText>홈</BtnText>
+            <IcHomeInActive />
+            <BtnText active={true}>홈</BtnText>
           </NavButton>
         ) : (
           <NavButton>
-            <HomeBtnGRAY />
-            <BtnText>홈</BtnText>
+            <IcHomeActive />
+            <BtnText active={false}>홈</BtnText>
           </NavButton>
         )}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('chat')}>
+      <TouchableOpacity
+        onPress={() => {
+          console.log('chat으로 이동');
+          navigation.navigate('Chat');
+        }}>
         {handleActiveBtn('chat') === 'active' ? (
           <NavButton>
-            <ChatBtn000 />
-            <BtnText>매칭</BtnText>
+            <IcChatInActive />
+            <BtnText active={true}>매칭</BtnText>
           </NavButton>
         ) : (
           <NavButton>
-            <ChatBtnGRAY />
-            <BtnText>매칭</BtnText>
+            <IcChatActive />
+            <BtnText active={false}>매칭</BtnText>
           </NavButton>
         )}
       </TouchableOpacity>
@@ -59,26 +68,26 @@ const NavBar = ({navigation}: any) => {
         }>
         {handleActiveBtn('nungillist') === 'active' ? (
           <NavButton>
-            <HeartBtn000 />
-            <BtnText>채팅</BtnText>
+            <IcHeartInActive />
+            <BtnText active={true}>채팅</BtnText>
           </NavButton>
         ) : (
           <NavButton>
-            <HeartBtnGRAY />
-            <BtnText>채팅</BtnText>
+            <IcHeartActive />
+            <BtnText active={false}>채팅</BtnText>
           </NavButton>
         )}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('mypage')}>
+      <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
         {handleActiveBtn('mypage') === 'active' ? (
           <NavButton>
-            <PeopleBtn000 />
-            <BtnText>마이</BtnText>
+            <IcPeopleInActive />
+            <BtnText active={true}>마이</BtnText>
           </NavButton>
         ) : (
           <NavButton>
-            <PeopleBtnGRAY />
-            <BtnText>마이</BtnText>
+            <IcPeopleActive />
+            <BtnText active={false}>마이</BtnText>
           </NavButton>
         )}
       </TouchableOpacity>
@@ -89,6 +98,7 @@ const NavBar = ({navigation}: any) => {
 export default NavBar;
 
 const Container = styled(View)`
+  z-index: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -96,7 +106,7 @@ const Container = styled(View)`
   background-color: #ffffff;
 `;
 
-const NavButton = styled(TouchableOpacity)`
+const NavButton = styled(View)`
   display: flex;
   flex-direction: column;
   align-items: center;
