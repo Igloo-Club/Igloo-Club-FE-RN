@@ -10,7 +10,7 @@ const slides = [
 ];
 
 const ImageSlider = () => {
-  const [pos, setPos] = useState(0); // 현재 슬라이드 위치
+  const [pos, setPos] = useState(0); // 현재 위치 상태
 
   const panResponder = PanResponder.create({
     // panResponder : 터치 이벤트 감지 및 화면 드래그 시 발생하는 이벤트 처리

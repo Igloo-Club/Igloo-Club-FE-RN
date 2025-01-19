@@ -10,12 +10,17 @@ import IdealType from '../../idealType';
 // import Login from '../../login';
 // import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 // import Landing from '../../landing';
+<<<<<<< HEAD
 import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
+import NungilList from '../../nungilList/nungilList';
+=======
+>>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
 import {navigationRef} from '../hooks/useNavigationRef';
-import Chat from '../../chat';
+// import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
 import {RootStackParamList} from './routerTypes';
+import BottomNavLayout from '../components/BottomNavLayout';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,11 +36,18 @@ export const Router = () => {
   return (
     <NavigationContainer theme={navTheme} ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false, animation: 'none'}}>
+        <Stack.Screen name="BottomNavLayout" component={BottomNavLayout} />
         {/* <Stack.Screen
           name="Landing"
           component={Landing}
           options={{title: 'landing'}}
         /> */}
+<<<<<<< HEAD
+        <Stack.Screen
+          name="NungilList"
+          component={NungilList}
+          options={{title: '눈길 리스트'}}
+        />
         <Stack.Screen
           name="MainPage"
           component={MainPage}
@@ -46,6 +58,13 @@ export const Router = () => {
           component={DetailPage}
           options={{title: '상세 페이지'}}
         />
+=======
+        {/* <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{title: '메인 페이지'}}
+        /> */}
+>>>>>>> 29b8ad416e2b5b0f06672a56a004db1908b0b919
         {/* <Stack.Screen
           name="Login"
           component={Login}
@@ -85,7 +104,7 @@ export const Router = () => {
           component={QuestionList}
           options={{title: '질문 리스트'}}
         />
-        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
+        {/* <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} /> */}
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoom}
