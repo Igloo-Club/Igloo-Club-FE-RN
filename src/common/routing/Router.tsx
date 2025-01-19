@@ -10,6 +10,9 @@ import IdealType from '../../idealType';
 // import Login from '../../login';
 // import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 // import Landing from '../../landing';
+import MainPage from '../../main/pages/mainPage';
+import DetailPage from '../page/detailPage';
+import NungilList from '../../nungilList/nungilList';
 import {navigationRef} from '../hooks/useNavigationRef';
 // import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
@@ -36,11 +39,21 @@ export const Router = () => {
           component={Landing}
           options={{title: 'landing'}}
         /> */}
-        {/* <Stack.Screen
+        <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
-        /> */}
+        />
+        <Stack.Screen
+          name="NungilList"
+          component={NungilList}
+          options={{title: '눈길 리스트'}}
+        />
+        <Stack.Screen
+          name="DetailPage"
+          component={DetailPage}
+          options={{title: '상세 페이지'}}
+        />
         {/* <Stack.Screen
           name="Login"
           component={Login}

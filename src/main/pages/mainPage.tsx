@@ -2,28 +2,35 @@ import React from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import styled from '@emotion/native';
 import {SelectArrow} from '../assets/0_index';
-// import NavBar from '../../common/components/NavBar';
-import Count from '../components/count';
+import NavBar from '../../common/components/NavBar';
+import PickProfileBtn from '../components/PickProfileBtn';
+import CustomSelect from '../components/CustomSelect';
+import ImageSlider from '../components/ImageSlider';
 
-const MainPage = () => {
+const MainPage = ({navigation}: any) => {
+  const handleSelectedChange = (newSelected: string) => {
+    // setSelected(newSelected);
+    // handleGetAllProfile();
+  };
+
   return (
     <Container>
       <Header>
         <SelectArea>
-          {/*<CustomSelect onSelectedChange={handleSelectedChange} />*/}
-          <SelectArrow />
+          <CustomSelect onSelectedChange={handleSelectedChange} />
         </SelectArea>
         <MainTitle>
-          <Title>마음에 드는 상대와</Title>
-          <Title>오늘 커피 한 잔 어떠세요? ☕️</Title>
+          <Title>님과 찰떡인</Title>
+          <Title>오늘의 특별한 인연을 소개할게요</Title>
         </MainTitle>
       </Header>
       <Content>
-        <Text>이 친구들은 어때요?</Text>
+        <Comment>이 친구들은 어때요?</Comment>
+        <ImageSlider />
       </Content>
       <Footer>
-        <Count />
-        {/* <NavBar /> */}
+        <PickProfileBtn />
+        <NavBar />
       </Footer>
     </Container>
   );
@@ -44,6 +51,9 @@ const Header = styled(View)`
 `;
 
 const SelectArea = styled(View)`
+  width: 100%;
+  display: flex;
+  justify-content: start;
   color: #686f7a;
   font-size: 16px;
   font-weight: 500;
@@ -54,7 +64,7 @@ const MainTitle = styled(View)``;
 const Title = styled.Text`
   color: #303030;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const Content = styled(View)`
@@ -62,6 +72,13 @@ const Content = styled(View)`
   padding: 35px 20px 56px 20px;
   border-radius: 40px 40px 0px 0px;
   background-color: #ffffff;
+  gap: 26px;
+`;
+
+const Comment = styled.Text`
+  color: #303030;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const Footer = styled(View)`
