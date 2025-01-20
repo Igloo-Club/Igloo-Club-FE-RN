@@ -26,8 +26,7 @@ export default instance;
 
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const ACCESS_TOKEN =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzY5NDU4NTgsImV4cCI6MTczNjk1MzA1OCwic3ViIjoiMSIsImlkIjoxfQ.Vd91oJkgtqv70YdVK58tb62QIxHt_gRtIo_qBJcvnXw';
+    const ACCESS_TOKEN = await getAccessToken();
 
     if (config.headers && ACCESS_TOKEN !== null) {
       const token = JSON.parse(ACCESS_TOKEN);

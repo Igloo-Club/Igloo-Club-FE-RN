@@ -7,14 +7,14 @@ import QnA from '../../qna/pages/addQuestion';
 import QuestionList from '../../qna/pages/questionList';
 import AnswerPage from '../../qna/pages/answerPage';
 import IdealType from '../../idealType';
-// import Login from '../../login';
-// import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
+import Login from '../../login';
+import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 // import Landing from '../../landing';
 import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
 import NungilList from '../../nungilList/nungilList';
 import {navigationRef} from '../hooks/useNavigationRef';
-// import Chat from '../../chat';
+import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
 import {RootStackParamList} from './routerTypes';
 import BottomNavLayout from '../components/BottomNavLayout';
@@ -54,15 +54,15 @@ export const Router = () => {
           component={DetailPage}
           options={{title: '상세 페이지'}}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{title: '로그인'}}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="KakaoLoginRedirect"
           component={KakaoLoginRedirect}
-        /> */}
+        />
         <Stack.Screen
           name="QnA"
           component={QnA}
@@ -93,7 +93,7 @@ export const Router = () => {
           component={QuestionList}
           options={{title: '질문 리스트'}}
         />
-        {/* <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} /> */}
+        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoom}
