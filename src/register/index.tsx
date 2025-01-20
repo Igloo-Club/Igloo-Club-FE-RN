@@ -13,7 +13,7 @@ import ProfileImgFunnel from './funnelPages/ProfileImgFunnel';
 type HandleChangeType = (key: keyof essentialType, value: string) => void;
 
 const Register = ({navigation}: any) => {
-  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[6]);
+  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
 
   const [profile, setProfile] = useState<essentialType>({
     nickname: '',

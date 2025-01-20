@@ -1,16 +1,10 @@
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import styled from '@emotion/native';
-import PickProfileBtn from '../components/PickProfileBtn';
-// import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
+import PickProfileBtn from '../components/PickProfileBtn';
 
 const MainPage = () => {
-  // const handleSelectedChange = (newSelected: string) => {
-  //   // setSelected(newSelected);
-  //   // handleGetAllProfile();
-  // };
-
   return (
     <Container>
       <Header>
