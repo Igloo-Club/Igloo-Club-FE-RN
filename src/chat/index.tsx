@@ -1,11 +1,25 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ChatRoomBox from './components/ChatRoomBox';
 import {MOCK_CHATLIST} from './constants/MOCK_CHATLIST';
+import instance from '../common/apis/axiosInstance';
 
 const Chat = () => {
+  const [chatList, setChatList] = useState([]);
+  useEffect(() => {
+    getChatList();
+  }, []);
+
+  const getChatList = async () => {
+    try {
+      const {data} = await instance.get('api/chatroom');
+      setChatList(data.content);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <StContainer>
       <StHeader>
