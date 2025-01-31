@@ -87,7 +87,7 @@ const Register = ({navigation}: any) => {
       <Funnel.Step name={RegisterstepType[6]}>
         <ProfileImgFunnel
           step={RegisterstepType[6]}
-          onNext={() => navigation.navigate('MainPage')}
+          onNext={() => navigation.navigate('DetailProfile')}
           onPrev={() => setStep(RegisterstepType[5])}
         />
       </Funnel.Step>
