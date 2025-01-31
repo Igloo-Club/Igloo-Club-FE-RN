@@ -1,12 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from '@emotion/native';
+import {useRoute} from '@react-navigation/native';
+import instance from '../apis/axiosInstance';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import {BackArrow} from '../../main/assets/0_index';
 import {NungilButton} from '../../main/assets/0_index';
-import NungilModal from '../../main/components/NungilModal';
+import NungilModal from '../components/NungilModal';
+import {DetailProfileDataTypesProps} from '../types/DetailProfileDataTypesProps';
 
-const DetailPage = () => {
+const DetailPage = ({navigation}: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [detailProfile, setDetailProfile] =
+    useState<DetailProfileDataTypesProps | null>(null);
+  const route = useRoute();
+  // const {nungilId} = route.params as {nungilId: number};
+
+  // useEffect(() => {
+  //   const handleDetailProfile = async () => {
+  //     try {
+  //       const res = await instance.get(
+  //         `/api/nungil/detail?nungilId=${nungilId}`,
+  //       );
+  //       setDetailProfile(res.data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+
+  //   handleDetailProfile();
+  // }, [nungilId]);
+
+  // if (!detailProfile) {
+  //   return (
+  //     <Container>
+  //       <Text>Loading...</Text>
+  //     </Container>
+  //   );
+  // }
 
   return (
     <Container>
@@ -22,13 +52,20 @@ const DetailPage = () => {
         </InfoBox>
         <QnABox>
           <Title>상대방이 작성한 1문 1답</Title>
-          <QnA></QnA>
+          <QnA>
+            <Text>무슨 일을 하고 계세요?</Text>
+          </QnA>
         </QnABox>
       </Content>
       <NungilBtn onPress={() => setIsModalOpen(true)}>
         <NungilButton />
       </NungilBtn>
-      {isModalOpen && <NungilModal closeModal={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <NungilModal
+          nungilId={detailProfile.nungilId}
+          closeModal={() => setIsModalOpen(false)}
+        />
+      )}
     </Container>
   );
 };

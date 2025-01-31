@@ -40,19 +40,19 @@ export const Router = () => {
           options={{title: 'landing'}}
         /> */}
         <Stack.Screen
+          name="DetailPage"
+          component={DetailPage}
+          options={{title: '상세 페이지'}}
+        />
+        {/* <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
-        />
+        /> */}
         <Stack.Screen
           name="NungilList"
           component={NungilList}
           options={{title: '눈길 리스트'}}
-        />
-        <Stack.Screen
-          name="DetailPage"
-          component={DetailPage}
-          options={{title: '상세 페이지'}}
         />
         {/* <Stack.Screen
           name="Login"

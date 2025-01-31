@@ -1,15 +1,24 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Dimensions, PanResponder} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  PanResponder,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
 
 const {width} = Dimensions.get('window');
 
-const slides = [
-  {id: '1', text: 'Slide 1', backgroundColor: 'rgba(20,20,200,0.3)'},
-  {id: '2', text: 'Slide 2', backgroundColor: 'rgba(20,200,20,0.3)'},
-  {id: '3', text: 'Slide 3', backgroundColor: 'rgba(200,20,20,0.3)'},
-];
-
-const ImageSlider = () => {
+const ImageSlider = ({
+  navigation,
+  profiles,
+}: {
+  navigation: any;
+  profiles: ProfileDataTypesProps[];
+}) => {
   const [pos, setPos] = useState(0); // 현재 위치 상태
 
   const panResponder = PanResponder.create({
@@ -21,26 +30,42 @@ const ImageSlider = () => {
       setPos(prev => {
         const newPos = prev + gestureState.dx;
         const minPos = 310;
-        const maxPos = -(width * 0.8 + 10) + 60;
+        const maxPos = -(width * 0.8 + 10) * profiles.length + width;
         return Math.min(minPos, Math.max(maxPos, newPos));
       });
     },
-    onPanResponderRelease: () => {
-      // 드래그 종료 시 해당 위치로 고정되도록 아무런 동작 x
-    },
+    onPanResponderRelease: () => {}, // 드래그 종료 시 해당 위치로 고정되도록 아무런 동작 x
   });
+
+  const handleClickImage = (nungilId: number) => {
+    navigation.navigate('DetailPage', {nungilId});
+  };
 
   return (
     <View style={styles.container}>
       <View
         style={[styles.sliderContainer, {transform: [{translateX: pos}]}]}
         {...panResponder.panHandlers}>
-        {slides.map(slide => (
-          <View
-            key={slide.id}
-            style={[styles.slide, {backgroundColor: slide.backgroundColor}]}>
-            <Text>{slide.text}</Text>
-          </View>
+        {profiles.map(profile => (
+          <TouchableOpacity
+            key={profile.nungilId}
+            style={styles.slide}
+            onPress={() => handleClickImage(profile.nungilId)}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={{uri: profile.imageUrlList[0]}}
+                style={styles.image}
+              />
+              <View style={styles.overlay}>
+                <Text style={styles.infoText}>키: {profile.height}cm</Text>
+                <Text style={styles.infoText}>종교: {profile.religion}</Text>
+                <Text style={styles.infoText}>
+                  결혼 계획: {profile.marriagPlan ? '있음' : '없음'}
+                </Text>
+                <Text style={styles.infoText}>MBTI: {profile.mbtiType}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         ))}
       </View>
     </View>
@@ -54,7 +79,7 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     flexDirection: 'row',
-    width: (width * 0.8 + 10) * slides.length,
+    width: (width * 0.8 + 10) * 4,
   },
   slide: {
     width: width * 0.7,
@@ -63,6 +88,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: '#f9f9f9',
+  },
+  imageContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  infoText: {
+    fontSize: 14,
+    color: '#ffffff',
+    marginBottom: 5,
   },
 });
 

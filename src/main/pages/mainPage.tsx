@@ -1,16 +1,43 @@
-import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, TouchableOpacity, View} from 'react-native';
 import styled from '@emotion/native';
-import {SelectArrow} from '../assets/0_index';
-import NavBar from '../../common/components/NavBar';
+import instance from '../../common/apis/axiosInstance';
 import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
+import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
 
 const MainPage = ({navigation}: any) => {
+  const [profileData, setProfileData] = useState<ProfileDataTypesProps[]>([]);
+
   const handleSelectedChange = (newSelected: string) => {
     // setSelected(newSelected);
     // handleGetAllProfile();
+  };
+
+  useEffect(() => {
+    handleList();
+  }, []);
+
+  const handleList = async () => {
+    console.log('ccc');
+    try {
+      const res = await instance.get('/api/nungil/list', {
+        params: {
+          status: 'RECOMMENDED',
+          page: 0,
+          size: 4,
+        },
+      });
+      console.log('handleList api 성공', res.data.content);
+      setProfileData(res.data.content);
+    } catch (err) {
+      console.log('handleList api 에러: ', err);
+    }
+  };
+
+  const handleClick = () => {
+    navigation.navigate('DetailPage');
   };
 
   return (
@@ -22,15 +49,15 @@ const MainPage = ({navigation}: any) => {
         <MainTitle>
           <Title>님과 찰떡인</Title>
           <Title>오늘의 특별한 인연을 소개할게요</Title>
+          <GoDetail onPress={handleClick} />
         </MainTitle>
       </Header>
       <Content>
         <Comment>이 친구들은 어때요?</Comment>
-        <ImageSlider />
+        <ImageSlider profiles={profileData} />
       </Content>
       <Footer>
-        <PickProfileBtn />
-        <NavBar />
+        <PickProfileBtn ProfileData={profileData} />
       </Footer>
     </Container>
   );
@@ -86,4 +113,10 @@ const Footer = styled(View)`
   bottom: 0;
   z-index: 999;
   width: 100%;
+`;
+
+const GoDetail = styled(TouchableOpacity)`
+  width: 30px;
+  height: 30px;
+  background-color: black;
 `;
