@@ -44,7 +44,7 @@ const MainPage = ({navigation}: any) => {
     <Container>
       <Header>
         <SelectArea>
-          <CustomSelect onSelectedChange={handleSelectedChange} />
+          {/* <CustomSelect onSelectedChange={handleSelectedChange} /> */}
         </SelectArea>
         <MainTitle>
           <Title>님과 찰떡인</Title>

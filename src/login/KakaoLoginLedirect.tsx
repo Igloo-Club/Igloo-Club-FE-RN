@@ -13,24 +13,28 @@ const KakaoLoginRedirect = ({navigation, route}: any) => {
 
   useEffect(() => {
     // 인가 코드가 정상적으로 넘어왔다면 백엔드 서버로 전달
+    const getAccessToken = async () => {
+      try {
+        const {data} = await axios.post(`${VITE_BASE_URL}/api/auth/kakao`, {
+          code: _code,
+        });
+        const stringValue = JSON.stringify(data.accessToken);
+        console.log(stringValue);
+        await AsyncStorage.setItem('ACCESS_TOKEN', stringValue);
+        if (data.isProfileRegistered) {
+          navigation.navigate('BottomNavLayout');
+        } else {
+          navigation.navigate('Register');
+        }
+      } catch (err) {
+        console.log('🥲', err);
+      }
+    };
+
     if (_code) {
       getAccessToken();
     }
-  }, [_code]);
-
-  const getAccessToken = async () => {
-    try {
-      const {data} = await axios.post(`${VITE_BASE_URL}/api/auth/kakao`, {
-        code: _code,
-      });
-      const stringValue = JSON.stringify(data.accessToken);
-      console.log(stringValue);
-      await AsyncStorage.setItem('ACCESS_TOKEN', stringValue);
-      navigation.navigate('Home');
-    } catch (err) {
-      console.log('🥲', err);
-    }
-  };
+  }, [navigation, _code]);
 
   return (
     <StContainer>

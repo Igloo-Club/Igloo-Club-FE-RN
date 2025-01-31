@@ -12,7 +12,6 @@ const ProfileImgFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
   const [responseList, setResponseList] = useState<
     (ImagePickerResponse | null)[]
   >([null, null, null]);
-  const [presignedUrl, setPresignedUrl] = useState<string[]>(['', '', '']);
 
   const handleImgList = (res: (ImagePickerResponse | null)[]) => {
     setResponseList(res);
@@ -38,13 +37,8 @@ const ProfileImgFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       //presignedURL 받아오기
       const {data} = await instance.post('api/member/images');
       console.log('🎉', data.presignedUrl);
-      setPresignedUrl(prevUrls => {
-        const newUrls = [...prevUrls];
-        newUrls[index] = data.presignedUrl;
-        return newUrls;
-      });
-      submitImage(responseList, presignedUrl);
-      // onNext();
+      submitImage(responseList[index], data.presignedUrl);
+      onNext();
     } catch (error) {
       console.log('api/member/images', error);
     }
@@ -56,7 +50,6 @@ const ProfileImgFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       onBackPress={onPrev}
       onButtonPress={async () => {
         submitImgs();
-        // onNext();
       }}
       isBtnActive={responseList[0] !== null}>
       <View>
