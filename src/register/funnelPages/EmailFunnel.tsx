@@ -22,12 +22,12 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
     }
 
     try {
-      console.log('시작');
+      setIsModalOpen(true);
       await instance.post('api/company/email', {
         email: email,
       });
-      setIsModalOpen(true);
     } catch (err) {
+      setIsModalOpen(false);
       console.log(err);
     }
   };
