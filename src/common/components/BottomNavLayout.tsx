@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {useCallback} from 'react';
 import MainPage from '../../main/pages/mainPage';
 import Chat from '../../chat';
+import NungilList from '../../nungilList/nungilList';
 import BottomNavIcon from './bottomNav/BottomNavIcon';
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +21,7 @@ const BottomNavLayout = () => {
         tabBarInactiveTintColor: '#C2C2C2',
         tabBarShowLabel: false,
         headerShown: false,
-        tabBarStyle: {height: 70},
+        tabBarStyle: {height: 80, paddingTop: 15},
       }}>
       <Tab.Screen
         name="MainPage"
@@ -38,7 +39,7 @@ const BottomNavLayout = () => {
       />
       <Tab.Screen
         name="Matching"
-        component={Chat}
+        component={NungilList}
         options={{
           tabBarIcon: ({focused}) => renderIcon('Matching', focused),
         }}

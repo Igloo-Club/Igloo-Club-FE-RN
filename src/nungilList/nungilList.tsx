@@ -22,6 +22,7 @@ const NungilList = () => {
   const [index, setIndex] = useState(0);
 
   const renderTabBar = props => {
+    // top nav tab 커스터마이징
     const inputRange = props.navigationState.routes.map((_, i) => i);
 
     return (
@@ -47,8 +48,8 @@ const NungilList = () => {
   return (
     <Container>
       <TabView
-        navigationState={{index, routes}}
-        renderScene={SceneMap(scenes)}
+        navigationState={{index, routes}} // 현재 활성화된 탭
+        renderScene={SceneMap(scenes)} // 위 탭에 해당하는 컴포넌트 렌더링
         renderTabBar={renderTabBar}
         onIndexChange={setIndex}
       />

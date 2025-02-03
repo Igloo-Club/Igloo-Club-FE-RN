@@ -49,7 +49,7 @@ const QnA = ({navigation}: any) => {
   return (
     <View style={globalStyles.container}>
       <Header>
-        <BackButton onPress={() => navigation.navigate('Home')}>
+        <BackButton onPress={() => navigation.navigate('MainPage')}>
           <Arrow source={ArrowLeft} />
         </BackButton>
       </Header>
@@ -96,6 +96,7 @@ const Header = styled(SafeAreaView)`
 
 const BackButton = styled(TouchableOpacity)`
   margin-top: 15px;
+  padding: 0px 20px 0px 20px;
 `;
 
 const Arrow = styled(Image)`
@@ -106,6 +107,7 @@ const Arrow = styled(Image)`
 const Body = styled(View)`
   flex-direction: column;
   gap: 15px;
+  padding: 25px 20px 0px 20px;
 `;
 
 const Title = styled.Text`

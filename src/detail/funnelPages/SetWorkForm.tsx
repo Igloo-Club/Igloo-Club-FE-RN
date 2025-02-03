@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {WORK_ARRANGEMENT} from '../constants/DETAIL_PROFILE_SELECTS';
 import SelectBox from '../components/SelectBox';
 import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
@@ -9,10 +9,13 @@ const 근무형태 = ({
   onNext,
   step,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(
+    value?.workArrangementList || [],
+  );
 
   const handleSelectOption = (option: string | number) => {
     const optionAsString = option.toString();
@@ -32,7 +35,7 @@ const 근무형태 = ({
           selectedOptions.filter(item => item !== optionAsString),
         );
       } else {
-        // 순환근무와 교대근무중 하나만 선택 가능
+        // 순환근무와 교대근무 중 하나만 선택 가능
         setSelectedOptions([
           optionAsString,
           ...selectedOptions.filter(item => item === 'NONE'),

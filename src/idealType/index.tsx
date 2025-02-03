@@ -46,6 +46,8 @@ const IdealType = ({navigation}: any) => {
       console.log(data);
       await instance.post('api/member/ideal', data);
       console.log('success post ideal');
+      console.log(data);
+      navigation.navigate('MainPage');
     } catch {}
   };
   return (

@@ -9,11 +9,12 @@ const 회사규모 = ({
   onPrev,
   onNext,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.scale ?? null,
   );
 
   return (

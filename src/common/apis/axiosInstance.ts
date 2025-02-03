@@ -11,6 +11,7 @@ import getAccessToken from '../utils/getAccessToken';
 export const signInInstance = axios.create({
   baseURL: VITE_BASE_URL,
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
@@ -18,6 +19,7 @@ export const signInInstance = axios.create({
 const instance = axios.create({
   baseURL: VITE_BASE_URL,
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
@@ -26,17 +28,19 @@ export default instance;
 
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
+    //const ACCESS_TOKEN =
+    //  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzgzMTY5MzQsImV4cCI6MTczODMxODczNCwic3ViIjoiMyIsImlkIjozfQ.V_GjTpMzbiGs-_mMypf6ewLrrpCrd8sZQrhoW7aZgTU';
     const ACCESS_TOKEN = await getAccessToken();
 
     if (config.headers && ACCESS_TOKEN !== null) {
-      const token = JSON.parse(ACCESS_TOKEN);
+      const token = JSON.parse(ACCESS_TOKEN); //-> [SyntaxError: JSON Parse error: Unexpected character: e] 에러 발생으로 지워둠
       config.headers.Authorization = `Bearer ${token}`;
-      console.log(token);
+      console.log(ACCESS_TOKEN);
     }
     return config;
   },
-  (error: AxiosError) => {
-    return Promise.reject(error);
+  (err: AxiosError) => {
+    return Promise.reject(err);
   },
 );
 

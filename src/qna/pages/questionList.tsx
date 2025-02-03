@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 import styled from '@emotion/native';
-import {globalStyles} from '../../common/styles/globalStyles';
 import ArrowLeft from '../../detail/assets/images';
 import {CATEGORY} from '../constants/CATEGORY_CONSTANTS';
 import instance from '../../common/apis/axiosInstance';
@@ -41,7 +40,7 @@ const QuestionList = ({navigation}: any) => {
   }, [selectedCategory]);
 
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView>
       <Header>
         <BackButton onPress={() => navigation.navigate('QnA')}>
           <Arrow source={ArrowLeft} />
@@ -75,24 +74,25 @@ const QuestionList = ({navigation}: any) => {
           </QuestionsWrapper>
         ))}
       </Body>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default QuestionList;
 
-const Header = styled(SafeAreaView)`
+const Header = styled(View)`
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-top: 25px;
   margin-bottom: 35px;
   background-color: #ffffff;
+  padding: 0px 20px 0px 20px;
 `;
 
 const BackButton = styled(TouchableOpacity)`
   position: absolute;
-  left: 0;
+  left: 20;
 `;
 
 const Arrow = styled(Image)`
@@ -109,6 +109,7 @@ const HeaderText = styled.Text`
 const Body = styled(View)`
   flex-direction: column;
   gap: 15px;
+  padding: 0px 20px 0px 20px;
 `;
 
 const Category = styled(View)`

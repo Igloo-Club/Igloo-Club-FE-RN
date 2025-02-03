@@ -28,7 +28,7 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
       });
       setIsModalOpen(true);
     } catch (err) {
-      console.log(err);
+      console.log('메일 주소 에러 : ', err);
     }
   };
 

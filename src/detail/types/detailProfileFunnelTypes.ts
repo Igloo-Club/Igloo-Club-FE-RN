@@ -17,10 +17,11 @@ export const DetailProfileStepType = [
 
 export interface detailProfileFunnelProps {
   step: (typeof DetailProfileStepType)[number];
-  onPrev: () => void;
   onNext: () => void;
-  handleDetailProfileValue?: <K extends keyof detailProfileTypes>(
-    key: K,
-    value: detailProfileTypes[K],
+  onPrev: () => void;
+  handleDetailProfileValue?: (
+    key: keyof detailProfileTypes,
+    value: string | number | boolean | {category: string; name: string}[],
   ) => void;
+  value?: detailProfileTypes;
 }
