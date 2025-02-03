@@ -28,13 +28,13 @@ export default instance;
 
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const ACCESS_TOKEN =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzgzMTY5MzQsImV4cCI6MTczODMxODczNCwic3ViIjoiMyIsImlkIjozfQ.V_GjTpMzbiGs-_mMypf6ewLrrpCrd8sZQrhoW7aZgTU';
-    // const ACCESS_TOKEN = await getAccessToken();
+    //const ACCESS_TOKEN =
+    //  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzgzMTY5MzQsImV4cCI6MTczODMxODczNCwic3ViIjoiMyIsImlkIjozfQ.V_GjTpMzbiGs-_mMypf6ewLrrpCrd8sZQrhoW7aZgTU';
+    const ACCESS_TOKEN = await getAccessToken();
 
     if (config.headers && ACCESS_TOKEN !== null) {
-      // const token = JSON.parse(ACCESS_TOKEN); -> [SyntaxError: JSON Parse error: Unexpected character: e] 에러 발생으로 지워둠
-      config.headers.Authorization = `Bearer ${ACCESS_TOKEN}`;
+      const token = JSON.parse(ACCESS_TOKEN); //-> [SyntaxError: JSON Parse error: Unexpected character: e] 에러 발생으로 지워둠
+      config.headers.Authorization = `Bearer ${token}`;
       console.log(ACCESS_TOKEN);
     }
     return config;

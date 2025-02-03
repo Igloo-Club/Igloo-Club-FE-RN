@@ -1,20 +1,21 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
-import {View, Text} from 'react-native';
-import {X} from '../../qna/assets/images';
+import {View, Image} from 'react-native';
 
 const ReceivedNungil = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const X = require('../../qna/assets/images/x.png');
+
   return (
     <Container>
       {isVisible ? (
         <IntroBox>
-          <Text>
-            님의 프로필을 보고 호감을 가진 분들이에요. 받은 눈길 리스트는 최대
-            3일 보관되며, 이후엔 볼 수 없어요.
-          </Text>
+          <NormalText>
+            님의 프로필을 보고 호감을 가진 분들이에요. 받은 눈길 리스트는{' '}
+            <BoldText>최대 3일 보관되며, 이후엔 볼 수 없어요.</BoldText>
+          </NormalText>
           <XButton onPress={() => setIsVisible(false)}>
-            <X />
+            <Image source={X} style={{width: 12, height: 12}} />
           </XButton>
         </IntroBox>
       ) : (
@@ -35,9 +36,27 @@ const Container = styled(View)`
 `;
 
 const IntroBox = styled(View)`
-  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  padding: 15px 25px;
   border-radius: 0px 15px 15px 15px;
   background: #fafafb;
 `;
 
-const XButton = styled.TouchableOpacity``;
+const NormalText = styled.Text`
+  color: #566066;
+  font-size: 13px;
+  font-weight: 500;
+`;
+
+const BoldText = styled.Text`
+  color: #303030;
+  font-size: 13px;
+  font-weight: 600;
+`;
+
+const XButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+`;

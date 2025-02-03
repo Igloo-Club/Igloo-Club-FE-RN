@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SelectGroup from '../components/SelectGroup';
 import {detailProfileFunnelProps} from '../types/detailProfileFunnelTypes';
 import {
@@ -13,6 +13,7 @@ const 엠비티아이 = ({
   onNext,
   step,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {step: string}) => {
   const [selectedOptions, setSelectedOptions] = useState<
     Record<MBTIGroup, string | null>
@@ -22,6 +23,18 @@ const 엠비티아이 = ({
     tf: null,
     jp: null,
   });
+
+  useEffect(() => {
+    if (value?.mbti) {
+      const mbtiValues = value.mbti.split('');
+      setSelectedOptions({
+        ei: mbtiValues[0] || null,
+        sn: mbtiValues[1] || null,
+        tf: mbtiValues[2] || null,
+        jp: mbtiValues[3] || null,
+      });
+    }
+  }, [value?.mbti]);
 
   const handleSelect = (group: MBTIGroup, option: string | number) => {
     setSelectedOptions(prevOptions => ({...prevOptions, [group]: option}));
@@ -33,12 +46,11 @@ const 엠비티아이 = ({
       progress={48}
       onBackPress={onPrev}
       onButtonPress={async () => {
-        if (typeof selectedOptions === 'string') {
-          const mbtiValue = ['ei', 'sn', 'tf', 'jp']
-            .map(group => selectedOptions[group as MBTIGroup] || 'X')
-            .join('');
-          await handleDetailProfileValue?.('mbti', mbtiValue);
-        }
+        const mbtiValue = ['ei', 'sn', 'tf', 'jp']
+          .map(group => selectedOptions[group as MBTIGroup] || 'X')
+          .join('');
+
+        await handleDetailProfileValue?.('mbti', mbtiValue);
         onNext();
       }}
       isBtnActive={!Object.values(selectedOptions).includes(null)}>

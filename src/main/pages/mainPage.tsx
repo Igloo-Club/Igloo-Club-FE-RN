@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView, TouchableOpacity, View, Image} from 'react-native';
 import styled from '@emotion/native';
 import instance from '../../common/apis/axiosInstance';
 import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
 import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
+import {Height, Religion, Marriage, Mbti} from '../assets/0_index';
 
 const MainPage = ({navigation}: any) => {
+  const [myName, setMyName] = useState<string>('');
   const [profileData, setProfileData] = useState<ProfileDataTypesProps[]>([]);
 
   const handleSelectedChange = (newSelected: string) => {
@@ -17,6 +19,7 @@ const MainPage = ({navigation}: any) => {
 
   useEffect(() => {
     handleList();
+    handleMyData();
   }, []);
 
   const handleList = async () => {
@@ -29,15 +32,25 @@ const MainPage = ({navigation}: any) => {
           size: 4,
         },
       });
-      console.log('handleList api 성공', res.data.content);
       setProfileData(res.data.content);
     } catch (err) {
       console.log('handleList api 에러: ', err);
     }
   };
 
+  // console.log('냠냠냠 : ', profileData[0]?.imageUrlList?.[0]);
+
+  const handleMyData = async () => {
+    try {
+      const res = await instance.get('/api/member');
+      setMyName(res.data.nickname);
+    } catch (err) {
+      console.log('handleMyData 에러 : ', err);
+    }
+  };
+
   const handleClick = () => {
-    navigation.navigate('DetailPage');
+    navigation.navigate('QnA');
   };
 
   return (
@@ -47,14 +60,14 @@ const MainPage = ({navigation}: any) => {
           {/* <CustomSelect onSelectedChange={handleSelectedChange} /> */}
         </SelectArea>
         <MainTitle>
-          <Title>님과 찰떡인</Title>
+          <Title>{myName}님과 찰떡인</Title>
           <Title>오늘의 특별한 인연을 소개할게요</Title>
           <GoDetail onPress={handleClick} />
         </MainTitle>
       </Header>
       <Content>
         <Comment>이 친구들은 어때요?</Comment>
-        <ImageSlider profiles={profileData} />
+        <ImageSlider navigation={navigation} profiles={profileData} />
       </Content>
       <Footer>
         <PickProfileBtn ProfileData={profileData} />

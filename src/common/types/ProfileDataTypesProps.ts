@@ -1,14 +1,13 @@
 export interface ProfileDataTypesProps {
   nungilId: number;
-  imageUrlList: [];
+  imageUrlList: string[];
   nickname: string;
   birthdate: string;
   companyName: string;
   height: number;
   religion: string;
   tattoo: boolean;
-  expiredAt: string;
-  smoke: string;
-  marriagPlan: number;
+  smoke: boolean;
+  marriagePlan: number;
   mbtiType: string;
 }

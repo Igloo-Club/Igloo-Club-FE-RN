@@ -21,7 +21,7 @@ const 한줄소개 = ({
       onBackPress={onPrev}
       onButtonPress={async () => {
         if (typeof shortIntro === 'string') {
-          await handleDetailProfileValue?.('intro', shortIntro);
+          handleDetailProfileValue?.('intro', shortIntro);
         }
         onNext();
       }}
@@ -31,7 +31,7 @@ const 한줄소개 = ({
           placeholder="짧고 임팩트 있는 한 줄 소개를 작성하세요."
           value={shortIntro}
           onChangeText={setShortIntro}
-          keyboardType="ascii-capable"
+          keyboardType="default"
           maxLength={30}
         />
         <InputFooter>

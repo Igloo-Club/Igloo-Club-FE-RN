@@ -31,9 +31,9 @@ const DetailProfile = ({navigation}: any) => {
   const [detailProfile, setDetailProfile] = useState<detailProfileTypes>({
     height: 0,
     religion: '',
-    tattoo: false,
-    smoke: false,
-    marriagePlan: 0,
+    tattoo: null,
+    smoke: null,
+    marriagePlan: null,
     mbti: '',
     grossSalary: 0,
     workArrangementList: [],
@@ -57,13 +57,14 @@ const DetailProfile = ({navigation}: any) => {
   };
 
   const handleSubmit = async () => {
+    console.log(detailProfile);
     try {
       const res = await instance.post('/api/member/additional', detailProfile);
       if (res.status === 200) {
         navigation.navigate('MainPage');
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -72,16 +73,19 @@ const DetailProfile = ({navigation}: any) => {
       <Funnel.Step name={DetailProfileStepType[0]}>
         <키입력
           step={DetailProfileStepType[0]}
-          onPrev={() => navigation.navigate('Landing')}
+          onPrev={() => setStep(DetailProfileStepType[0])}
           onNext={() => setStep(DetailProfileStepType[1])}
+          handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[1]}>
         <종교여부
           step={DetailProfileStepType[1]}
-          onPrev={() => setStep(DetailProfileStepType[2])}
-          onNext={() => setStep(DetailProfileStepType[0])}
+          onPrev={() => setStep(DetailProfileStepType[0])}
+          onNext={() => setStep(DetailProfileStepType[2])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[2]}>
@@ -90,6 +94,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[1])}
           onNext={() => setStep(DetailProfileStepType[3])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[3]}>
@@ -98,6 +103,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[2])}
           onNext={() => setStep(DetailProfileStepType[4])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[4]}>
@@ -106,6 +112,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[3])}
           onNext={() => setStep(DetailProfileStepType[5])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[5]}>
@@ -114,6 +121,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[4])}
           onNext={() => setStep(DetailProfileStepType[6])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[6]}>
@@ -122,6 +130,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[5])}
           onNext={() => setStep(DetailProfileStepType[7])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[7]}>
@@ -130,6 +139,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[6])}
           onNext={() => setStep(DetailProfileStepType[8])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[8]}>
@@ -138,6 +148,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[7])}
           onNext={() => setStep(DetailProfileStepType[9])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[9]}>
@@ -146,6 +157,7 @@ const DetailProfile = ({navigation}: any) => {
           onPrev={() => setStep(DetailProfileStepType[8])}
           onNext={() => setStep(DetailProfileStepType[10])}
           handleDetailProfileValue={handleDetailProfileValue}
+          value={detailProfile}
         />
       </Funnel.Step>
       <Funnel.Step name={DetailProfileStepType[10]}>
@@ -153,6 +165,7 @@ const DetailProfile = ({navigation}: any) => {
           step={DetailProfileStepType[10]}
           onPrev={() => setStep(DetailProfileStepType[9])}
           onNext={handleSubmit}
+          handleDetailProfileValue={handleDetailProfileValue}
         />
       </Funnel.Step>
     </Funnel>

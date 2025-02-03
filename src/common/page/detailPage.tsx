@@ -1,19 +1,43 @@
 import React, {useState, useEffect} from 'react';
-import styled from '@emotion/native';
 import {useRoute} from '@react-navigation/native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import instance from '../apis/axiosInstance';
-import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
-import {BackArrow} from '../../main/assets/0_index';
-import {NungilButton} from '../../main/assets/0_index';
+import {
+  RELIGION,
+  MARRIAGE_PLAN,
+  SCALE,
+} from '../../detail/constants/DETAIL_PROFILE_SELECTS';
 import NungilModal from '../components/NungilModal';
 import {DetailProfileDataTypesProps} from '../types/DetailProfileDataTypesProps';
+import {
+  BackArrow,
+  ExitNungilButton,
+  NungilButton,
+} from '../../main/assets/0_index';
+import {
+  Height_,
+  Religion_,
+  Marriage_,
+  Mbti_,
+  Company,
+  Location,
+  Smoke,
+  Tattoo,
+  Hobby,
+} from '../assets/0_index';
 
 const DetailPage = ({navigation}: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [detailProfile, setDetailProfile] =
     useState<DetailProfileDataTypesProps | null>(null);
   const route = useRoute();
-  // const {nungilId} = route.params as {nungilId: number};
+  // const { nungilId } = route.params as { nungilId: number };
 
   // useEffect(() => {
   //   const handleDetailProfile = async () => {
@@ -32,90 +56,163 @@ const DetailPage = ({navigation}: any) => {
 
   // if (!detailProfile) {
   //   return (
-  //     <Container>
+  //     <SafeAreaView>
   //       <Text>Loading...</Text>
-  //     </Container>
+  //     </SafeAreaView>
   //   );
   // }
 
   return (
-    <Container>
-      <Top>
-        <BackArrow />
-      </Top>
-      <Content>
-        <IntroBox>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.top}>
+        <TouchableOpacity onPress={() => navigation.navigate('MainPage')}>
+          <BackArrow />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.content}>
+        <View style={styles.introBox}>
           <Text>저는요, 👋🏻</Text>
-        </IntroBox>
-        <InfoBox>
-          <Title>상대방에 대한 간단한 정보예요</Title>
-        </InfoBox>
-        <QnABox>
-          <Title>상대방이 작성한 1문 1답</Title>
-          <QnA>
-            <Text>무슨 일을 하고 계세요?</Text>
-          </QnA>
-        </QnABox>
-      </Content>
-      <NungilBtn onPress={() => setIsModalOpen(true)}>
-        <NungilButton />
-      </NungilBtn>
+        </View>
+        <Text style={styles.title}>상대방에 대한 간단한 정보예요</Text>
+        <View style={styles.infoBox}>
+          <View style={styles.infoDetail}>
+            <Company />
+            {/*<Text style={styles.infoText}>{detailProfile.companyName} |</Text>*/}
+            {/*<Text style={styles.infoText}>{detailProfile.job} |</Text>*/}
+            {/*<Text style={styles.infoText}>
+              {SCALE.find(item => item.value === detailProfile.scale)
+                ?.label || '없음'}{' '}
+              |
+            </Text>{' '}*/}
+          </View>
+          <View style={styles.infoDetail}>
+            <Location />
+          </View>
+          <View style={styles.infoDetail}>
+            <Height_ />
+            {/*<Text style={styles.infoText}>{detailProfile.height}cm |</Text>*/}
+            <Religion_ />
+            {/*<Text style={styles.infoText}>
+              {RELIGION.find(item => item.value === detailProfile.religion)
+                ?.label || '없음'}{' '}
+              |
+            </Text>*/}
+            <Marriage_ />
+            {/*<Text style={styles.infoText}>
+              {MARRIAGE_PLAN.find(
+                item => item.value === detailProfile.marriagePlan,
+              )?.label || '미정'}{' '}
+              |
+            </Text>*/}
+            <Mbti_ />
+            {/*<Text style={styles.infoText}>{detailProfile.mbtiType}</Text>*/}
+          </View>
+          <View style={styles.lastInfoDetail}>
+            <Smoke />
+            <Tattoo />
+            <Hobby />
+          </View>
+        </View>
+        <View style={styles.qnaBox}>
+          <Text style={styles.title}>상대방이 작성한 1문 1답</Text>
+          <View style={styles.qna}>
+            <Text style={styles.qna_Q}>무슨 일을 하고 계세요?</Text>
+            <Text style={styles.qna_A}></Text>
+          </View>
+        </View>
+      </View>
+      {isModalOpen ? (
+        <TouchableOpacity
+          style={styles.nungilBtn}
+          onPress={() => setIsModalOpen(false)}>
+          <ExitNungilButton />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.nungilBtn}
+          onPress={() => setIsModalOpen(true)}>
+          <NungilButton />
+        </TouchableOpacity>
+      )}
       {isModalOpen && (
         <NungilModal
-          nungilId={detailProfile.nungilId}
+          nungilId={detailProfile?.nungilId}
           closeModal={() => setIsModalOpen(false)}
         />
       )}
-    </Container>
+    </SafeAreaView>
   );
 };
 
 export default DetailPage;
 
-const Container = styled(SafeAreaView)`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  position: relative;
-`;
-
-const Top = styled(View)`
-  padding: 25px 20px 0px 20px;
-`;
-
-const Content = styled(View)`
-  padding: 25px 20px 0px 20px;
-`;
-
-const IntroBox = styled(View)`
-  padding: 20px;
-  border-radius: 0px 15px 15px 15px;
-  background: #fafafb;
-`;
-
-const InfoBox = styled(View)`
-  margin-top: 32px;
-`;
-
-const Title = styled(Text)`
-  margin-bottom: 25px;
-  font-size: 18px;
-  font-weight: 700;
-`;
-
-const QnABox = styled(View)`
-  margin-top: 44px;
-`;
-
-const QnA = styled(View)`
-  padding: 24px 20px;
-  border-radius: 15px;
-  background: #fafafb;
-`;
-
-const NungilBtn = styled(TouchableOpacity)`
-  position: absolute;
-  bottom: 40px;
-  right: 30px;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    position: 'relative',
+  },
+  top: {
+    padding: 25,
+    paddingBottom: 0,
+  },
+  content: {
+    padding: 25,
+    paddingBottom: 0,
+  },
+  introBox: {
+    padding: 20,
+    marginBottom: 30,
+    borderRadius: 15,
+    backgroundColor: '#fafafb',
+  },
+  infoBox: {
+    paddingLeft: 10,
+  },
+  infoDetail: {
+    flexDirection: 'row',
+    gap: 5,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ECEBF1',
+  },
+  lastInfoDetail: {
+    flexDirection: 'row',
+    gap: 5,
+    paddingVertical: 10,
+    borderBottomWidth: 0,
+  },
+  infoText: {},
+  title: {
+    marginBottom: 25,
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  qnaBox: {
+    marginTop: 44,
+  },
+  qna: {
+    padding: 24,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    gap: 5,
+    backgroundColor: '#fafafb',
+  },
+  qna_Q: {
+    color: '#878D9B',
+    fontSize: 14,
+    fontWeight: 500,
+  },
+  qna_A: {
+    color: '#333A44',
+    fontSize: 15,
+    fontWeight: 500,
+  },
+  nungilBtn: {
+    position: 'absolute',
+    bottom: 40,
+    right: 30,
+    zIndex: 2000,
+  },
+});

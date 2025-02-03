@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/native';
 import instance from '../apis/axiosInstance';
 import {Text, TouchableOpacity} from 'react-native';
-import {ExitNungilButton} from '../../main/assets/0_index';
+import {NungilImg} from '../assets/0_index';
 
 const NungilModal = ({
   nungilId,
@@ -38,15 +38,13 @@ const NungilModal = ({
   return (
     <Overlay>
       <Container>
-        <TouchableOpacity onPress={handleSendNungil}>
-          <Text>눈길을 보낼래요</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleDeleteNungil}>
-          <Text>프로필 삭제하기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={closeModal}>
-          <ExitNungilButton />
-        </TouchableOpacity>
+        <NungilBtn onPress={handleSendNungil}>
+          <NungilImg />
+          <BtnText>눈길을 보낼래요</BtnText>
+        </NungilBtn>
+        <ModalBtn onPress={handleDeleteNungil}>
+          <BtnText>프로필 삭제하기</BtnText>
+        </ModalBtn>
       </Container>
     </Overlay>
   );
@@ -57,20 +55,44 @@ export default NungilModal;
 const Overlay = styled.View`
   position: absolute;
   bottom: 0;
-  right: 0%;
   width: 100%;
   height: 150%;
   background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
   z-index: 999;
 `;
 
 const Container = styled.View`
   position: absolute;
-  bottom: 40px;
+  flex-direction: column;
+  align-items: flex-end;
+  bottom: 120px;
   right: 30px;
+  gap: 10px;
   z-index: 1000;
-  justify-content: center;
+`;
+
+const NungilBtn = styled.TouchableOpacity`
+  height: 50px;
+  flex-direction: row;
+  justify-content: end;
   align-items: center;
+  border-radius: 50px;
+  background: #fff0f0;
+  padding: 10px 20px;
+  gap: 10px;
+`;
+
+const ModalBtn = styled.TouchableOpacity`
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 50px;
+  background: #fafafb;
+  padding: 10px 20px;
+`;
+
+const BtnText = styled.Text`
+  color: #303030;
+  font-size: 15px;
+  font-weight: 600;
 `;

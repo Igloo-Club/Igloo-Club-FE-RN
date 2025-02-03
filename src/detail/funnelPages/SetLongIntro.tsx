@@ -25,7 +25,7 @@ const 자기소개 = ({
 
   return (
     <View style={globalStyles.container}>
-      <DetailProfileHeader percent={96} onPrev={onPrev} />
+      <DetailProfileHeader percent={96} onBackPress={onPrev} />
       <Text style={globalStyles.title}>
         {
           DETAIL_PROFILE_VIEW_CONSTATNS.find(item => item.step === step)
