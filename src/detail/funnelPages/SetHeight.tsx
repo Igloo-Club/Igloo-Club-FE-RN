@@ -84,5 +84,4 @@ const HeightUnit = styled.Text`
 const ErrorText = styled.Text`
   color: red;
   font-size: 14px;
-  margin-top: 8px;
 `;

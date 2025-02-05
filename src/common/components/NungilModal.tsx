@@ -4,22 +4,14 @@ import instance from '../apis/axiosInstance';
 import {Text, TouchableOpacity} from 'react-native';
 import {NungilImg} from '../assets/0_index';
 
-const NungilModal = ({
-  nungilId,
-  closeModal,
-}: {
-  nungilId: number;
-  closeModal: () => void;
-}) => {
+const NungilModal = ({nungilId}: {nungilId: number}) => {
+  console.log(nungilId);
   const handleSendNungil = async () => {
     try {
-      await instance.post('/api/nungil/send?', {
-        params: {
-          nungilId: nungilId,
-        },
-      });
+      await instance.post(`/api/nungil/send?nungilId=${nungilId}`);
+      console.log('눈길 보내기 성공');
     } catch (err) {
-      console.log(err);
+      console.log('눈길 보내기 실패 ', err);
     }
   };
 
@@ -65,7 +57,7 @@ const Container = styled.View`
   position: absolute;
   flex-direction: column;
   align-items: flex-end;
-  bottom: 120px;
+  bottom: 110px;
   right: 30px;
   gap: 10px;
   z-index: 1000;

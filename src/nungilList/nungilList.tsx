@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from '@emotion/native';
 import {Animated} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
+import {RouteProp, useRoute} from '@react-navigation/native';
 import ReceivedNungil from './components/ReceivedNungil';
 import SendNungil from './components/SendNungil';
 import SoonNungil from './components/SoonNungil';
@@ -18,8 +19,21 @@ const routes = [
   {key: 'third', title: '곧 맺어질 눈길'},
 ];
 
+type NungilListRouteProp = RouteProp<
+  {NungilList: {tabIndex?: number}},
+  'NungilList'
+>;
+
 const NungilList = () => {
-  const [index, setIndex] = useState(0);
+  const route = useRoute<NungilListRouteProp>();
+  const idx = route.params?.tabIndex ?? 0;
+  const [index, setIndex] = useState(idx);
+
+  useEffect(() => {
+    if (route.params?.tabIndex !== undefined) {
+      setIndex(route.params.tabIndex);
+    }
+  }, [route.params?.tabIndex]);
 
   const renderTabBar = props => {
     // top nav tab 커스터마이징

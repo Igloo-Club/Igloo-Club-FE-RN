@@ -6,6 +6,8 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image,
+  useWindowDimensions,
 } from 'react-native';
 import instance from '../apis/axiosInstance';
 import {
@@ -31,81 +33,114 @@ import {
   Tattoo,
   Hobby,
 } from '../assets/0_index';
+import {BlurView} from '@react-native-community/blur';
 
 const DetailPage = ({navigation}: any) => {
+  const {height} = useWindowDimensions();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [detailProfile, setDetailProfile] =
     useState<DetailProfileDataTypesProps | null>(null);
   const route = useRoute();
-  // const { nungilId } = route.params as { nungilId: number };
+  const {nungilId, from} = route.params as {nungilId: number; from?: string};
+  useEffect(() => {
+    const handleDetailProfile = async () => {
+      try {
+        const res = await instance.get(
+          `/api/nungil/detail?nungilId=${nungilId}`,
+        );
+        setDetailProfile(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  // useEffect(() => {
-  //   const handleDetailProfile = async () => {
-  //     try {
-  //       const res = await instance.get(
-  //         `/api/nungil/detail?nungilId=${nungilId}`,
-  //       );
-  //       setDetailProfile(res.data);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
+    handleDetailProfile();
+  }, [nungilId]);
 
-  //   handleDetailProfile();
-  // }, [nungilId]);
-
-  // if (!detailProfile) {
-  //   return (
-  //     <SafeAreaView>
-  //       <Text>Loading...</Text>
-  //     </SafeAreaView>
-  //   );
-  // }
+  if (!detailProfile) {
+    return (
+      <SafeAreaView>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.top}>
-        <TouchableOpacity onPress={() => navigation.navigate('MainPage')}>
-          <BackArrow />
-        </TouchableOpacity>
+      <View style={[styles.imageContainer, {height: height * 0.4}]}>
+        <Image
+          source={{uri: detailProfile.imageUrlList?.[0]}}
+          style={styles.image}
+        />
+        <BlurView
+          style={[styles.blurOverlay, {height: height * 0.4}]}
+          blurAmount={15}
+          reducedTransparencyFallbackColor="black">
+          <TouchableOpacity
+            onPress={() => {
+              if (from === 'MainPage') {
+                navigation.navigate('MainPage');
+              } else if (from === 'ReceivedNungil') {
+                navigation.navigate('NungilList', {tabIndex: 0});
+              } else if (from === 'SendNungil') {
+                navigation.navigate('NungilList', {tabIndex: 1});
+              } else if (from === 'SoonNungil') {
+                navigation.navigate('NungilList', {tabIndex: 2});
+              } else {
+                navigation.goBack();
+              }
+            }}
+            style={styles.arrow}>
+            <BackArrow />
+          </TouchableOpacity>
+          <View style={styles.imgBox}>
+            <Text style={styles.imgText}>{detailProfile.nickname}</Text>
+            <Text style={styles.imgAddText}>
+              {new Date().getFullYear() -
+                parseInt(detailProfile.birthdate.substring(0, 4), 10)}
+              세 | {detailProfile.companyName}
+            </Text>
+          </View>
+        </BlurView>
       </View>
       <View style={styles.content}>
         <View style={styles.introBox}>
-          <Text>저는요, 👋🏻</Text>
+          <Text style={styles.introTitle}>저는요, 👋🏻</Text>
+          <Text style={styles.introContent}>{detailProfile.intro}</Text>
         </View>
         <Text style={styles.title}>상대방에 대한 간단한 정보예요</Text>
         <View style={styles.infoBox}>
           <View style={styles.infoDetail}>
             <Company />
-            {/*<Text style={styles.infoText}>{detailProfile.companyName} |</Text>*/}
-            {/*<Text style={styles.infoText}>{detailProfile.job} |</Text>*/}
-            {/*<Text style={styles.infoText}>
-              {SCALE.find(item => item.value === detailProfile.scale)
-                ?.label || '없음'}{' '}
+            <Text style={styles.infoText}>{detailProfile.companyName} |</Text>
+            <Text style={styles.infoText}>{detailProfile.job} |</Text>
+            <Text style={styles.infoText}>
+              {SCALE.find(item => item.value === detailProfile.scale)?.label ||
+                '없음'}{' '}
               |
-            </Text>{' '}*/}
+            </Text>
           </View>
           <View style={styles.infoDetail}>
             <Location />
           </View>
           <View style={styles.infoDetail}>
             <Height_ />
-            {/*<Text style={styles.infoText}>{detailProfile.height}cm |</Text>*/}
+            <Text style={styles.infoText}>{detailProfile.height}cm |</Text>
             <Religion_ />
-            {/*<Text style={styles.infoText}>
+            <Text style={styles.infoText}>
               {RELIGION.find(item => item.value === detailProfile.religion)
                 ?.label || '없음'}{' '}
               |
-            </Text>*/}
+            </Text>
             <Marriage_ />
-            {/*<Text style={styles.infoText}>
+            <Text style={styles.infoText}>
               {MARRIAGE_PLAN.find(
                 item => item.value === detailProfile.marriagePlan,
               )?.label || '미정'}{' '}
               |
-            </Text>*/}
+            </Text>
             <Mbti_ />
-            {/*<Text style={styles.infoText}>{detailProfile.mbtiType}</Text>*/}
+            <Text style={styles.infoText}>{detailProfile.mbtiType}</Text>
           </View>
           <View style={styles.lastInfoDetail}>
             <Smoke />
@@ -134,12 +169,7 @@ const DetailPage = ({navigation}: any) => {
           <NungilButton />
         </TouchableOpacity>
       )}
-      {isModalOpen && (
-        <NungilModal
-          nungilId={detailProfile?.nungilId}
-          closeModal={() => setIsModalOpen(false)}
-        />
-      )}
+      {isModalOpen && <NungilModal nungilId={detailProfile?.nungilId} />}
     </SafeAreaView>
   );
 };
@@ -153,19 +183,69 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     position: 'relative',
   },
-  top: {
-    padding: 25,
-    paddingBottom: 0,
+  imageContainer: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  blurOverlay: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    top: 0,
+    right: 0,
+    zIndex: 1000,
+  },
+  imgBox: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    left: 20,
+    bottom: 20,
+  },
+  arrow: {
+    position: 'absolute',
+    top: 20,
+    left: 15,
+    zIndex: 20,
+  },
+  imgText: {
+    color: '#ffffff',
+    fontSize: 26,
+    fontWeight: 'bold',
+    paddingRight: 7,
+  },
+  imgAddText: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: 'normal',
   },
   content: {
     padding: 25,
     paddingBottom: 0,
   },
   introBox: {
+    flexDirection: 'column',
     padding: 20,
     marginBottom: 30,
     borderRadius: 15,
+    gap: 7,
     backgroundColor: '#fafafb',
+  },
+  introTitle: {
+    color: '#333944',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  introContent: {
+    color: '#333944',
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: 20,
   },
   infoBox: {
     paddingLeft: 10,
