@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ChatRoomBox from './components/ChatRoomBox';
-import {MOCK_CHATLIST} from './constants/MOCK_CHATLIST';
 import instance from '../common/apis/axiosInstance';
 
 const Chat = () => {
@@ -34,9 +33,9 @@ const Chat = () => {
       </StHeader>
       <Middle.Wrapper>
         <Middle.Box>
-          {MOCK_CHATLIST.content.length > 0 ? (
+          {chatList.length > 0 ? (
             <>
-              {MOCK_CHATLIST.content.map((item, idx) => {
+              {chatList.map((item, idx) => {
                 const {
                   content,
                   nickname,

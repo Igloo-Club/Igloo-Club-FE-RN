@@ -46,7 +46,7 @@ const StContainer = styled(View)`
   justify-content: space-between;
   width: 100%;
   max-width: 425px;
-  height: 100px;
+  height: 80px;
   padding: 5px 20px 35px;
   background-color: #fff;
 `;

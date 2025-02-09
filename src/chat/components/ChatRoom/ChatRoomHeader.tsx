@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 interface ChatRoomHeaderProps {
-  nickname: string;
+  nickname: string | undefined;
 }
 
 const ChatRoomHeader = ({nickname}: ChatRoomHeaderProps) => {

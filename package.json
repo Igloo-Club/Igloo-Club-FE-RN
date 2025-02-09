@@ -40,7 +40,8 @@
     "react-native-web-swiper": "^2.2.4",
     "react-native-webview": "^13.12.2",
     "react-router-native": "^6.28.1",
-    "rn-range-slider": "^2.2.2"
+    "rn-range-slider": "^2.2.2",
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
