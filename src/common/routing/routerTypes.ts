@@ -9,7 +9,7 @@ export type RootStackParamList = {
   QnA: undefined;
   DetailProfile: undefined;
   AnswerPage: undefined;
-  Register: undefined;
+  Register: {stepIndex: number};
   IdealType: undefined;
   QuestionList: undefined;
   Chat: undefined;

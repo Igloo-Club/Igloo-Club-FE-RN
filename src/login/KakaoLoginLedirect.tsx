@@ -26,6 +26,12 @@ const KakaoLoginRedirect = ({navigation, route}: any) => {
           navigation.navigate('BottomNavLayout');
         } else {
           switch (data.nextProgress) {
+            case NEXT_PROGRESS[0]:
+              navigation.navigate('Register', {stepIndex: 0});
+              break;
+            case NEXT_PROGRESS[2]:
+              navigation.navigate('Register', {stepIndex: 2});
+              return 'Register';
             case NEXT_PROGRESS[3]:
               navigation.navigate('DetailProfile');
               break;

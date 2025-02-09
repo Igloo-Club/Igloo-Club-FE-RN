@@ -9,11 +9,19 @@ import SelectAreaFunnel from './funnelPages/SelectAreaFunnel';
 import JobFunnel from './funnelPages/JobFunnel';
 import {essentialType} from './types/registerAPITypes';
 import ProfileImgFunnel from './funnelPages/ProfileImgFunnel';
+import {RouteProp} from '@react-navigation/native';
+import {RootStackParamList} from '../common/routing/routerTypes';
+import {navigate} from '../common/hooks/useNavigationRef';
 
 type HandleChangeType = (key: keyof essentialType, value: string) => void;
+type RegisterRouteProp = RouteProp<RootStackParamList, 'Register'>;
 
-const Register = ({navigation}: any) => {
-  const [Funnel, setStep] = useFunnel(RegisterstepType, RegisterstepType[0]);
+const Register = ({route}: {route: RegisterRouteProp}) => {
+  const {stepIndex} = route.params;
+  const [Funnel, setStep] = useFunnel(
+    RegisterstepType,
+    RegisterstepType[stepIndex],
+  );
 
   const [profile, setProfile] = useState<essentialType>({
     nickname: '',
@@ -87,7 +95,7 @@ const Register = ({navigation}: any) => {
       <Funnel.Step name={RegisterstepType[6]}>
         <ProfileImgFunnel
           step={RegisterstepType[6]}
-          onNext={() => navigation.navigate('DetailProfile')}
+          onNext={() => navigate('DetailProfile')}
           onPrev={() => setStep(RegisterstepType[5])}
         />
       </Funnel.Step>
