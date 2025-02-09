@@ -1,42 +1,36 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
-import instance from '../../common/apis/axiosInstanse';
+import instance from '../../common/apis/axiosInstance';
 import {TouchableOpacity, View} from 'react-native';
 import CountDown from './CountDown';
 // import LimitModal from './LimitModal';
 // import ExistModal from './ExistModal';
 
-const PickProfileBtn = (
-  {
-    /*{ ProfileData }: any*/
-  },
-) => {
-  const [activePick, setActivePick] = useState(false);
+const PickProfileBtn = ({ProfileData}: any) => {
+  const [activePick, setActivePick] = useState(true);
   const [isLimitModalOpen, setIsLimitModalOpen] = useState<boolean>(false);
   const [isExistModalOpen, setIsExistModalOpen] = useState<boolean>(false);
 
-  const handleClickBtn = async () => {
-    //     try {
-    //       const res = await instance.post('/api/nungil/recommend', {
-    //         isPayed: true,
-    //       });
-    //       if (res.data) {
-    //         const { companyName, job, description } = res.data;
-    //         ProfileData({ companyName, job, description });
-    //       } else {
-    //         setIsExistModalOpen(true);
-    //       }
-    //     } catch (error: any) {
-    //       console.log(error);
-    //       if (error.response && error.response.status === 403) {
-    //         setIsLimitModalOpen(true);
-    //       }
-    //     }
+  const handlePickBtn = async () => {
+    try {
+      const res = await instance.post('/api/nungil/recommend');
+      if (res.data) {
+        console.log(res.data);
+      } else {
+        console.log('안됨');
+        setIsExistModalOpen(true);
+      }
+    } catch (err: any) {
+      console.log('PickProfileBtn api 에러 : ', err);
+      if (err.response && err.response.status === 403) {
+        setIsLimitModalOpen(true);
+      }
+    }
   };
 
   return (
     <Container>
-      <PickBtn onPress={handleClickBtn}>
+      <PickBtn activePick={activePick} onPress={handlePickBtn}>
         {activePick ? (
           <ActiveMent>번의 추가 프로필 뽑기 기회가 생겼어요!</ActiveMent>
         ) : (
@@ -47,12 +41,14 @@ const PickProfileBtn = (
           </>
         )}
       </PickBtn>
-      {/* {isLimitModalOpen && (
-        <LimitModal closeModal={() => setIsLimitModalOpen(false)} />
+      {isLimitModalOpen && (
+        <></>
+        // <LimitModal closeModal={() => setIsLimitModalOpen(false)} />
       )}
       {isExistModalOpen && (
-        <ExistModal closeModal={() => setIsExistModalOpen(false)} />
-      )} */}
+        <></>
+        // <ExistModal closeModal={() => setIsExistModalOpen(false)} />
+      )}
     </Container>
   );
 };

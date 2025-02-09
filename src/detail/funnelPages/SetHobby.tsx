@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from '@emotion/native';
 import {View, TouchableOpacity} from 'react-native';
 import {HOBBY} from '../constants/DETAIL_PROFILE_SELECTS';
@@ -10,6 +10,7 @@ const 취미 = ({
   onNext,
   step,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
@@ -19,6 +20,13 @@ const 취미 = ({
   );
   const [activeHobby, setActiveHobby] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (value?.hobbyList) {
+      setSelectedHobbies(value.hobbyList.map(hobby => hobby.category));
+      setSelectedSubCategories(value.hobbyList.map(hobby => hobby.name));
+    }
+  }, [value]);
+
   const getHobbyList = () => {
     const hobbyList: {category: string; name: string}[] = [];
 
@@ -26,11 +34,11 @@ const 취미 = ({
       const hobby = HOBBY.find(item => item.value === hobbyValue);
       if (hobby) {
         if (hobby.subCategories.length === 0) {
-          hobbyList.push({category: hobby.label, name: hobby.label});
+          hobbyList.push({category: hobby.value, name: hobby.value});
         } else {
           hobby.subCategories.forEach(subCategory => {
             if (selectedSubCategories.includes(subCategory.value)) {
-              hobbyList.push({category: hobby.label, name: subCategory.label});
+              hobbyList.push({category: hobby.value, name: subCategory.value});
             }
           });
         }
@@ -87,10 +95,9 @@ const 취미 = ({
       progress={80}
       onBackPress={onPrev}
       onButtonPress={async () => {
-        if (typeof selectedSubCategories === 'string') {
-          const hobbyList = getHobbyList();
-          await handleDetailProfileValue?.('hobbyList', hobbyList);
-        }
+        const hobbyList = getHobbyList();
+        await handleDetailProfileValue?.('hobbyList', hobbyList);
+
         onNext();
       }}
       isBtnActive={selectedSubCategories.length !== 0}>
@@ -105,7 +112,6 @@ const 취미 = ({
                   {item.label}
                 </HobbyLabel>
               </HobbyItem>
-
               {/* 세부 카테고리 렌더링 */}
               {activeHobby === item.value && item.subCategories.length > 0 && (
                 <SubCategoryList>

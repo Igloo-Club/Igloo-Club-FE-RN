@@ -9,11 +9,12 @@ const 결혼예정여부 = ({
   onPrev,
   onNext,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.marriagePlan ?? null,
   );
 
   return (
@@ -27,9 +28,11 @@ const 결혼예정여부 = ({
             ? selectedOption
             : MARRIAGE_PLAN.find(plan => plan.label === selectedOption)
                 ?.value || 0;
-        if (valueToSend) {
+
+        if (valueToSend !== undefined) {
           await handleDetailProfileValue?.('marriagePlan', valueToSend);
         }
+
         onNext();
       }}
       isBtnActive={selectedOption !== null}>

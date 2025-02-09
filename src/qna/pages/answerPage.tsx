@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import styled from '@emotion/native';
 import instance from '../../common/apis/axiosInstance';
-import {globalStyles} from '../../common/styles/globalStyles';
 import {X} from '../assets/images/index';
 import CountInput from '../components/CountInput';
 import FooterBtn from '../../common/components/FooterBtn';
@@ -69,7 +68,7 @@ const AnswerPage = ({route, navigation}: any) => {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView>
       <Header>
         <HeaderText>답변 작성</HeaderText>
         <BackButton onPress={() => navigation.navigate('QuestionList')}>
@@ -96,13 +95,13 @@ const AnswerPage = ({route, navigation}: any) => {
           label="저장하기"
         />
       </Footer>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default AnswerPage;
 
-const Header = styled(SafeAreaView)`
+const Header = styled(View)`
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -113,7 +112,7 @@ const Header = styled(SafeAreaView)`
 
 const BackButton = styled(TouchableOpacity)`
   position: absolute;
-  right: 0;
+  right: 20;
 `;
 
 const XImg = styled(Image)`
@@ -130,6 +129,7 @@ const HeaderText = styled.Text`
 const Body = styled(View)`
   flex-direction: column;
   gap: 35px;
+  padding: 0px 20px 0px 20px;
 `;
 
 const Question = styled(View)`
@@ -151,12 +151,6 @@ const QMent = styled.Text`
   margin-right: 30px;
 `;
 
-const Answer = styled.Text`
-  color: #303030;
-  font-size: 15px;
-  font-weight: 500;
-`;
-
 const InputAnswer = styled.TextInput`
   padding: 5px;
   color: #303030;
@@ -168,7 +162,7 @@ const InputAnswer = styled.TextInput`
 
 const Footer = styled(View)`
   position: absolute;
-  bottom: 0;
+  bottom: -100;
   left: 0;
   right: 0;
   padding: 20px 20px;

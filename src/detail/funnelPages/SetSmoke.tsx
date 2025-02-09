@@ -9,11 +9,12 @@ const 흡연여부 = ({
   onNext,
   step,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.smoke === true ? 'true' : value?.smoke === false ? 'false' : null,
   );
 
   return (

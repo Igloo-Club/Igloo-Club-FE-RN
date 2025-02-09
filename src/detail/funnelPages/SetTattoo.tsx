@@ -9,11 +9,12 @@ const 문신여부 = ({
   onNext,
   step,
   handleDetailProfileValue,
+  value,
 }: detailProfileFunnelProps & {
   step: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    null,
+    value?.tattoo === true ? 'true' : value?.tattoo === false ? 'false' : null,
   );
 
   return (
