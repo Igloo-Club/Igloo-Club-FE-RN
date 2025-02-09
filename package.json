@@ -21,6 +21,7 @@
     "@react-navigation/drawer": "6.7.2",
     "@react-navigation/native": "6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "@stomp/stompjs": "^7.0.0",
     "axios": "^1.7.4",
     "react": "18.2.0",
     "react-devtools": "^6.0.1",
@@ -41,7 +42,8 @@
     "react-native-web-swiper": "^2.2.4",
     "react-native-webview": "^13.12.2",
     "react-router-native": "^6.28.1",
-    "rn-range-slider": "^2.2.2"
+    "rn-range-slider": "^2.2.2",
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
