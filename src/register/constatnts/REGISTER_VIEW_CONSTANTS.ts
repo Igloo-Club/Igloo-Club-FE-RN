@@ -54,6 +54,12 @@ const RAGISTER_VIEW_CONSTATNS: RegisterViewConstant[] = [
     subTitle: '',
     buttonContent: '프로필 등록 완료하기',
   },
+  {
+    step: RegisterstepType[7],
+    mainTitle: '재직 중이신 회사명을 알려주세요.',
+    subTitle: '해당하는 회사명이 없다면 직접 입력해주세요.',
+    buttonContent: '다음으로',
+  },
 ];
 
 // 특정 step 값으로 찾기
