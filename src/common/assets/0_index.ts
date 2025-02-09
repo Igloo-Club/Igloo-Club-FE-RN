@@ -18,6 +18,7 @@ import Smoke from './Smoke.svg';
 import Tattoo from './Tattoo.svg';
 import Hobby from './Hobby.svg';
 import NungilImg from './NungilImg.svg';
+import IcMenu from './menu.svg';
 
 export {
   closeBtnIMG,
@@ -30,6 +31,7 @@ export {
   IcChatActive,
   IcHeartActive,
   IcPeopleActive,
+  IcMenu,
   Height_,
   Religion_,
   Marriage_,

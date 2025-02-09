@@ -1,3 +1,3 @@
 import submitBtn from './submitBtn.png';
-
-export {submitBtn};
+import IcChatSendBtn from './chatSendBtn.svg';
+export {submitBtn, IcChatSendBtn};

@@ -1,8 +1,7 @@
 import styled from '@emotion/native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {TextInput, TouchableOpacity, View} from 'react-native';
-import {Image} from 'react-native-svg';
-import {submitBtn} from '../../assets/0_index';
+import {IcChatSendBtn} from '../../assets/0_index';
 
 const ChatRoomFooter = ({
   chat,
@@ -14,6 +13,7 @@ const ChatRoomFooter = ({
   handleSubmit: () => void;
 }) => {
   const ref = useRef(null);
+  const [inputHeight, setInputHeight] = useState(40);
   return (
     <StContainer>
       <StTextarea
@@ -21,6 +21,11 @@ const ChatRoomFooter = ({
         placeholder="메시지 보내기"
         value={chat}
         onChangeText={handleChat}
+        onContentSizeChange={event => {
+          setInputHeight(event.nativeEvent.contentSize.height);
+        }}
+        style={{height: Math.max(40, inputHeight)}}
+        multiline
       />
       <StChatSubmit
         onPress={e => {
@@ -28,7 +33,7 @@ const ChatRoomFooter = ({
           handleSubmit();
           // ref?.current?.focus();
         }}>
-        <StChatSubmitImg href={submitBtn} />
+        <IcChatSendBtn />
       </StChatSubmit>
     </StContainer>
   );
@@ -42,25 +47,26 @@ const StContainer = styled(View)`
   display: flex;
   flex-direction: row;
   gap: 1px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   max-width: 425px;
-  height: 100px;
-  padding: 5px 20px 35px;
+  height: 80px;
+  padding: 5px 20px;
   background-color: #fff;
 `;
 
 const StTextarea = styled(TextInput)`
   width: 80%;
   max-width: 425px;
-  height: 40px;
+  max-height: 60px;
   padding: 1px 17px;
   text-justify: center;
   word-wrap: break-word;
   resize: none;
   background-color: #f2f3f5;
   border-radius: 27px;
+  overflow-y: scroll;
   ${({theme}) => theme.fonts.body1m};
 
   &::placeholder {
@@ -72,10 +78,4 @@ const StTextarea = styled(TextInput)`
 const StChatSubmit = styled(TouchableOpacity)`
   width: 30px;
   height: 30px;
-  background-color: #ccc;
-`;
-
-const StChatSubmitImg = styled(Image)`
-  width: 100%;
-  height: 100%;
 `;

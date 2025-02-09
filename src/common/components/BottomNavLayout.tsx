@@ -3,6 +3,7 @@ import React, {useCallback} from 'react';
 import MainPage from '../../main/pages/mainPage';
 import Chat from '../../chat';
 import NungilList from '../../nungilList/nungilList';
+import MyPage from '../../mypage';
 import BottomNavIcon from './bottomNav/BottomNavIcon';
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +47,7 @@ const BottomNavLayout = () => {
       />
       <Tab.Screen
         name="MyPage"
-        component={Chat}
+        component={MyPage}
         options={{
           tabBarIcon: ({focused}) => renderIcon('MyPage', focused),
         }}

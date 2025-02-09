@@ -6,7 +6,13 @@ import CountDown from './CountDown';
 // import LimitModal from './LimitModal';
 // import ExistModal from './ExistModal';
 
-const PickProfileBtn = ({ProfileData}: any) => {
+const PickProfileBtn = ({
+  ProfileData,
+  refreshList,
+}: {
+  ProfileData: any;
+  refreshList: () => void;
+}) => {
   const [activePick, setActivePick] = useState(true);
   const [isLimitModalOpen, setIsLimitModalOpen] = useState<boolean>(false);
   const [isExistModalOpen, setIsExistModalOpen] = useState<boolean>(false);
@@ -15,7 +21,7 @@ const PickProfileBtn = ({ProfileData}: any) => {
     try {
       const res = await instance.post('/api/nungil/recommend');
       if (res.data) {
-        console.log(res.data);
+        refreshList();
       } else {
         console.log('안됨');
         setIsExistModalOpen(true);

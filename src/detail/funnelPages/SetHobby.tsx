@@ -34,11 +34,14 @@ const 취미 = ({
       const hobby = HOBBY.find(item => item.value === hobbyValue);
       if (hobby) {
         if (hobby.subCategories.length === 0) {
-          hobbyList.push({category: hobby.value, name: hobby.value});
+          hobbyList.push({category: hobby.value, name: null});
         } else {
           hobby.subCategories.forEach(subCategory => {
             if (selectedSubCategories.includes(subCategory.value)) {
-              hobbyList.push({category: hobby.value, name: subCategory.value});
+              hobbyList.push({
+                category: hobby.value,
+                name: subCategory.value,
+              });
             }
           });
         }

@@ -2937,6 +2937,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/blur@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "@react-native-community/blur@npm:4.4.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 1e47144b0c00dce562e72ea9f6c3e93d3bb392ec0ea001ce37ff801d9a496c9801927033ee4800bf92ea2ece9de0abe596715add3b7afe3c5d1533e260f5e09e
+  languageName: node
+  linkType: hard
+
 "@react-native-community/cli-clean@npm:13.6.9":
   version: 13.6.9
   resolution: "@react-native-community/cli-clean@npm:13.6.9"
@@ -3577,6 +3587,13 @@ __metadata:
   dependencies:
     "@sinonjs/commons": ^3.0.0
   checksum: 614d30cb4d5201550c940945d44c9e0b6d64a888ff2cd5b357f95ad6721070d6b8839cd10e15b76bf5e14af0bcc1d8f9ec00d49a46318f1f669a4bec1d7f3148
+  languageName: node
+  linkType: hard
+
+"@stomp/stompjs@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@stomp/stompjs@npm:7.0.0"
+  checksum: 94618b5a394339ed3098dae213eef27c462f504ba050208598c9ef396abb527b57e6333b2e78af4715693d6ba04fffb23df4b1bf7041bc0f1b3bc6e92138f1dc
   languageName: node
   linkType: hard
 
@@ -9745,6 +9762,7 @@ __metadata:
     "@emotion/styled": ^11.14.0
     "@notifee/react-native": ^7.8.2
     "@react-native-async-storage/async-storage": ^2.0.0
+    "@react-native-community/blur": ^4.4.1
     "@react-native-firebase/app": ^20.4.0
     "@react-native-firebase/messaging": ^20.4.0
     "@react-native/babel-preset": 0.74.85
@@ -9755,6 +9773,7 @@ __metadata:
     "@react-navigation/drawer": 6.7.2
     "@react-navigation/native": 6.1.18
     "@react-navigation/native-stack": ^6.11.0
+    "@stomp/stompjs": ^7.0.0
     "@types/react": ^18.2.6
     "@types/react-native-dotenv": ^0.2.2
     "@types/react-test-renderer": ^18.0.0
@@ -9786,6 +9805,7 @@ __metadata:
     react-router-native: ^6.28.1
     react-test-renderer: 18.2.0
     rn-range-slider: ^2.2.2
+    text-encoding: ^0.7.0
     typescript: 5.0.4
     vite-plugin-svgr: ^4.3.0
   languageName: unknown
@@ -12181,6 +12201,13 @@ __metadata:
     glob: ^7.1.4
     minimatch: ^3.0.4
   checksum: 3b34a3d77165a2cb82b34014b3aba93b1c4637a5011807557dc2f3da826c59975a5ccad765721c4648b39817e3472789f9b0fa98fc854c5c1c7a1e632aacdc28
+  languageName: node
+  linkType: hard
+
+"text-encoding@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "text-encoding@npm:0.7.0"
+  checksum: b6109a843fb1b8748b32e1ecd6df74d370f46c13ac136bcb6ca15db70209bb0b8ec1f296ebb4b0dd9961150e205dcc044b89f8cf7657f6faef78c7569a2a81bc
   languageName: node
   linkType: hard
 

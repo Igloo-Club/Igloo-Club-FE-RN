@@ -1,4 +1,6 @@
-export const MOCK_CHATROOM = {
+import {ChatDataTypes} from '../types/ChatDataTypes';
+
+export const MOCK_CHATROOM: ChatDataTypes = {
   nickname: '버팔로',
   imageUrl:
     'https://nungil-s3bucket.s3.ap-northeast-2.amazonaws.com/0574bdf1-9fa1-4983-8912-39be30192793.png?response-content-disposition=inline&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241226T082612Z&X-Amz-SignedHeaders=host&X-Amz-Expires=120&X-Amz-Credential=AKIAXYKJRCOQ2QJ3DRX6%2F20241226%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=77120f2120a5f1af5e527c510dabbc2be0ff2d8b2cbf4e372cfe5a922f75e65a',
@@ -137,5 +139,3 @@ export const MOCK_CHATROOM = {
     empty: false,
   },
 };
-
-export type chatRoomType = typeof MOCK_CHATROOM;

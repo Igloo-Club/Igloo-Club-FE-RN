@@ -13,6 +13,7 @@ import Landing from '../../landing';
 import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
 import NungilList from '../../nungilList/nungilList';
+import MyPage from '../../mypage';
 import {navigationRef} from '../hooks/useNavigationRef';
 import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
@@ -170,6 +171,11 @@ export const Router = () => {
           name="ChatRoom"
           component={ChatRoom}
           options={{title: '채팅룸'}}
+        />
+        <Stack.Screen
+          name="MyPage"
+          component={MyPage}
+          options={{title: '마이페이지'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

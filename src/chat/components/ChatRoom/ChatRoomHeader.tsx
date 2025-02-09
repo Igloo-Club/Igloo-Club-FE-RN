@@ -1,23 +1,27 @@
 import styled from '@emotion/native';
 import React from 'react';
 import {Text, View} from 'react-native';
+import {IcBackArrow, IcMenu} from '../../../common/assets/0_index';
+import {useNavigation} from '@react-navigation/native';
 
 interface ChatRoomHeaderProps {
-  nickname: string;
+  nickname: string | undefined;
 }
 
 const ChatRoomHeader = ({nickname}: ChatRoomHeaderProps) => {
   const notitext = `${nickname} 님과의 눈길이 매칭 되었어요.`;
+  const navigation = useNavigation();
+
   return (
     <StHeaderContainer>
       <StHeaderWrapper>
-        <Text>&lt;</Text>
+        <IcBackArrow onPress={() => navigation.goBack()} />
         <StSenderInfoStyles>
           <StsenderProfileStyles>
             <StSenderName>{nickname}</StSenderName>
           </StsenderProfileStyles>
         </StSenderInfoStyles>
-        <Text>...</Text>
+        <IcMenu />
       </StHeaderWrapper>
       <StChatModal.Container>
         <StChatModal.Text>
