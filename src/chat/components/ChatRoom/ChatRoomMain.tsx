@@ -61,7 +61,7 @@ const ChatRoomMain = ({chatData}: {chatData: any}) => {
 export default ChatRoomMain;
 
 const StContainer = styled(ScrollView)`
-  margin-bottom: 100px;
+  margin-bottom: 110px;
 `;
 
 const StContainerStyles = styled(View)`

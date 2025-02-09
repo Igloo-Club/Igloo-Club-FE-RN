@@ -19,17 +19,17 @@ const IdealType = ({navigation}: any) => {
   >();
 
   useEffect(() => {
-    // getData();
+    getData();
   }, []);
-  // const getData = async () => {
-  //   try {
-  //     const result = await instance.get('/api/member/ideal');
-  //     console.log(result.data);
-  //     setData(result.data);
-  //   } catch (err) {
-  //     console.log('getIdeal', err);
-  //   }
-  // };
+  const getData = async () => {
+    try {
+      const result = await instance.get('/api/member/ideal');
+      console.log(result.data);
+      setData(result.data);
+    } catch (err) {
+      console.log('getIdeal', err);
+    }
+  };
 
   const handleData = (
     key: string,

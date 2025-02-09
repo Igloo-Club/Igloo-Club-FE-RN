@@ -30,6 +30,7 @@ const ChatRoomBox = ({
   chatRoomId,
 }: ChatRoomProps) => {
   const navigation = useNavigation<ChatRoomNavigationProp>();
+  console.log(imageUrl);
   return (
     <StContainer onPress={() => navigation.navigate('ChatRoom', {chatRoomId})}>
       <StProfileContainer>
@@ -41,9 +42,11 @@ const ChatRoomBox = ({
       </StContentContainer>
       <StendContainer>
         <StTime>{formatAMPM(createdAt)}</StTime>
-        <StUnread.Container>
-          <StUnread.Text>{unreadCnt}</StUnread.Text>
-        </StUnread.Container>
+        {unreadCnt > 0 && (
+          <StUnread.Container>
+            <StUnread.Text>{unreadCnt}</StUnread.Text>
+          </StUnread.Container>
+        )}
       </StendContainer>
     </StContainer>
   );
@@ -85,11 +88,11 @@ const StProfile = styled(Image)`
 const StendContainer = styled(View)`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: flex-end;
-  gap: 4px;
+  gap: 5px;
   width: 15%;
-  padding-bottom: 2px;
+  padding: 5px 0;
 `;
 
 const StUserName = styled(Text)`
