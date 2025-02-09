@@ -8,6 +8,7 @@ import IcHomeActive from './home-red.svg';
 import IcChatActive from './chat-red.svg';
 import IcHeartActive from './heart-red.svg';
 import IcPeopleActive from './people-red.svg';
+import IcMenu from './menu.svg';
 
 export {
   closeBtnIMG,
@@ -20,4 +21,5 @@ export {
   IcChatActive,
   IcHeartActive,
   IcPeopleActive,
+  IcMenu,
 };
