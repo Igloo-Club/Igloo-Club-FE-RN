@@ -10,18 +10,16 @@ import IdealType from '../../idealType';
 import Login from '../../login';
 import KakaoLoginRedirect from '../../login/KakaoLoginLedirect';
 import Landing from '../../landing';
-import MainPage from '../../main/pages/mainPage';
 import DetailPage from '../page/detailPage';
-import NungilList from '../../nungilList/nungilList';
 import MyPage from '../../mypage';
 import {navigationRef} from '../hooks/useNavigationRef';
-import Chat from '../../chat';
 import ChatRoom from '../../chat/components/ChatRoom/ChatRoom';
 import {RootStackParamList} from './routerTypes';
 import BottomNavLayout from '../components/BottomNavLayout';
 import getAccessToken from '../utils/getAccessToken';
 import SplashScreen from 'react-native-splash-screen';
 import instance from '../apis/axiosInstance';
+import NEXT_PROGRESS from '../../login/constants/NEXT_PROGRESS';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +35,7 @@ export const Router = () => {
   const [initialRoute, setInitialRoute] = useState<
     keyof RootStackParamList | null
   >(null);
+  const [initialRegisterParams, setInitialRegisterParams] = useState<number>(0);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -57,12 +56,26 @@ export const Router = () => {
 
     const getUserData = async () => {
       try {
-        const {data} = await instance.get('/api/member');
-        console.log(data);
-        if (data.imageUrlList.length === 0) {
-          return 'Register'; // 프로필 이미지 없으면 Register 페이지로 설정
+        const {data} = await instance.get('api/progress');
+        console.log(data.nextProgress);
+        if (data.isProfileRegistered) {
+          return 'BottomNavLayout';
+        } else {
+          switch (data.nextProgress) {
+            case NEXT_PROGRESS[0]:
+              setInitialRegisterParams(0);
+              return 'Register';
+            case NEXT_PROGRESS[2]:
+              setInitialRegisterParams(2);
+              return 'Register';
+            case NEXT_PROGRESS[3]:
+              return 'DetailProfile';
+            case NEXT_PROGRESS[4]:
+              return 'BottomNavLayout';
+            default:
+              return 'Register';
+          }
         }
-        return 'BottomNavLayout'; // 이미지가 있으면 MainPage로 설정
       } catch (err) {
         console.log('사용자 데이터 불러오기 오류:', err);
         return 'Login'; // 오류 발생 시 기본값 설정
@@ -112,21 +125,21 @@ export const Router = () => {
           component={Landing}
           options={{title: 'landing'}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{title: '메인 페이지'}}
-        />
+        /> */}
         <Stack.Screen
           name="DetailPage"
           component={DetailPage}
           options={{title: '상세 페이지'}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="NungilList"
           component={NungilList}
           options={{title: '눈길 리스트'}}
-        />
+        /> */}
         <Stack.Screen
           name="Login"
           component={Login}
@@ -155,6 +168,7 @@ export const Router = () => {
           name="Register"
           component={Register}
           options={{title: '필수 프로필 등록'}}
+          initialParams={{stepIndex: initialRegisterParams}}
         />
         <Stack.Screen
           name="IdealType"
@@ -166,7 +180,7 @@ export const Router = () => {
           component={QuestionList}
           options={{title: '질문 리스트'}}
         />
-        <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} />
+        {/* <Stack.Screen name="Chat" component={Chat} options={{title: '채팅'}} /> */}
         <Stack.Screen
           name="ChatRoom"
           component={ChatRoom}

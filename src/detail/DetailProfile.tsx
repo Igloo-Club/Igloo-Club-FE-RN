@@ -61,7 +61,7 @@ const DetailProfile = ({navigation}: any) => {
     try {
       const res = await instance.post('/api/member/additional', detailProfile);
       if (res.status === 200) {
-        navigation.navigate('MainPage');
+        navigation.navigate('BottomNavLayout');
       }
     } catch (err) {
       console.error(err);
