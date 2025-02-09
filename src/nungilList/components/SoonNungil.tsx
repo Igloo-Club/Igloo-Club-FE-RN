@@ -36,7 +36,10 @@ const SoonNungil = () => {
           </XButton>
         </IntroBox>
       )}
-      <NungilListLayout status="SOON" from="SoonNungil" />
+      <NungilListLayout
+        status={['ACCEPTED_SENT', 'ACCEPTED_RECEIVED']}
+        from="SoonNungil"
+      />
     </Container>
   );
 };

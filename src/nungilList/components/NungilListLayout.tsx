@@ -13,7 +13,7 @@ import {BlurView} from '@react-native-community/blur';
 import {useNavigation} from '@react-navigation/native';
 
 interface LayoutProps {
-  status: 'RECEIVED' | 'SENT' | 'SOON';
+  status: 'RECEIVED' | 'SENT' | 'ACCEPTED_SENT' | 'ACCEPTED_RECEIVED';
   from: string;
 }
 
@@ -28,12 +28,18 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
 
   const handleList = async () => {
     try {
-      const res = await instance.get('/api/nungil/list', {
-        params: {status, page: 0, size: 4},
-      });
-      setProfileData(res.data.content);
+      // 여러 개의 상태를 비동기 요청 후 합치기 (ACCEPTED_ 해당)
+      const ress = await Promise.all(
+        status.map(s =>
+          instance.get('/api/nungil/list', {
+            params: {status: s, page: 0, size: 4},
+          }),
+        ),
+      );
+      const data = ress.flatMap((res: any) => res.data.content);
+      setProfileData(data);
     } catch (err) {
-      console.log(`${status} 눈길 리스트 조회 에러: `, err);
+      console.log(`${status.join(', ')} 눈길 리스트 조회 에러: `, err);
     }
   };
 
@@ -59,7 +65,7 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
                   style={{width: width * 0.42, height: height * 0.25}}>
                   <ProfileImg source={{uri: profile.imageUrlList[0]}} />
                   <BlurOverlay
-                    blurAmount={15}
+                    blurAmount={status === 'SENT' ? 15 : 0}
                     reducedTransparencyFallbackColor="black"
                   />
                   <InfoBox>

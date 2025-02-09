@@ -31,6 +31,7 @@ const MainPage = ({navigation}: any) => {
           size: 4,
         },
       });
+      console.log('음?');
       setProfileData(res.data.content);
     } catch (err) {
       console.log('추천 눈길 리스트 조회 에러: ', err);
@@ -62,7 +63,7 @@ const MainPage = ({navigation}: any) => {
         <ImageSlider navigation={navigation} profiles={profileData} />
       </Content>
       <Footer>
-        <PickProfileBtn ProfileData={profileData} />
+        <PickProfileBtn ProfileData={profileData} refreshList={handleList} />
       </Footer>
     </Container>
   );
