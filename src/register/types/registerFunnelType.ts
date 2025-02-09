@@ -8,6 +8,7 @@ export const RegisterstepType = [
   '닉네임입력',
   '지역선택',
   '이미지등록',
+  '근무지등록',
 ] as const;
 
 export interface IregisterFunnulProps {

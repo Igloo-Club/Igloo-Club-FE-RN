@@ -6,11 +6,13 @@ import CustomTextInput from '../components/TextInput';
 import EmailModal from '../components/EmailModal';
 import {isValidEmail} from '../../common/utils/validation';
 import instance from '../../common/apis/axiosInstance';
+import CompanyFunnel from './CompanyFunnel';
 
 const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
   const [email, setEmail] = useState('');
   const [validErrContent, setValidErrContent] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInitialPage, setIsInitialPage] = useState(true);
 
   const submitEmail = async () => {
     //검증
@@ -32,7 +34,11 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
     }
   };
 
-  return (
+  const handleSetInitialPage = () => {
+    setIsInitialPage(false);
+  };
+
+  return isInitialPage ? (
     <>
       <RegisterLayout
         step={step}
@@ -51,13 +57,15 @@ const EmailFunnel = ({step, onNext, onPrev}: IregisterFunnulProps) => {
 
       {isModalOpen && (
         <EmailModal
-          onNext={onNext}
+          onNext={handleSetInitialPage}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           email={email}
         />
       )}
     </>
+  ) : (
+    <CompanyFunnel onNext={onNext} onPrev={onPrev} email={email} />
   );
 };
 
