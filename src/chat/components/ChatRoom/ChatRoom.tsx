@@ -138,7 +138,7 @@ const ChatRoom = ({route}: {route: ChatRoomScreenRouteProp}) => {
     }
   };
 
-  return (
+  return chatData ? (
     <StContainer>
       <ChatRoomHeader nickname={chatData?.nickname} />
       <ChatRoomMain chatData={chatContent} />
@@ -152,6 +152,8 @@ const ChatRoom = ({route}: {route: ChatRoomScreenRouteProp}) => {
         }}
       />
     </StContainer>
+  ) : (
+    <></>
   );
 };
 
