@@ -6,7 +6,6 @@ import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
 import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
-import {Height, Religion, Marriage, Mbti} from '../assets/0_index';
 
 const MainPage = ({navigation}: any) => {
   const [myName, setMyName] = useState<string>('');
@@ -32,13 +31,12 @@ const MainPage = ({navigation}: any) => {
           size: 4,
         },
       });
+      console.log('음?');
       setProfileData(res.data.content);
     } catch (err) {
-      console.log('handleList api 에러: ', err);
+      console.log('추천 눈길 리스트 조회 에러: ', err);
     }
   };
-
-  // console.log('냠냠냠 : ', profileData[0]?.imageUrlList?.[0]);
 
   const handleMyData = async () => {
     try {
@@ -49,20 +47,15 @@ const MainPage = ({navigation}: any) => {
     }
   };
 
-  const handleClick = () => {
-    navigation.navigate('QnA');
-  };
-
   return (
     <Container>
       <Header>
         <SelectArea>
-          {/* <CustomSelect onSelectedChange={handleSelectedChange} /> */}
+          <CustomSelect onSelectedChange={handleSelectedChange} />
         </SelectArea>
         <MainTitle>
           <Title>{myName}님과 찰떡인</Title>
           <Title>오늘의 특별한 인연을 소개할게요</Title>
-          <GoDetail onPress={handleClick} />
         </MainTitle>
       </Header>
       <Content>
@@ -70,7 +63,7 @@ const MainPage = ({navigation}: any) => {
         <ImageSlider navigation={navigation} profiles={profileData} />
       </Content>
       <Footer>
-        <PickProfileBtn ProfileData={profileData} />
+        <PickProfileBtn ProfileData={profileData} refreshList={handleList} />
       </Footer>
     </Container>
   );
