@@ -33,7 +33,6 @@ const StTime = styled(Text)`
 `;
 
 const StBubble = styled(View)<{isAuthor: boolean}>`
-  width: fit-content;
   max-width: 250px;
   padding: 12px;
   margin-left: ${({isAuthor}) => (isAuthor ? '0' : '7px')};

@@ -23,7 +23,6 @@ const CustomSelect = ({
   onSelectedChange,
 }: {
   location: string;
-  refreshList: () => void;
   onSelectedChange: (selected: string) => void;
 }) => {
   const [selected, setSelected] = useState<string>(locationMap[location]);

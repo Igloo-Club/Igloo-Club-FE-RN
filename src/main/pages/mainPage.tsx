@@ -25,7 +25,7 @@ const MainPage = ({navigation}: any) => {
   console.log('음 : ', location);
 
   const handleList = async () => {
-    console.log('ccc', location);
+    console.log('ccc');
     try {
       const res = await instance.get('/api/nungil/list', {
         params: {
