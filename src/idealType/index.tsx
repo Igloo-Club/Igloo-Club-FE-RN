@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FooterBtn from '../common/components/FooterBtn';
 import {IDEAL_KEY, IDEAL_LIST} from './constants/IDEAL_LIST';
@@ -10,6 +10,7 @@ import {MOCK_IDEAL} from './constants/MOCK_IDEALTYPE';
 import IdealTypeModal from './components/IdealTypeModal';
 import instance from '../common/apis/axiosInstance';
 import {IidealType} from './types/idealType';
+import {IcBackArrow} from '../common/assets/0_index';
 // import instance from '../common/apis/axiosInstance';
 
 const IdealType = ({navigation}: any) => {
@@ -44,11 +45,13 @@ const IdealType = ({navigation}: any) => {
   const submitData = async () => {
     try {
       console.log(data);
-      await instance.post('api/member/ideal', data);
+      await instance.post('api/member/ideal', MOCK_IDEAL);
       console.log('success post ideal');
       console.log(data);
-      navigation.navigate('MainPage');
-    } catch {}
+      navigation.navigate(-1);
+    } catch (err) {
+      console.log('이상형등록 에러', err);
+    }
   };
   return (
     <View>
@@ -58,7 +61,7 @@ const IdealType = ({navigation}: any) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Text>&lt;</Text>
+            <IcBackArrow />
           </BackButton>
           <Title>선호 이성 설정</Title>
         </Header>
