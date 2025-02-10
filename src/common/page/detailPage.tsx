@@ -37,7 +37,7 @@ import {
 import {BlurView} from '@react-native-community/blur';
 
 const DetailPage = ({navigation}: any) => {
-  const {height} = useWindowDimensions();
+  const {width, height} = useWindowDimensions();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [isReceived, setIsReceived] = useState(false);
@@ -72,7 +72,7 @@ const DetailPage = ({navigation}: any) => {
     <SafeAreaView style={styles.container}>
       <ScrollView
         style={{flex: 1}}
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={{flexGrow: 1, paddingBottom: 100}}
         keyboardShouldPersistTaps="handled">
         <View style={[styles.imageContainer, {height: height * 0.4}]}>
           <Image
@@ -188,23 +188,22 @@ const DetailPage = ({navigation}: any) => {
           </View>
         </View>
       </ScrollView>
-      {isModalOpen ? (
-        !isSent &&
-        !isReceived && (
-          <TouchableOpacity
-            style={styles.nungilBtn}
-            onPress={() => setIsModalOpen(false)}>
-            <ExitNungilButton />
-          </TouchableOpacity>
-        )
-      ) : (
-        <TouchableOpacity
-          style={styles.nungilBtn}
-          onPress={() => setIsModalOpen(true)}>
-          <NungilButton />
-        </TouchableOpacity>
-      )}
-
+      {isModalOpen
+        ? !isSent &&
+          !isReceived && (
+            <TouchableOpacity
+              style={styles.nungilBtn}
+              onPress={() => setIsModalOpen(false)}>
+              <ExitNungilButton />
+            </TouchableOpacity>
+          )
+        : from !== 'SoonNungil' && (
+            <TouchableOpacity
+              style={styles.nungilBtn}
+              onPress={() => setIsModalOpen(true)}>
+              <NungilButton />
+            </TouchableOpacity>
+          )}
       {isModalOpen && (
         <NungilModal
           nungilId={detailProfile?.nungilId}
@@ -215,6 +214,15 @@ const DetailPage = ({navigation}: any) => {
           setIsReceived={setIsReceived}
           setIsModalOpen={setIsModalOpen}
         />
+      )}
+      {from === 'SoonNungil' && (
+        <View style={styles.soonBox}>
+          <TouchableOpacity style={[styles.soonBtn, {width: width * 0.8}]}>
+            <Text style={{color: '#ffffff', fontSize: 15, fontWeight: 'bold'}}>
+              인연 시작하기
+            </Text>
+          </TouchableOpacity>
+        </View>
       )}
     </SafeAreaView>
   );
@@ -369,5 +377,21 @@ const styles = StyleSheet.create({
     bottom: 40,
     right: 30,
     zIndex: 2000,
+  },
+  soonBox: {
+    position: 'absolute',
+    bottom: 10,
+    backgroundColor: '#ffffff',
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  },
+  soonBtn: {
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 8,
+    backgroundColor: '#FA7268',
   },
 });
