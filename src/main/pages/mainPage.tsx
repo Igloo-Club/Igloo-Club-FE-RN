@@ -10,29 +10,34 @@ import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
 const MainPage = ({navigation}: any) => {
   const [myName, setMyName] = useState<string>('');
   const [profileData, setProfileData] = useState<ProfileDataTypesProps[]>([]);
-
-  const handleSelectedChange = (newSelected: string) => {
-    // setSelected(newSelected);
-    // handleGetAllProfile();
-  };
+  const [location, setLocation] = useState<string>('');
 
   useEffect(() => {
     handleList();
     handleMyData();
+    handleLocation();
   }, []);
 
+  useEffect(() => {
+    handleList();
+  }, [location]);
+
+  console.log('음 : ', location);
+
   const handleList = async () => {
-    console.log('ccc');
+    console.log('ccc', location);
     try {
       const res = await instance.get('/api/nungil/list', {
         params: {
           status: 'RECOMMENDED',
+          location: location,
           page: 0,
           size: 4,
         },
       });
-      console.log('음?');
+      console.log('응답값 : ', res.data.content);
       setProfileData(res.data.content);
+      console.log('데이터 :', profileData);
     } catch (err) {
       console.log('추천 눈길 리스트 조회 에러: ', err);
     }
@@ -47,23 +52,45 @@ const MainPage = ({navigation}: any) => {
     }
   };
 
+  const handleLocation = async () => {
+    try {
+      const res = await instance.get('/api/member/location');
+      setLocation(res.data.location);
+    } catch (error) {
+      console.log('본인 근무지 조회 에러:', error);
+    }
+  };
+
   return (
     <Container>
       <Header>
         <SelectArea>
-          <CustomSelect onSelectedChange={handleSelectedChange} />
+          <CustomSelect onSelectedChange={setLocation} location={location} />
         </SelectArea>
         <MainTitle>
           <Title>{myName}님과 찰떡인</Title>
           <Title>오늘의 특별한 인연을 소개할게요</Title>
         </MainTitle>
       </Header>
-      <Content>
-        <Comment>이 친구들은 어때요?</Comment>
-        <ImageSlider navigation={navigation} profiles={profileData} />
-      </Content>
+      {profileData.length > 0 ? (
+        <Content>
+          <Comment>이 친구들은 어때요?</Comment>
+          <ImageSlider navigation={navigation} profiles={profileData} />
+        </Content>
+      ) : (
+        <NoContent>
+          <NoRecommend>추천된 눈길이 없어요.</NoRecommend>
+          <NoRecommend>
+            아래 버튼을 눌러 새로운 프로필을 뽑아보세요!
+          </NoRecommend>
+        </NoContent>
+      )}
       <Footer>
-        <PickProfileBtn ProfileData={profileData} refreshList={handleList} />
+        <PickProfileBtn
+          ProfileData={profileData}
+          refreshList={handleList}
+          location={location}
+        />
       </Footer>
     </Container>
   );
@@ -81,6 +108,7 @@ const Container = styled(SafeAreaView)`
 const Header = styled(View)`
   padding: 25px 20px 0px 20px;
   margin-bottom: 24px;
+  z-index: 999;
 `;
 
 const SelectArea = styled(View)`
@@ -90,6 +118,7 @@ const SelectArea = styled(View)`
   color: #686f7a;
   font-size: 16px;
   font-weight: 500;
+  z-index: 999;
 `;
 
 const MainTitle = styled(View)``;
@@ -114,15 +143,24 @@ const Comment = styled.Text`
   font-weight: 600;
 `;
 
+const NoContent = styled(View)`
+  height: 100%;
+  padding-top: 200px;
+  align-items: center;
+  border-radius: 40px 40px 0px 0px;
+  background-color: #ffffff;
+  gap: 20px;
+`;
+
+const NoRecommend = styled.Text`
+  color: #303030;
+  font-size: 18px;
+  font-weight: 600;
+`;
+
 const Footer = styled(View)`
   position: absolute;
   bottom: 0;
   z-index: 999;
   width: 100%;
-`;
-
-const GoDetail = styled(TouchableOpacity)`
-  width: 30px;
-  height: 30px;
-  background-color: black;
 `;

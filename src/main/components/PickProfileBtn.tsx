@@ -9,21 +9,27 @@ import CountDown from './CountDown';
 const PickProfileBtn = ({
   ProfileData,
   refreshList,
+  location,
 }: {
   ProfileData: any;
   refreshList: () => void;
+  location: string;
 }) => {
   const [activePick, setActivePick] = useState(true);
   const [isLimitModalOpen, setIsLimitModalOpen] = useState<boolean>(false);
   const [isExistModalOpen, setIsExistModalOpen] = useState<boolean>(false);
 
+  console.log('fkfkfk : ', location);
+
   const handlePickBtn = async () => {
     try {
-      const res = await instance.post('/api/nungil/recommend');
+      const res = await instance.post(
+        `/api/nungil/recommend?location=${location}`,
+      );
       if (res.data) {
+        console.log('됨', res.data);
         refreshList();
       } else {
-        console.log('안됨');
         setIsExistModalOpen(true);
       }
     } catch (err: any) {

@@ -28,18 +28,39 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
 
   const handleList = async () => {
     try {
-      // 여러 개의 상태를 비동기 요청 후 합치기 (ACCEPTED_ 해당)
-      const ress = await Promise.all(
-        status.map(s =>
-          instance.get('/api/nungil/list', {
-            params: {status: s, page: 0, size: 4},
-          }),
-        ),
-      );
-      const data = ress.flatMap((res: any) => res.data.content);
+      let data = [];
+
+      if (Array.isArray(status)) {
+        // 여러 상태를 비동기 요청 후 합치기
+        const ress = await Promise.all(
+          status.map(s =>
+            instance.get('/api/nungil/list', {
+              params: {status: s, page: 0, size: 4},
+            }),
+          ),
+        );
+        console.log(
+          'API 응답:',
+          ress.map(res => res.data),
+        );
+        data = ress.flatMap(res => res.data.content || []);
+      } else {
+        // 단일 상태일 경우
+        const res = await instance.get('/api/nungil/list', {
+          params: {status, page: 0, size: 4},
+        });
+        console.log('API 응답:', res.data);
+        data = res.data.content || [];
+      }
+
       setProfileData(data);
     } catch (err) {
-      console.log(`${status.join(', ')} 눈길 리스트 조회 에러: `, err);
+      console.log(
+        `${
+          Array.isArray(status) ? status.join(', ') : status
+        } 눈길 리스트 조회 에러:`,
+        err,
+      );
     }
   };
 
