@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   introContent: {
     color: '#333944',
     fontSize: 14,
-    fontWeight: 500,
+    fontWeight: 'bold',
     lineHeight: 20,
   },
   infoBox: {
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 25,
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: 'bold',
   },
   qnaBox: {
     marginTop: 44,
@@ -365,12 +365,12 @@ const styles = StyleSheet.create({
   qna_Q: {
     color: '#878D9B',
     fontSize: 14,
-    fontWeight: 500,
+    fontWeight: 'bold',
   },
   qna_A: {
     color: '#333A44',
     fontSize: 15,
-    fontWeight: 500,
+    fontWeight: 'bold',
   },
   nungilBtn: {
     position: 'absolute',

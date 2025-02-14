@@ -59,9 +59,9 @@ export const HOBBY = [
     value: 'READING',
     label: '📚 독서',
     subCategories: [
-      {value: 'HUMANITT', label: '인문학'},
+      {value: 'HUMANITY', label: '인문학'},
       {value: 'PHILOSOPHY', label: '철학'},
-      {value: 'ECONOMIC', label: '경제'},
+      {value: 'ECONIMIC', label: '경제'},
       {value: 'HISTORY', label: '역사'},
     ],
   },
