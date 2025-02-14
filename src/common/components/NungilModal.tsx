@@ -12,6 +12,7 @@ const NungilModal = ({
   isReceived,
   setIsReceived,
   setIsModalOpen,
+  navigation,
 }: {
   nungilId: number;
   from: string;
@@ -20,6 +21,7 @@ const NungilModal = ({
   isReceived: boolean;
   setIsReceived: React.Dispatch<React.SetStateAction<boolean>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  navigation: any;
 }) => {
   const handleSendNungil = async () => {
     try {
@@ -46,6 +48,7 @@ const NungilModal = ({
           nungilId: nungilId,
         },
       });
+      navigation.navigate('MainPage');
     } catch (err) {
       console.log(err);
     }
@@ -81,10 +84,16 @@ const NungilModal = ({
         </ModalContainer>
       ) : from === 'SoonNungil' ? null : (
         <Container>
-          {from === 'SendNungil' && (
+          {from === 'MainPage' && (
             <NungilBtn onPress={handleSendNungil}>
               <NungilImg />
               <BtnText>눈길을 보낼래요</BtnText>
+            </NungilBtn>
+          )}
+          {from === 'SendNungil' && (
+            <NungilBtn onPress={handleSendNungil}>
+              <NungilImg />
+              <BtnText>눈길을 보냈어요!</BtnText>
             </NungilBtn>
           )}
           {from === 'ReceivedNungil' && (
@@ -93,8 +102,11 @@ const NungilModal = ({
               <BtnText>눈길을 수락할래요</BtnText>
             </NungilBtn>
           )}
-          <ModalBtn onPress={() => setIsModalOpen(false)}>
-            <BtnText>프로필 삭제하기</BtnText>
+          <ModalBtn onPress={() => handleDeleteNungil}>
+            <>
+              {from === 'MainPage' && <BtnText>프로필 삭하기</BtnText>}
+              {from === 'ReceivedNungil' && <BtnText>눈길 거절하기</BtnText>}
+            </>
           </ModalBtn>
         </Container>
       )}

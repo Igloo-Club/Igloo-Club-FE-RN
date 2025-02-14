@@ -86,11 +86,7 @@ const MainPage = ({navigation}: any) => {
         </NoContent>
       )}
       <Footer>
-        <PickProfileBtn
-          ProfileData={profileData}
-          refreshList={handleList}
-          location={location}
-        />
+        <PickProfileBtn refreshList={handleList} location={location} />
       </Footer>
     </Container>
   );

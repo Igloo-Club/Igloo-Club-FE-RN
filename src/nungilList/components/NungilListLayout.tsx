@@ -31,7 +31,7 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
       let data = [];
 
       if (Array.isArray(status)) {
-        // 여러 상태를 비동기 요청 후 합치기
+        // ACCEPTED_RECEIVED와 ACCEPTED_SENT의 눈길 리스트를 위한 처리
         const ress = await Promise.all(
           status.map(s =>
             instance.get('/api/nungil/list', {

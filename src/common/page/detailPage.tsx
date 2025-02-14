@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {
   StyleSheet,
@@ -45,6 +45,7 @@ const DetailPage = ({navigation}: any) => {
     useState<DetailProfileDataTypesProps | null>(null);
   const route = useRoute();
   const {nungilId, from} = route.params as {nungilId: number; from?: string};
+
   useEffect(() => {
     const handleDetailProfile = async () => {
       try {
@@ -79,27 +80,28 @@ const DetailPage = ({navigation}: any) => {
             source={{uri: detailProfile.imageUrlList?.[0]}}
             style={styles.image}
           />
+          <TouchableOpacity
+            onPress={() => {
+              if (from === 'MainPage') {
+                navigation.navigate('MainPage');
+              } else if (from === 'ReceivedNungil') {
+                navigation.navigate('NungilList', {tabIndex: 0});
+              } else if (from === 'SendNungil') {
+                navigation.navigate('NungilList', {tabIndex: 1});
+              } else if (from === 'SoonNungil') {
+                navigation.navigate('NungilList', {tabIndex: 2});
+              } else {
+                navigation.goBack();
+              }
+            }}
+            style={styles.arrow}>
+            <BackArrow />
+          </TouchableOpacity>
           <BlurView
             style={[styles.blurOverlay, {height: height * 0.4}]}
             blurAmount={from === 'MainPage' || from === 'SendNungil' ? 15 : 0}
-            reducedTransparencyFallbackColor="black">
-            <TouchableOpacity
-              onPress={() => {
-                if (from === 'MainPage') {
-                  navigation.navigate('MainPage');
-                } else if (from === 'ReceivedNungil') {
-                  navigation.navigate('NungilList', {tabIndex: 0});
-                } else if (from === 'SendNungil') {
-                  navigation.navigate('NungilList', {tabIndex: 1});
-                } else if (from === 'SoonNungil') {
-                  navigation.navigate('NungilList', {tabIndex: 2});
-                } else {
-                  navigation.goBack();
-                }
-              }}
-              style={styles.arrow}>
-              <BackArrow />
-            </TouchableOpacity>
+            reducedTransparencyFallbackColor="black"
+            pointerEvents="none">
             {(from === 'SendNungil' || from === 'MainPage') && (
               <View style={styles.matchNoticeContainer}>
                 <Text style={styles.matchNoticeTitle}>
@@ -213,6 +215,7 @@ const DetailPage = ({navigation}: any) => {
           isReceived={isReceived}
           setIsReceived={setIsReceived}
           setIsModalOpen={setIsModalOpen}
+          navigation={navigation}
         />
       )}
       {from === 'SoonNungil' && (
@@ -241,10 +244,17 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     overflow: 'hidden',
+    position: 'relative',
   },
   image: {
     width: '100%',
     height: '100%',
+  },
+  arrow: {
+    position: 'absolute',
+    top: 25,
+    left: 15,
+    zIndex: 9999,
   },
   blurOverlay: {
     position: 'absolute',
@@ -252,7 +262,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     top: 0,
     right: 0,
-    zIndex: 1000,
   },
   noticeContainer: {
     padding: 10,
@@ -265,11 +274,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   matchNoticeContainer: {
-    position: 'absolute',
-    top: 130,
+    paddingTop: 100,
     left: 0,
     right: 0,
     alignItems: 'center',
+    zIndex: 100,
   },
   matchNoticeTitle: {
     color: 'white',
@@ -287,14 +296,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignItems: 'center',
-    left: 20,
-    bottom: 20,
-  },
-  arrow: {
-    position: 'absolute',
-    top: 20,
-    left: 15,
-    zIndex: 20,
+    paddingLeft: 20,
+    paddingTop: 280,
+    zIndex: 100,
   },
   imgText: {
     color: '#ffffff',
