@@ -1,12 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import {Text} from 'react-native';
 
-/** 매칭 마감까지 남은 시간 계산하는 함수 **/
+/** 남은 시간 계산 함수 **/
 export const calculateTimeLeft = () => {
   const now = new Date();
-  const targetTime = new Date();
+  let targetTime = new Date();
 
-  targetTime.setHours(24, 0, 0, 0);
+  // 현재 시간이 13시부터 16시 사이이면 16시까지, 18시부터 다음날 11시 사이이면 다음날 11시까지
+  if (now.getHours() >= 13 && now.getHours() < 16) {
+    // 16시까지 남은 시간 계산
+    targetTime.setHours(16, 0, 0, 0);
+  } else if (now.getHours() >= 18 || now.getHours() < 11) {
+    // 11시까지 남은 시간 계산 (다음날 11시)
+    targetTime.setHours(11, 0, 0, 0);
+    if (now.getHours() >= 18) {
+      targetTime.setDate(targetTime.getDate() + 1); // 다음날로 설정
+    }
+  } else {
+    // 그 외의 시간에는 11시까지 남은 시간 계산
+    targetTime.setHours(11, 0, 0, 0);
+  }
 
   const timeDifference = targetTime.getTime() - now.getTime();
   const totalSecondsLeft = Math.floor(timeDifference / 1000);

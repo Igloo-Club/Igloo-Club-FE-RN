@@ -24,17 +24,11 @@ const ImageSlider = ({
   profiles: ProfileDataTypesProps[];
 }) => {
   const {width} = useWindowDimensions();
-  // dimensions : 가로모드, 세로모드에 따라 변환된 width or height 값 가져오지 못함
-  // useWindowDimensions : 가로모드, 세로모드 등의 변화가 있을 때 값을 바로 업데이트 해줌
-
-  const [pos, setPos] = useState(width * 1.2); // 현재 위치 상태
+  const [pos, setPos] = useState(width * 1.2);
 
   const panResponder = PanResponder.create({
-    // panResponder : 터치 이벤트 감지 및 화면 드래그 시 발생하는 이벤트 처리
-
-    onMoveShouldSetPanResponder: () => true, // 화면 터치 시 드래그 시작하도록 설정
+    onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (e, gestureState) => {
-      // 드래그 할 때마다 발생하는 이벤트 -> 슬라이드의 위치 값 (pos) 업데이트
       setPos(prev => {
         const newPos = prev + gestureState.dx;
         const minPos = width * 1.2;
@@ -42,7 +36,7 @@ const ImageSlider = ({
         return Math.min(minPos, Math.max(maxPos, newPos));
       });
     },
-    onPanResponderRelease: () => {}, // 드래그 종료 시 해당 위치로 고정되도록 아무런 동작 x
+    onPanResponderRelease: () => {},
   });
 
   const handleClickImage = (nungilId: number) => {
@@ -71,9 +65,11 @@ const ImageSlider = ({
                 style={styles.image}
               />
               <BlurView
-                style={styles.infoBox}
+                style={styles.blurView}
                 blurAmount={15}
-                reducedTransparencyFallbackColor="black">
+                reducedTransparencyFallbackColor="black"
+              />
+              <View style={styles.infoBox}>
                 <View style={styles.infoTop}>
                   <Text style={styles.infoName}>{profile.nickname}</Text>
                   <Text style={styles.infoTopText}>
@@ -103,7 +99,7 @@ const ImageSlider = ({
                   <Mbti />
                   <Text style={styles.infoBottomText}>{profile.mbtiType}</Text>
                 </View>
-              </BlurView>
+              </View>
             </View>
           </TouchableOpacity>
         ))}
@@ -128,33 +124,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
     overflow: 'hidden',
-    backgroundColor: '#f9f9f9',
   },
   imageContainer: {
     width: '100%',
     height: '100%',
-    position: 'relative',
+    position: 'relative', // Necessary for positioning the BlurView
   },
   image: {
     width: '100%',
     height: '100%',
   },
-  infoBox: {
-    flexDirection: 'column',
-    position: 'absolute',
+  blurView: {
+    position: 'absolute', // Absolute positioning for the blur view
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: 'flex-end',
+  },
+  infoBox: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     padding: 20,
     gap: 10,
-    zIndex: 1000,
-  },
-  infoText: {
-    fontSize: 14,
-    color: '#ffffff',
-    marginBottom: 5,
   },
   infoTop: {
     flexDirection: 'row',

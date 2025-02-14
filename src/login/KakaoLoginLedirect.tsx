@@ -25,7 +25,6 @@ const KakaoLoginRedirect = ({navigation, route}: any) => {
         if (data.isProfileRegistered) {
           navigation.navigate('BottomNavLayout');
         } else {
-          console.log(data.nextProgress);
           switch (data.nextProgress) {
             case NEXT_PROGRESS[0]:
               navigation.navigate('Register', {stepIndex: 0});
