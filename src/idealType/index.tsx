@@ -45,7 +45,7 @@ const IdealType = ({navigation}: any) => {
   const submitData = async () => {
     try {
       console.log(data);
-      await instance.post('api/member/ideal', MOCK_IDEAL);
+      await instance.post('api/member/ideal', data);
       console.log('success post ideal');
       console.log(data);
       navigation.navigate(-1);

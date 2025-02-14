@@ -71,7 +71,7 @@ export default CustomSelect;
 
 const Container = styled(View)`
   display: flex;
-  gap: 0.5rem;
+  gap: 5px;
   margin-bottom: 17px;
 `;
 

@@ -327,7 +327,11 @@ const styles = StyleSheet.create({
   introContent: {
     color: '#333944',
     fontSize: 14,
+<<<<<<< HEAD
     fontWeight: 'bold',
+=======
+    fontWeight: '500',
+>>>>>>> 5d54c1bb76fc897a81e1d412317fceb03a1e108e
     lineHeight: 20,
   },
   infoBox: {
@@ -365,12 +369,20 @@ const styles = StyleSheet.create({
   qna_Q: {
     color: '#878D9B',
     fontSize: 14,
+<<<<<<< HEAD
     fontWeight: 'bold',
+=======
+    fontWeight: '500',
+>>>>>>> 5d54c1bb76fc897a81e1d412317fceb03a1e108e
   },
   qna_A: {
     color: '#333A44',
     fontSize: 15,
+<<<<<<< HEAD
     fontWeight: 'bold',
+=======
+    fontWeight: '500',
+>>>>>>> 5d54c1bb76fc897a81e1d412317fceb03a1e108e
   },
   nungilBtn: {
     position: 'absolute',
