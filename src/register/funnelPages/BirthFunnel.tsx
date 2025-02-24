@@ -32,6 +32,7 @@ const BirthFunnel = ({
         <DatePicker
           date={date}
           onDateChange={setDate}
+          locale="ko-KR"
           mode="date"
           maximumDate={new Date(minDate)}
         />

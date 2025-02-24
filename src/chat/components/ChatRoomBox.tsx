@@ -1,8 +1,7 @@
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import styled from '@emotion/native';
 import React from 'react';
 import {formatAMPM} from '../utils/formatAMPM';
-import {Image} from 'react-native-svg';
 import {RootStackParamList} from '../../common/routing/routerTypes';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
@@ -34,7 +33,7 @@ const ChatRoomBox = ({
   return (
     <StContainer onPress={() => navigation.navigate('ChatRoom', {chatRoomId})}>
       <StProfileContainer>
-        <StProfile href={imageUrl} />
+        <StProfile source={{uri: imageUrl}} />
       </StProfileContainer>
       <StContentContainer>
         <StUserName>{nickname}</StUserName>
