@@ -15,6 +15,9 @@ import {
   RELIGION,
   MARRIAGE_PLAN,
   SCALE,
+  SMOKE,
+  TATTOO,
+  HOBBY,
 } from '../../detail/constants/DETAIL_PROFILE_SELECTS';
 import NungilModal from '../components/NungilModal';
 import {DetailProfileDataTypesProps} from '../types/DetailProfileDataTypesProps';
@@ -147,12 +150,12 @@ const DetailPage = ({navigation}: any) => {
               <Text style={styles.infoText}>{detailProfile.job} |</Text>
               <Text style={styles.infoText}>
                 {SCALE.find(item => item.value === detailProfile.scale)
-                  ?.label || '없음'}{' '}
-                |
+                  ?.label || '없음'}
               </Text>
             </View>
             <View style={styles.infoDetail}>
               <Location />
+              <Text style={styles.infoText}>{detailProfile.locationList}</Text>
             </View>
             <View style={styles.infoDetail}>
               <Height_ />
@@ -175,8 +178,20 @@ const DetailPage = ({navigation}: any) => {
             </View>
             <View style={styles.lastInfoDetail}>
               <Smoke />
+              <Text style={styles.infoText}>
+                {SMOKE.find(
+                  item => item.value === detailProfile.smoke.toString(),
+                )?.label || '없음'}{' '}
+                |
+              </Text>
               <Tattoo />
+              <Text style={styles.infoText}>
+                {detailProfile.tattoo ? '문신 있음' : '문신 없음'} |
+              </Text>
               <Hobby />
+              <Text style={styles.infoText}>
+                {detailProfile.hobbyNameList.join(', ')}
+              </Text>
             </View>
           </View>
           <View style={styles.qnaBox}>

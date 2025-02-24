@@ -1,4 +1,7 @@
 {
-  "include": ["src/**/*", ".env.d.ts"],
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "include": ["src/**/*", ".env.d.ts", "./src/**/*.ts"],
   "extends": ["@react-native/typescript-config/tsconfig.json"]
 }

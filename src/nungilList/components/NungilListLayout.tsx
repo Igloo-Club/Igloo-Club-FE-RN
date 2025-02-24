@@ -21,10 +21,27 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
   const navigation = useNavigation();
   const {width, height} = useWindowDimensions();
   const [profileData, setProfileData] = useState<ProfileDataTypesProps[]>([]);
+  const [location, setLocation] = useState<string | null>(null);
 
   useEffect(() => {
-    handleList();
+    handleLocation();
   }, []);
+
+  useEffect(() => {
+    if (location) {
+      handleList();
+    }
+  }, []);
+
+  // 사용자 위치 정보 가져오기
+  const handleLocation = async () => {
+    try {
+      const res = await instance.get('/api/member/location');
+      setLocation(res.data.location);
+    } catch (error) {
+      console.log('본인 근무지 조회 에러:', error);
+    }
+  };
 
   const handleList = async () => {
     try {
@@ -35,7 +52,7 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
         const ress = await Promise.all(
           status.map(s =>
             instance.get('/api/nungil/list', {
-              params: {status: s, page: 0, size: 4},
+              params: {status: s, location, page: 0, size: 4},
             }),
           ),
         );
@@ -47,7 +64,7 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
       } else {
         // 단일 상태일 경우
         const res = await instance.get('/api/nungil/list', {
-          params: {status, page: 0, size: 4},
+          params: {status, location, page: 0, size: 4},
         });
         console.log('API 응답:', res.data);
         data = res.data.content || [];

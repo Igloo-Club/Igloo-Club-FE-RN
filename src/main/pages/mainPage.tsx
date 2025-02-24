@@ -6,6 +6,7 @@ import PickProfileBtn from '../components/PickProfileBtn';
 import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
 import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
+// import PushNoti from '../../common/components/PushNoti';
 
 const MainPage = ({navigation}: any) => {
   const [myName, setMyName] = useState<string>('');
