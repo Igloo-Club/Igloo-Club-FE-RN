@@ -7,7 +7,12 @@ const ChatSpeechBubble = ({chatData}: {chatData: any}) => {
   const isAuthor = chatData.isAuthor;
   return (
     <StBubbleContainer isAuthor={isAuthor}>
-      {isAuthor && <StTime>{formatAMPM(chatData.createdAt)}</StTime>}
+      {isAuthor && (
+        <StAuthorStatusContainer>
+          {chatData.status === 'READ' && <StStatus>읽음</StStatus>}
+          <StTime>{formatAMPM(chatData.createdAt)}</StTime>
+        </StAuthorStatusContainer>
+      )}
       <StBubble isAuthor={isAuthor}>
         <StBubbleText isAuthor={isAuthor}>{chatData.content}</StBubbleText>
       </StBubble>
@@ -25,6 +30,16 @@ const StBubbleContainer = styled(View)<{isAuthor: boolean}>`
   gap: 5px;
   align-items: flex-end;
   align-self: ${({isAuthor}) => (isAuthor ? 'flex-end' : 'flex-start')};
+`;
+
+const StAuthorStatusContainer = styled(View)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+const StStatus = styled(Text)`
+  ${({theme}) => theme.fonts.caption};
 `;
 
 const StTime = styled(Text)`
