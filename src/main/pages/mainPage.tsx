@@ -7,6 +7,7 @@ import CustomSelect from '../components/CustomSelect';
 import ImageSlider from '../components/ImageSlider';
 import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
 // import PushNoti from '../../common/components/PushNoti';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MainPage = ({navigation}: any) => {
   const [myName, setMyName] = useState<string>('');
@@ -57,6 +58,7 @@ const MainPage = ({navigation}: any) => {
     try {
       const res = await instance.get('/api/member/location');
       setLocation(res.data.location);
+      await AsyncStorage.setItem('location', res.data.location);
     } catch (error) {
       console.log('본인 근무지 조회 에러:', error);
     }

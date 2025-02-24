@@ -92,7 +92,7 @@ const Header = styled(View)`
 
 const BackButton = styled(TouchableOpacity)`
   position: absolute;
-  left: 20;
+  left: 20px;
 `;
 
 const Arrow = styled(Image)`
