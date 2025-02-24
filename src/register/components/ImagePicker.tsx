@@ -14,9 +14,11 @@ import {
 import {IcStar} from '../assets/0_index';
 
 const ImagePicker = ({
+  userImgs,
   responseList,
   handleImgList,
 }: {
+  userImgs?: string[];
   responseList: (ImagePickerResponse | null)[];
   handleImgList: (responseList: (ImagePickerResponse | null)[]) => void;
 }) => {
@@ -60,6 +62,8 @@ const ImagePicker = ({
         </StMainIMGtag>
         {responseList[0]?.assets && responseList[0].assets[0].uri ? (
           <StImg source={{uri: responseList[0].assets[0].uri}} />
+        ) : userImgs?.[0] ? (
+          <StImg source={{uri: userImgs[0]}} />
         ) : (
           <StImgContainer>
             <Text>+</Text>
@@ -72,6 +76,8 @@ const ImagePicker = ({
           <StIMGWrapper key={index} onPress={() => onSelectImage(index)}>
             {responseList[index]?.assets?.[0]?.uri ? (
               <StImg source={{uri: responseList[index]?.assets?.[0]?.uri}} />
+            ) : userImgs?.[index] ? (
+              <StImg source={{uri: userImgs[index]}} />
             ) : (
               <>
                 <Text>+</Text>

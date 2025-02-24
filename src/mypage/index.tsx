@@ -31,7 +31,7 @@ const MyPage = () => {
   return myProfile ? (
     <Container>
       <StProfile.container>
-        <StProfile.imageContainer>
+        <StProfile.imageContainer onPress={() => navigate('EditProfile')}>
           <StProfile.imageWrapper>
             <StProfile.image source={{uri: myProfile.imageUrlList[0]}} />
           </StProfile.imageWrapper>
@@ -91,12 +91,12 @@ const StProfile = {
     gap: 5px;
     padding: 60px 0;
   `,
-  imageContainer: styled(View)`
+  imageContainer: styled(TouchableOpacity)`
     width: 110px;
     height: 110px;
     position: relative;
   `,
-  imageWrapper: styled(TouchableOpacity)`
+  imageWrapper: styled(View)`
     width: 105px;
     height: 105px;
     border-radius: 100px;

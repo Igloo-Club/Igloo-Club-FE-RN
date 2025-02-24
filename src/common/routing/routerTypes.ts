@@ -16,4 +16,5 @@ export type RootStackParamList = {
   ChatRoom: {chatRoomId: number};
   MyPage: undefined;
   BottomNavLayout: undefined;
+  EditProfile: undefined;
 };

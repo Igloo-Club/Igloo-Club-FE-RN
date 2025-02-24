@@ -20,6 +20,7 @@ import getAccessToken from '../utils/getAccessToken';
 import SplashScreen from 'react-native-splash-screen';
 import instance from '../apis/axiosInstance';
 import NEXT_PROGRESS from '../../login/constants/NEXT_PROGRESS';
+import EditProfile from '../../editProfile';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -190,6 +191,11 @@ export const Router = () => {
           name="MyPage"
           component={MyPage}
           options={{title: '마이페이지'}}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{title: '프로필 수정'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
