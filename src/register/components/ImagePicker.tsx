@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import React from 'react';
+
 import {
   Image,
   TouchableOpacity,
@@ -36,8 +37,6 @@ const ImagePicker = ({
             console.log('Image Error : ' + res.errorCode);
             return;
           }
-          const source = {uri: res?.assets?.[0].uri};
-          console.log(source.uri);
 
           // Update the response at the given index
           const updateList = () => {

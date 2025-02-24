@@ -2,12 +2,8 @@ import {ImagePickerResponse} from 'react-native-image-picker';
 import instance from '../../common/apis/axiosInstance';
 import IMGSTATUS from '../constatnts/IMGSTATUS';
 import axios from 'axios';
-
-const getBlob = async (fileUri: string) => {
-  const resp = await fetch(fileUri);
-  const imageBody = await resp.blob();
-  return imageBody;
-};
+import RNFS from 'react-native-fs';
+import {Buffer} from 'buffer';
 
 export const submitImage = async (
   res: ImagePickerResponse | null,
@@ -16,21 +12,29 @@ export const submitImage = async (
   if (!res) {
     return;
   }
+  console.log('image uri', res.assets?.[0].uri);
   const file = {
     name: res.assets?.[0]?.fileName,
     type: res.assets?.[0]?.type,
     uri: res.assets?.[0]?.uri,
   };
 
-  // Blob 객체 생성
-  const blob = await getBlob(file.uri!);
-
-  // const formData = new FormData();
-  // formData.append('file', file);
+  const formData = new FormData();
+  formData.append('file', file);
 
   try {
+    if (!file.uri) {
+      throw new Error('파일 URI가 없습니다.');
+    }
+
+    // const filePath = file.uri.replace('file://', '');
+    const fileData = await RNFS.readFile(file.uri, 'base64');
+    const bufferFile = Buffer.from(fileData, 'base64');
+
     // 서버로 이미지 업로드
-    const response = await axios.put(url, blob);
+    const response = await axios.put(url, bufferFile, {
+      headers: {'Content-Type': file.type},
+    });
     console.log('🔥 업로드 응답:', response);
 
     // 파일 이름 추출
