@@ -33,7 +33,7 @@ const MyPage = () => {
       <StProfile.container>
         <StProfile.imageContainer>
           <StProfile.imageWrapper>
-            <Image src={myProfile.imageUrlList[0]} />
+            <StProfile.image source={{uri: myProfile.imageUrlList[0]}} />
           </StProfile.imageWrapper>
           <StProfile.editContainer>
             <IcEdit />
@@ -100,6 +100,7 @@ const StProfile = {
     width: 105px;
     height: 105px;
     border-radius: 100px;
+    overflow: hidden;
     background-color: #ccc;
   `,
   image: styled(Image)`
