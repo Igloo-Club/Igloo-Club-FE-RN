@@ -3,55 +3,71 @@ import {
   ScrollView,
   View,
   Image,
+  Text,
   useWindowDimensions,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
-import styled from '@emotion/native';
 import instance from '../../common/apis/axiosInstance';
 import {ProfileDataTypesProps} from '../../common/types/ProfileDataTypesProps';
 import {BlurView} from '@react-native-community/blur';
 import {useNavigation} from '@react-navigation/native';
 
 interface LayoutProps {
-  status: 'RECEIVED' | 'SENT' | 'ACCEPTED_SENT' | 'ACCEPTED_RECEIVED';
+  status:
+    | 'RECEIVED'
+    | 'SENT'
+    | 'ACCEPTED_SENT'
+    | 'ACCEPTED_RECEIVED'
+    | ('RECEIVED' | 'SENT' | 'ACCEPTED_SENT' | 'ACCEPTED_RECEIVED')[];
   from: string;
 }
 
 const NungilListLayout = ({status, from}: LayoutProps) => {
   const navigation = useNavigation();
-  const {width, height} = useWindowDimensions();
   const [profileData, setProfileData] = useState<ProfileDataTypesProps[]>([]);
+  const [location, setLocation] = useState<string>('');
 
   useEffect(() => {
-    handleList();
+    handleLocation();
   }, []);
+
+  console.log(location);
+
+  useEffect(() => {
+    if (location) {
+      handleList();
+    }
+  }, [location]);
+
+  // 사용자 위치 정보 가져오기
+  const handleLocation = async () => {
+    try {
+      const res = await instance.get('/api/member/location');
+      setLocation(res.data.location);
+    } catch (err) {
+      console.log('본인 근무지 조회 에러:', err);
+    }
+  };
 
   const handleList = async () => {
     try {
-      let data = [];
+      let data: ProfileDataTypesProps[] = [];
 
-      if (Array.isArray(status)) {
-        // ACCEPTED_RECEIVED와 ACCEPTED_SENT의 눈길 리스트를 위한 처리
-        const ress = await Promise.all(
-          status.map(s =>
-            instance.get('/api/nungil/list', {
-              params: {status: s, page: 0, size: 4},
-            }),
-          ),
-        );
-        console.log(
-          'API 응답:',
-          ress.map(res => res.data),
-        );
-        data = ress.flatMap(res => res.data.content || []);
-      } else {
-        // 단일 상태일 경우
-        const res = await instance.get('/api/nungil/list', {
-          params: {status, page: 0, size: 4},
-        });
-        console.log('API 응답:', res.data);
-        data = res.data.content || [];
-      }
+      const statusArr = Array.isArray(status) ? status : [status];
+
+      const ress = await Promise.all(
+        statusArr.map(s =>
+          instance.get('/api/nungil/list', {
+            params: {status: s, location, page: 0, size: 4},
+          }),
+        ),
+      );
+      console.log(
+        'API 응답:',
+        ress.map(res => res.data),
+      );
+      data = ress.flatMap(res => res.data.content || []);
 
       setProfileData(data);
     } catch (err) {
@@ -64,104 +80,95 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
     }
   };
 
-  const rows: ProfileDataTypesProps[][] = [];
-  for (let i = 0; i < profileData.length; i += 2) {
-    rows.push(profileData.slice(i, i + 2));
-  }
-
   const handleClickImage = (nungilId: number) => {
     navigation.navigate('DetailPage', {nungilId, from});
   };
 
   return (
-    <Container>
-      <ScrollView>
-        {rows.map((v, i) => (
-          <Row key={i}>
-            {v.map(profile => (
-              <Item
-                key={profile.nungilId}
-                onPress={() => handleClickImage(profile.nungilId)}>
-                <ImageContainer
-                  style={{width: width * 0.42, height: height * 0.25}}>
-                  <ProfileImg source={{uri: profile.imageUrlList[0]}} />
-                  <BlurOverlay
-                    blurAmount={status === 'SENT' ? 15 : 0}
-                    reducedTransparencyFallbackColor="black"
-                  />
-                  <InfoBox>
-                    <InfoName>{profile.nickname}</InfoName>
-                    <InfoText>
-                      {new Date().getFullYear() -
-                        parseInt(profile.birthdate.substring(0, 4), 10)}
-                      세 | {profile.companyName}
-                    </InfoText>
-                  </InfoBox>
-                </ImageContainer>
-              </Item>
-            ))}
-            {v.length < 2 && <Item style={{flex: 1}} />}
-          </Row>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {profileData.map(profile => (
+          <TouchableOpacity
+            key={profile.nungilId}
+            onPress={() => handleClickImage(profile.nungilId)}
+            style={styles.item}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={{uri: profile.imageUrlList[0]}}
+                style={styles.profileImg}
+              />
+              <BlurView
+                blurAmount={status === 'SENT' ? 15 : 0}
+                reducedTransparencyFallbackColor="black"
+                style={styles.blurView}
+              />
+              <View style={styles.infoBox}>
+                <Text style={styles.infoName}>{profile.nickname}</Text>
+                <Text style={styles.infoText}>
+                  {new Date().getFullYear() -
+                    parseInt(profile.birthdate.substring(0, 4), 10)}
+                  세 | {profile.companyName}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
-    </Container>
+    </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    padding: 20,
+  },
+  scrollContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+  item: {
+    flex: 0,
+    width: '48%',
+    marginBottom: 15,
+  },
+  imageContainer: {
+    width: '100%',
+    height: 180,
+    borderRadius: 8,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  profileImg: {
+    width: '100%',
+    height: '100%',
+  },
+  blurView: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  infoBox: {
+    flexDirection: 'column',
+    position: 'absolute',
+    left: 20,
+    bottom: 20,
+    gap: 5,
+  },
+  infoName: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '700',
+  },
+  infoText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: '400',
+  },
+});
+
 export default NungilListLayout;
-
-const Container = styled(View)`
-  flex: 1;
-  background-color: #ffffff;
-  padding: 20px 20px 0px 20px;
-`;
-
-const Row = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 15px;
-`;
-
-const Item = styled(TouchableOpacity)`
-  flex: 1;
-  align-items: center;
-`;
-
-const ImageContainer = styled(View)`
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-`;
-
-const ProfileImg = styled(Image)`
-  width: 100%;
-  height: 100%;
-`;
-
-const BlurOverlay = styled(BlurView)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
-const InfoBox = styled(View)`
-  flex-direction: column;
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  gap: 5px;
-`;
-
-const InfoName = styled.Text`
-  color: #ffffff;
-  font-size: 17px;
-  font-weight: 700;
-`;
-
-const InfoText = styled.Text`
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 400;
-`;

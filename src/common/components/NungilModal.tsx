@@ -27,6 +27,7 @@ const NungilModal = ({
     try {
       await instance.post(`/api/nungil/send?nungilId=${nungilId}`);
       setIsSent(true);
+      navigation.navigate('MainPage');
     } catch (err) {
       console.log('눈길 보내기 실패 ', err);
     }
@@ -85,10 +86,15 @@ const NungilModal = ({
       ) : from === 'SoonNungil' ? null : (
         <Container>
           {from === 'MainPage' && (
-            <NungilBtn onPress={handleSendNungil}>
-              <NungilImg />
-              <BtnText>눈길을 보낼래요</BtnText>
-            </NungilBtn>
+            <>
+              <NungilBtn onPress={handleSendNungil}>
+                <NungilImg />
+                <BtnText>눈길을 보낼래요</BtnText>
+              </NungilBtn>
+              <ModalBtn onPress={() => handleDeleteNungil}>
+                <BtnText>프로필 삭제하기</BtnText>
+              </ModalBtn>
+            </>
           )}
           {from === 'SendNungil' && (
             <NungilBtn onPress={handleSendNungil}>
@@ -97,17 +103,16 @@ const NungilModal = ({
             </NungilBtn>
           )}
           {from === 'ReceivedNungil' && (
-            <NungilBtn onPress={handleAcceptNungil}>
-              <NungilImg />
-              <BtnText>눈길을 수락할래요</BtnText>
-            </NungilBtn>
-          )}
-          <ModalBtn onPress={() => handleDeleteNungil}>
             <>
-              {from === 'MainPage' && <BtnText>프로필 삭하기</BtnText>}
-              {from === 'ReceivedNungil' && <BtnText>눈길 거절하기</BtnText>}
+              <NungilBtn onPress={handleAcceptNungil}>
+                <NungilImg />
+                <BtnText>눈길을 수락할래요</BtnText>
+              </NungilBtn>
+              <ModalBtn onPress={() => handleDeleteNungil}>
+                <BtnText>눈길 거절하기</BtnText>
+              </ModalBtn>
             </>
-          </ModalBtn>
+          )}
         </Container>
       )}
     </Overlay>

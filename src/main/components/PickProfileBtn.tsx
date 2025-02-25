@@ -6,18 +6,16 @@ import CountDown from './CountDown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PickProfileBtn = ({
-  ProfileData,
   refreshList,
   location,
 }: {
-  ProfileData: any;
   refreshList: () => void;
   location: string;
 }) => {
   const [activePick, setActivePick] = useState(true);
   const [isLimitModalOpen, setIsLimitModalOpen] = useState<boolean>(false);
   const [isExistModalOpen, setIsExistModalOpen] = useState<boolean>(false);
-  const [remainingPicks, setRemainingPicks] = useState<number>(0);
+  const [remainingPicks, setRemainingPicks] = useState<number>(1);
 
   // 무료 뽑기 가능 횟수 업데이트
   const updatePickCount = async () => {
@@ -53,48 +51,45 @@ const PickProfileBtn = ({
   }, []);
 
   const handlePickBtn = async () => {
-    if (remainingPicks > 0) {
-      try {
-        const res = await instance.post(
-          `/api/nungil/recommend?location=${location}`,
-        );
-        if (res.data) {
-          console.log('됨', res.data);
-          refreshList();
-          setRemainingPicks(remainingPicks - 1); // 뽑기 기회 감소
-          await AsyncStorage.setItem(
-            'remainingPicks',
-            (remainingPicks - 1).toString(),
-          ); // 상태 업데이트 후 AsyncStorage에 저장
-        } else {
-          setIsExistModalOpen(true);
-        }
-      } catch (err: any) {
-        console.log('PickProfileBtn api 에러 : ', err);
-        if (err.response && err.response.status === 403) {
-          setIsLimitModalOpen(true);
-        }
+    // if (remainingPicks < 0) {
+    try {
+      const res = await instance.post(
+        `/api/nungil/recommend?location=${location}`,
+      );
+      if (res.data) {
+        console.log('됨', res.data);
+        refreshList();
+        setRemainingPicks(remainingPicks - 1); // 뽑기 기회 감소
+        await AsyncStorage.setItem(
+          'remainingPicks',
+          (remainingPicks - 1).toString(),
+        ); // 상태 업데이트 후 AsyncStorage에 저장
+      } else {
+        setIsExistModalOpen(true);
       }
-    } else {
-      setIsLimitModalOpen(true); // 뽑기 기회가 없으면 제한 모달 표시
+    } catch (err: any) {
+      console.log('PickProfileBtn api 에러 : ', err);
+      if (err.response && err.response.status === 403) {
+        setIsLimitModalOpen(true);
+      }
     }
+    // } else {
+    //   setIsLimitModalOpen(true); // 뽑기 기회가 없으면 제한 모달 표시
+    // }
   };
 
   return (
     <Container>
-      <PickBtn
-        activePick={activePick}
-        onPress={handlePickBtn}
-        disabled={remainingPicks <= 0}>
-        {remainingPicks > 0 ? (
-          <ActiveMent>번의 추가 프로필 뽑기 기회가 생겼어요!</ActiveMent>
-        ) : (
-          <>
-            <UnActiveMent>
-              다음 추가 프로필 뽑기까지 <CountDown /> 남았어요
-            </UnActiveMent>
-          </>
-        )}
+      <PickBtn activePick={activePick} onPress={handlePickBtn} disabled={false}>
+        {/* {remainingPicks > 0 ? ( */}
+        <ActiveMent>번의 추가 프로필 뽑기 기회가 생겼어요!</ActiveMent>
+        {/* // ) : (
+        //   <>
+        //     <UnActiveMent>
+        //       다음 추가 프로필 뽑기까지 <CountDown /> 남았어요
+        //     </UnActiveMent>
+        //   </>
+        )} */}
       </PickBtn>
       {isLimitModalOpen && (
         <></>

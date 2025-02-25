@@ -1,6 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, TouchableOpacity, Image} from 'react-native';
-import styled from '@emotion/native';
+import {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  Image,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import instance from '../../common/apis/axiosInstance';
 import {X} from '../assets/images/index';
 import CountInput from '../components/CountInput';
@@ -10,11 +17,13 @@ import {QuestionTypes} from '../types/QuestionType';
 
 const AnswerPage = ({route, navigation}: any) => {
   const {question, questionTitle} = route.params;
-  const {exposureNumber, qaId} = useIdContext();
+  const {exposureNumber, qaId, setNewAnswer} = useIdContext();
 
   const [answerText, setAnswerText] = useState('');
   const [, setAnswer] = useState<QuestionTypes | null>(null);
   const [answered, setAnswered] = useState<boolean>();
+
+  console.log(exposureNumber);
 
   const handleAnswer = async () => {
     try {
@@ -23,6 +32,7 @@ const AnswerPage = ({route, navigation}: any) => {
         answer: answerText,
         exposureOrder: exposureNumber,
       });
+      setNewAnswer(true);
       navigation.navigate('QnA');
     } catch (error) {
       console.log(error);
@@ -68,102 +78,103 @@ const AnswerPage = ({route, navigation}: any) => {
   };
 
   return (
-    <SafeAreaView>
-      <Header>
-        <HeaderText>답변 작성</HeaderText>
-        <BackButton onPress={() => navigation.navigate('QuestionList')}>
-          <XImg source={X} />
-        </BackButton>
-      </Header>
-      <Body>
-        <Question>
-          <Q>Q.</Q>
-          <QMent>{questionTitle}</QMent>
-        </Question>
-        <InputAnswer
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>답변 작성</Text>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.navigate('QuestionList')}>
+          <Image source={X} style={styles.xImg} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <View style={styles.question}>
+          <Text style={styles.q}>Q.</Text>
+          <Text style={styles.qMent}>{questionTitle}</Text>
+        </View>
+        <TextInput
           value={answerText}
           onChangeText={setAnswerText}
           placeholder="여기에 답변을 적어보세요"
-          multiline
+          multiline={true}
+          style={styles.inputAnswer}
         />
-      </Body>
-      <Footer>
+      </View>
+      <View style={styles.footer}>
         <CountInput text={answerText} />
         <FooterBtn
           onPress={handleFooterBtn}
           isDisabled={answerText === ''}
           label="저장하기"
         />
-      </Footer>
+      </View>
     </SafeAreaView>
   );
 };
 
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 25,
+    marginBottom: 35,
+    backgroundColor: '#ffffff',
+  },
+  backButton: {
+    position: 'absolute',
+    right: 20,
+  },
+  xImg: {
+    width: 11,
+    height: 11,
+  },
+  headerText: {
+    color: '#303030',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  body: {
+    flexDirection: 'column',
+    gap: 0,
+    paddingHorizontal: 20,
+  },
+  question: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  q: {
+    color: '#d0d6de',
+    fontSize: 26,
+    fontWeight: '700',
+  },
+  qMent: {
+    color: '#303030',
+    fontSize: 22,
+    fontWeight: '700',
+    marginRight: 30,
+  },
+  inputAnswer: {
+    height: 150,
+    paddingTop: 30,
+    color: '#303030',
+    fontSize: 15,
+    fontWeight: '500',
+    borderRadius: 5,
+    flexGrow: 1,
+    textAlignVertical: 'top',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 20,
+  },
+});
+
 export default AnswerPage;
-
-const Header = styled(View)`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 25px;
-  margin-bottom: 35px;
-  background-color: #ffffff;
-`;
-
-const BackButton = styled(TouchableOpacity)`
-  position: absolute;
-  right: 20;
-`;
-
-const XImg = styled(Image)`
-  width: 11px;
-  height: 11px;
-`;
-
-const HeaderText = styled.Text`
-  color: #303030;
-  font-size: 15px;
-  font-weight: 600;
-`;
-
-const Body = styled(View)`
-  flex-direction: column;
-  gap: 35px;
-  padding: 0px 20px 0px 20px;
-`;
-
-const Question = styled(View)`
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-`;
-
-const Q = styled.Text`
-  color: #d0d6de;
-  font-size: 26px;
-  font-weight: 700;
-`;
-
-const QMent = styled.Text`
-  color: ${({theme}) => theme.colors.gray9};
-  font-size: 22px;
-  font-weight: 700;
-  margin-right: 30px;
-`;
-
-const InputAnswer = styled.TextInput`
-  padding: 5px;
-  color: #303030;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 5px;
-  height: 150px;
-`;
-
-const Footer = styled(View)`
-  position: absolute;
-  bottom: -100;
-  left: 0;
-  right: 0;
-  padding: 20px 20px;
-`;

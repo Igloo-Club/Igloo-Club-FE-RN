@@ -5,6 +5,8 @@ interface IdContextType {
   setExposureNumber: (exposureNumber: number) => void;
   qaId: number;
   setQaId: (qaId: number) => void;
+  newAnswer: boolean;
+  setNewAnswer: (newAnswer: boolean) => void;
 }
 
 const IdContext = createContext<IdContextType>({
@@ -12,15 +14,25 @@ const IdContext = createContext<IdContextType>({
   setExposureNumber: () => {},
   qaId: 0,
   setQaId: () => {},
+  newAnswer: false,
+  setNewAnswer: () => {},
 });
 
 export const IdProvider: React.FC = ({children}: any) => {
   const [exposureNumber, setExposureNumber] = useState<number>(0);
   const [qaId, setQaId] = useState<number>(0);
+  const [newAnswer, setNewAnswer] = useState<boolean>(false);
 
   return (
     <IdContext.Provider
-      value={{exposureNumber, setExposureNumber, qaId, setQaId}}>
+      value={{
+        exposureNumber,
+        setExposureNumber,
+        qaId,
+        setQaId,
+        newAnswer,
+        setNewAnswer,
+      }}>
       {children}
     </IdContext.Provider>
   );

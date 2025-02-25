@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, TouchableOpacity, Image, Text} from 'react-native';
 import styled from '@emotion/native';
-import {globalStyles} from '../../common/styles/globalStyles';
 import instance from '../../common/apis/axiosInstance';
 import ArrowLeft from '../../detail/assets/images';
 import {Add} from '../assets/images';
@@ -14,7 +13,7 @@ const QnA = ({navigation}: any) => {
     null,
     null,
   ]);
-  const {setExposureNumber, setQaId} = useIdContext();
+  const {setExposureNumber, setQaId, setNewAnswer, newAnswer} = useIdContext();
 
   const title = '추가 질문에 답하고\n매력을 더 어필해 보세요 💘';
   const subtitle =
@@ -23,6 +22,7 @@ const QnA = ({navigation}: any) => {
   const navigateToQList = (number: number, qaId: number) => {
     setExposureNumber(number);
     setQaId(qaId);
+    setNewAnswer(false);
     navigation.navigate('QuestionList');
   };
 
@@ -44,10 +44,10 @@ const QnA = ({navigation}: any) => {
 
   useEffect(() => {
     handleAllAnswer();
-  }, []);
+  }, [newAnswer]);
 
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView style={{flex: 1}}>
       <Header>
         <BackButton onPress={() => navigation.navigate('MainPage')}>
           <Arrow source={ArrowLeft} />
@@ -76,21 +76,20 @@ const QnA = ({navigation}: any) => {
         ))}
       </Body>
       <Footer>
-        <FinishButton>
+        <FinishButton onPress={navigation.navigate('MainPage')}>
           <ButtonText>완료하기</ButtonText>
         </FinishButton>
       </Footer>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default QnA;
 
-const Header = styled(SafeAreaView)`
+const Header = styled(View)`
   flex-direction: row;
   justify-content: start;
-  margin-top: 10px;
-  margin-bottom: 35px;
+  margin: 10px 0px;
   background-color: #ffffff;
 `;
 
@@ -107,7 +106,7 @@ const Arrow = styled(Image)`
 const Body = styled(View)`
   flex-direction: column;
   gap: 15px;
-  padding: 25px 20px 0px 20px;
+  padding: 20px 20px 0px 20px;
 `;
 
 const Title = styled.Text`
@@ -118,10 +117,10 @@ const Title = styled.Text`
 `;
 
 const SubTitle = styled.Text`
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font-size: 15px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 25px;
   color: #646d7a;
 `;
 
@@ -165,18 +164,18 @@ const AddMent = styled.Text`
 `;
 
 const Footer = styled.View`
+  width: 100%;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 15px;
-  margin-bottom: 15px;
+  bottom: 20px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FinishButton = styled(TouchableOpacity)`
-  background-color: '#FA7268';
+  width: 90%;
+  background-color: #fa7268;
   padding: 17px;
-  border-radius: 7px;
+  border-radius: 10px;
   align-items: center;
 `;
 
