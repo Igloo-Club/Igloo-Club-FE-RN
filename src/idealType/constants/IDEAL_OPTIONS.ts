@@ -3,7 +3,7 @@ type Option = {label: string; value: number | string};
 //value에 맞는 label 찾기
 export const findLabelByValue = (
   options: Option[],
-  targetValue: number | string,
+  targetValue: number | string | boolean,
 ): string => {
   const result = options.find(option => option.value === targetValue)?.label;
   if (!result) {
