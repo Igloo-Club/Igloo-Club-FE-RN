@@ -4,7 +4,7 @@ export interface detailProfileTypes {
   tattoo: boolean;
   smoke: boolean;
   marriagePlan: number;
-  mbti: string;
+  mbtiType: string;
   grossSalary: number;
   workArrangementList: string[];
   scale: string;

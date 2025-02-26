@@ -4,7 +4,6 @@ import {
   View,
   Image,
   Text,
-  useWindowDimensions,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
@@ -14,12 +13,7 @@ import {BlurView} from '@react-native-community/blur';
 import {useNavigation} from '@react-navigation/native';
 
 interface LayoutProps {
-  status:
-    | 'RECEIVED'
-    | 'SENT'
-    | 'ACCEPTED_SENT'
-    | 'ACCEPTED_RECEIVED'
-    | ('RECEIVED' | 'SENT' | 'ACCEPTED_SENT' | 'ACCEPTED_RECEIVED')[];
+  status: 'RECEIVED' | 'SENT' | ('ACCEPTED_SENT' | 'ACCEPTED_RECEIVED')[];
   from: string;
 }
 
@@ -74,7 +68,7 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
       console.log(
         `${
           Array.isArray(status) ? status.join(', ') : status
-        } 눈길 리스트 조회 에러:`,
+        } 눈길 리스트 조회 에러 :`,
         err,
       );
     }
@@ -97,11 +91,15 @@ const NungilListLayout = ({status, from}: LayoutProps) => {
                 source={{uri: profile.imageUrlList[0]}}
                 style={styles.profileImg}
               />
-              <BlurView
-                blurAmount={status === 'SENT' ? 15 : 0}
-                reducedTransparencyFallbackColor="black"
-                style={styles.blurView}
-              />
+              {status === 'SENT' ? (
+                <BlurView
+                  blurAmount={15}
+                  reducedTransparencyFallbackColor="black"
+                  style={styles.blur}
+                />
+              ) : (
+                <></>
+              )}
               <View style={styles.infoBox}>
                 <Text style={styles.infoName}>{profile.nickname}</Text>
                 <Text style={styles.infoText}>
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   item: {
     flex: 0,
@@ -145,7 +143,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  blurView: {
+  blur: {
     position: 'absolute',
     top: 0,
     left: 0,
