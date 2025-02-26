@@ -25,8 +25,8 @@ const 엠비티아이 = ({
   });
 
   useEffect(() => {
-    if (value?.mbti) {
-      const mbtiValues = value.mbti.split('');
+    if (value?.mbtiType) {
+      const mbtiValues = value.mbtiType.split('');
       setSelectedOptions({
         ei: mbtiValues[0] || null,
         sn: mbtiValues[1] || null,
@@ -34,7 +34,7 @@ const 엠비티아이 = ({
         jp: mbtiValues[3] || null,
       });
     }
-  }, [value?.mbti]);
+  }, [value?.mbtiType]);
 
   const handleSelect = (group: MBTIGroup, option: string | number) => {
     setSelectedOptions(prevOptions => ({...prevOptions, [group]: option}));
@@ -50,7 +50,7 @@ const 엠비티아이 = ({
           .map(group => selectedOptions[group as MBTIGroup] || 'X')
           .join('');
 
-        await handleDetailProfileValue?.('mbti', mbtiValue);
+        await handleDetailProfileValue?.('mbtiType', mbtiValue);
         onNext();
       }}
       isBtnActive={!Object.values(selectedOptions).includes(null)}>

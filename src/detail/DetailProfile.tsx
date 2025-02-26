@@ -34,7 +34,7 @@ const DetailProfile = ({navigation}: any) => {
     tattoo: null,
     smoke: null,
     marriagePlan: null,
-    mbti: '',
+    mbtiType: '',
     grossSalary: 0,
     workArrangementList: [],
     scale: '',

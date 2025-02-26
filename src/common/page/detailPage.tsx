@@ -72,6 +72,8 @@ const DetailPage = ({navigation}: any) => {
     );
   }
 
+  console.log(detailProfile);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -100,12 +102,11 @@ const DetailPage = ({navigation}: any) => {
             style={styles.arrow}>
             <BackArrow />
           </TouchableOpacity>
-          <BlurView
-            style={[styles.blurOverlay, {height: height * 0.4}]}
-            blurAmount={from === 'MainPage' || from === 'SendNungil' ? 15 : 0}
-            reducedTransparencyFallbackColor="black"
-            pointerEvents="none">
-            {(from === 'SendNungil' || from === 'MainPage') && (
+          {(from === 'MainPage' || from === 'SendNungil') && (
+            <BlurView
+              style={styles.blurOverlay}
+              blurAmount={15}
+              reducedTransparencyFallbackColor="black">
               <View style={styles.matchNoticeContainer}>
                 <Text style={styles.matchNoticeTitle}>
                   눈길 매칭 시에만 프로필 사진이 공개돼요
@@ -117,16 +118,16 @@ const DetailPage = ({navigation}: any) => {
                   상대방의 소개글을 유심히 읽어주세요
                 </Text>
               </View>
-            )}
-            <View style={styles.imgBox}>
-              <Text style={styles.imgText}>{detailProfile.nickname}</Text>
-              <Text style={styles.imgAddText}>
-                {new Date().getFullYear() -
-                  parseInt(detailProfile.birthdate.substring(0, 4), 10)}
-                세 | {detailProfile.companyName}
-              </Text>
-            </View>
-          </BlurView>
+            </BlurView>
+          )}
+          <View style={styles.imgBox}>
+            <Text style={styles.imgText}>{detailProfile.nickname}</Text>
+            <Text style={styles.imgAddText}>
+              {new Date().getFullYear() -
+                parseInt(detailProfile.birthdate.substring(0, 4), 10)}
+              세 | {detailProfile.companyName}
+            </Text>
+          </View>
         </View>
         <View>
           {from === 'ReceivedNungil' && (
@@ -199,7 +200,7 @@ const DetailPage = ({navigation}: any) => {
             {detailProfile.questionAndAnswerList.map(list => (
               <View style={styles.qna}>
                 <Text style={styles.qna_Q}>{list.questionTitle}</Text>
-                <Text style={styles.qna_A}>{list.questionSubTitle}</Text>
+                <Text style={styles.qna_A}>{list.answer}</Text>
               </View>
             ))}
           </View>
