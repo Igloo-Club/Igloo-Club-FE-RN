@@ -3,14 +3,18 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {IcBackArrow, IcMenu} from '../../../common/assets/0_index';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../common/routing/routerTypes';
 
 interface ChatRoomHeaderProps {
   nickname: string | undefined;
+  nungilId: number;
 }
 
-const ChatRoomHeader = ({nickname}: ChatRoomHeaderProps) => {
+const ChatRoomHeader = ({nickname, nungilId}: ChatRoomHeaderProps) => {
   const notitext = `${nickname} 님과의 눈길이 매칭 되었어요.`;
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <StHeaderContainer>
@@ -27,7 +31,12 @@ const ChatRoomHeader = ({nickname}: ChatRoomHeaderProps) => {
         <StChatModal.Text>
           <StChatModal.Bold>{notitext}</StChatModal.Bold> 상대와의 반가운 첫
           인사로 대화를 시작해 보세요.{' '}
-          <StChatModal.UnderLine>상대방 프로필 보기</StChatModal.UnderLine>
+          <StChatModal.UnderLine
+            onPress={() =>
+              navigation.navigate('DetailPage', {nungilId, from: 'ChatRoom'})
+            }>
+            상대방 프로필 보기
+          </StChatModal.UnderLine>
         </StChatModal.Text>
       </StChatModal.Container>
       {/* {isModalOpen && (
