@@ -38,6 +38,7 @@ import {
   Hobby,
 } from '../assets/0_index';
 import {BlurView} from '@react-native-community/blur';
+import FooterBtn from '../components/FooterBtn';
 
 const DetailPage = ({navigation}: any) => {
   const {width, height} = useWindowDimensions();
@@ -72,7 +73,7 @@ const DetailPage = ({navigation}: any) => {
     );
   }
 
-  console.log(detailProfile);
+  console.log(isSent);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -134,6 +135,13 @@ const DetailPage = ({navigation}: any) => {
             <View style={styles.noticeContainer}>
               <Text style={styles.noticeText}>
                 상대방의 눈길이 도착했어요! 눈길 수락하기 버튼으로 답해봐요.
+              </Text>
+            </View>
+          )}
+          {from === 'SoonNungil' && (
+            <View style={styles.noticeContainer}>
+              <Text style={styles.noticeText}>
+                서로의 눈길이 닿았어요! 지금부터 찐-하게 서로를 알아가봐요
               </Text>
             </View>
           )}
@@ -215,7 +223,8 @@ const DetailPage = ({navigation}: any) => {
               <ExitNungilButton />
             </TouchableOpacity>
           )
-        : from !== 'SoonNungil' && (
+        : from !== 'SoonNungil' &&
+          from !== 'SendNungil' && (
             <TouchableOpacity
               style={styles.nungilBtn}
               onPress={() => setIsModalOpen(true)}>
@@ -235,13 +244,22 @@ const DetailPage = ({navigation}: any) => {
         />
       )}
       {from === 'SoonNungil' && (
-        <View style={styles.soonBox}>
-          <TouchableOpacity style={[styles.soonBtn, {width: width * 0.8}]}>
-            <Text style={{color: '#ffffff', fontSize: 15, fontWeight: 'bold'}}>
-              인연 시작하기
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <FooterBtn
+          onPress={() => {}}
+          isDisabled={false}
+          label="인연 시작하기"
+          bgColor="#FA7268"
+          textColor="#ffffff"
+        />
+      )}
+      {from === 'SendNungil' && (
+        <FooterBtn
+          onPress={() => {}}
+          isDisabled={true}
+          label="상대방의 답장을 기다리고 있어요"
+          bgColor="#E4E8EC"
+          textColor="#BBC0CA"
+        />
       )}
     </SafeAreaView>
   );
@@ -397,21 +415,5 @@ const styles = StyleSheet.create({
     bottom: 40,
     right: 30,
     zIndex: 2000,
-  },
-  soonBox: {
-    position: 'absolute',
-    bottom: 10,
-    backgroundColor: '#ffffff',
-    paddingVertical: 20,
-    paddingHorizontal: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1000,
-  },
-  soonBtn: {
-    alignItems: 'center',
-    padding: 20,
-    borderRadius: 8,
-    backgroundColor: '#FA7268',
   },
 });

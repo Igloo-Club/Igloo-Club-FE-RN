@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, TouchableOpacity, View, Image} from 'react-native';
+import {SafeAreaView, TouchableOpacity, View, Text} from 'react-native';
 import styled from '@emotion/native';
 import instance from '../../common/apis/axiosInstance';
 import PickProfileBtn from '../components/PickProfileBtn';
