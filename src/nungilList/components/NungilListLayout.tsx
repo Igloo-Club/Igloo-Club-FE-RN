@@ -13,7 +13,11 @@ import {BlurView} from '@react-native-community/blur';
 import {useNavigation} from '@react-navigation/native';
 
 interface LayoutProps {
-  status: 'RECEIVED' | 'SENT' | ('ACCEPTED_SENT' | 'ACCEPTED_RECEIVED')[];
+  status:
+    | 'RECEIVED'
+    | 'SENT'
+    | 'MATCHED'
+    | ('ACCEPTED_SENT' | 'ACCEPTED_RECEIVED')[];
   from: string;
 }
 

@@ -27,7 +27,6 @@ const NungilModal = ({
     try {
       await instance.post(`/api/nungil/send?nungilId=${nungilId}`);
       setIsSent(true);
-      navigation.navigate('MainPage');
     } catch (err) {
       console.log('눈길 보내기 실패 ', err);
     }
@@ -55,17 +54,18 @@ const NungilModal = ({
     }
   };
 
+  const handleFinishSendNungil = () => {
+    setIsModalOpen(false);
+    navigation.navigate('MainPage');
+  };
+
   return (
     <Overlay>
       {isSent ? (
         <ModalContainer>
           <Modal>
             <ModalText>눈길 보내기에 성공했어요!</ModalText>
-            <TouchableOpacity
-              onPress={() => {
-                setIsModalOpen(false);
-                setIsSent(false);
-              }}>
+            <TouchableOpacity onPress={handleFinishSendNungil}>
               <Text style={{color: 'gray'}}>닫기</Text>
             </TouchableOpacity>
           </Modal>
@@ -94,13 +94,10 @@ const NungilModal = ({
               <ModalBtn onPress={() => handleDeleteNungil}>
                 <BtnText>프로필 삭제하기</BtnText>
               </ModalBtn>
+              <ModalBtn>
+                <BtnText>프로필 신고하기</BtnText>
+              </ModalBtn>
             </>
-          )}
-          {from === 'SendNungil' && (
-            <NungilBtn onPress={handleSendNungil}>
-              <NungilImg />
-              <BtnText>눈길을 보냈어요!</BtnText>
-            </NungilBtn>
           )}
           {from === 'ReceivedNungil' && (
             <>

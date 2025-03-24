@@ -83,12 +83,12 @@ const PickProfileBtn = ({
       <PickBtn activePick={activePick} onPress={handlePickBtn} disabled={false}>
         {/* {remainingPicks > 0 ? ( */}
         <ActiveMent>번의 추가 프로필 뽑기 기회가 생겼어요!</ActiveMent>
-        {/* // ) : (
-        //   <>
-        //     <UnActiveMent>
-        //       다음 추가 프로필 뽑기까지 <CountDown /> 남았어요
-        //     </UnActiveMent>
-        //   </>
+        {/* ) : (
+          <>
+            <UnActiveMent>
+              다음 추가 프로필 뽑기까지 <CountDown /> 남았어요
+            </UnActiveMent>
+          </>
         )} */}
       </PickBtn>
       {isLimitModalOpen && (

@@ -6,13 +6,25 @@ interface FooterBtnProps {
   onPress: () => void;
   isDisabled: boolean;
   label: string;
+  bgColor?: string;
+  textColor?: string;
 }
 
-const FooterBtn: React.FC<FooterBtnProps> = ({onPress, isDisabled, label}) => {
+const FooterBtn: React.FC<FooterBtnProps> = ({
+  onPress,
+  isDisabled,
+  label,
+  bgColor,
+  textColor,
+}) => {
   return (
     <Footer>
-      <Button onPress={onPress} isDisabled={isDisabled} disabled={isDisabled}>
-        <ButtonText>{label}</ButtonText>
+      <Button
+        onPress={onPress}
+        isDisabled={isDisabled}
+        bgColor={bgColor}
+        disabled={isDisabled}>
+        <ButtonText textColor={textColor}>{label}</ButtonText>
       </Button>
     </Footer>
   );
@@ -29,15 +41,19 @@ const Footer = styled.View`
   margin-bottom: 20px;
 `;
 
-const Button = styled(TouchableOpacity)<{isDisabled: boolean}>`
-  background-color: ${({isDisabled}) => (isDisabled ? '#E4E8EC' : '#FA7268')};
+const Button = styled(TouchableOpacity)<{
+  isDisabled: boolean;
+  bgColor?: string;
+}>`
+  background-color: ${({isDisabled, bgColor}) =>
+    bgColor ? bgColor : isDisabled ? '#E4E8EC' : '#FA7268'};
   padding: 15px;
   border-radius: 8px;
   align-items: center;
 `;
 
-const ButtonText = styled(Text)`
-  color: #ffffff;
+const ButtonText = styled(Text)<{textColor?: string}>`
+  color: ${({textColor}) => (textColor ? textColor : '#ffffff')};
   font-size: 16px;
   font-weight: 600;
 `;
