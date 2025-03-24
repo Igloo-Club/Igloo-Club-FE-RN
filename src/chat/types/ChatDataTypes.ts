@@ -4,6 +4,7 @@ export interface ChatDataTypes {
   chatRoomId: number;
   ownMemberId: number; // 자기자신의 ID. 웹소켓으로 수신한 메시지가 어느 사용자의 것인지 구분하기 위해 사용
   isInactive: boolean; // 상대방이 나간 채팅방인지 여부
+  nungilId: number;
   messageSlice: {
     content: ChatMessageResponse[];
     pageable: Pageable;
