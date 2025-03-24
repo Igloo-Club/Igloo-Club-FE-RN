@@ -143,6 +143,7 @@ const ChatRoom = ({route}: {route: ChatRoomScreenRouteProp}) => {
       <ChatRoomHeader
         nickname={chatData?.nickname}
         nungilId={chatData?.nungilId}
+        chatRoomId={chatRoomId}
       />
       <ChatRoomMain chatData={chatContent} />
       <ChatRoomFooter

@@ -9,9 +9,14 @@ import {RootStackParamList} from '../../../common/routing/routerTypes';
 interface ChatRoomHeaderProps {
   nickname: string | undefined;
   nungilId: number;
+  chatRoomId: number;
 }
 
-const ChatRoomHeader = ({nickname, nungilId}: ChatRoomHeaderProps) => {
+const ChatRoomHeader = ({
+  nickname,
+  nungilId,
+  chatRoomId,
+}: ChatRoomHeaderProps) => {
   const notitext = `${nickname} 님과의 눈길이 매칭 되었어요.`;
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -33,7 +38,11 @@ const ChatRoomHeader = ({nickname, nungilId}: ChatRoomHeaderProps) => {
           인사로 대화를 시작해 보세요.{' '}
           <StChatModal.UnderLine
             onPress={() =>
-              navigation.navigate('DetailPage', {nungilId, from: 'ChatRoom'})
+              navigation.navigate('DetailPage', {
+                nungilId,
+                from: 'ChatRoom',
+                chatRoomId,
+              })
             }>
             상대방 프로필 보기
           </StChatModal.UnderLine>

@@ -48,7 +48,11 @@ const DetailPage = ({navigation}: any) => {
   const [detailProfile, setDetailProfile] =
     useState<DetailProfileDataTypesProps | null>(null);
   const route = useRoute();
-  const {nungilId, from} = route.params as {nungilId: number; from?: string};
+  const {nungilId, from, chatRoomId} = route.params as {
+    nungilId: number;
+    from?: string;
+    chatRoomId?: number;
+  };
 
   useEffect(() => {
     const handleDetailProfile = async () => {
@@ -96,6 +100,8 @@ const DetailPage = ({navigation}: any) => {
                 navigation.navigate('NungilList', {tabIndex: 1});
               } else if (from === 'SoonNungil') {
                 navigation.navigate('NungilList', {tabIndex: 2});
+              } else if (from === 'ChatRoom') {
+                navigation.navigate('ChatRoom', {chatRoomId});
               } else {
                 navigation.goBack();
               }
@@ -224,7 +230,8 @@ const DetailPage = ({navigation}: any) => {
             </TouchableOpacity>
           )
         : from !== 'SoonNungil' &&
-          from !== 'SendNungil' && (
+          from !== 'SendNungil' &&
+          from !== 'ChatRoom' && (
             <TouchableOpacity
               style={styles.nungilBtn}
               onPress={() => setIsModalOpen(true)}>
@@ -255,8 +262,17 @@ const DetailPage = ({navigation}: any) => {
       {from === 'SendNungil' && (
         <FooterBtn
           onPress={() => {}}
-          isDisabled={true}
+          isDisabled={false}
           label="상대방의 답장을 기다리고 있어요"
+          bgColor="#E4E8EC"
+          textColor="#BBC0CA"
+        />
+      )}
+      {from === 'ChatRoom' && (
+        <FooterBtn
+          onPress={() => {}}
+          isDisabled={false}
+          label="이미 맺어진 눈길이에요"
           bgColor="#E4E8EC"
           textColor="#BBC0CA"
         />
